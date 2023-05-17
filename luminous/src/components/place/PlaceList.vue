@@ -8,9 +8,16 @@
     <b-row class="mb-1">
       <b-col></b-col>
         <b-col></b-col>
+        <b-col></b-col>
+        <b-col></b-col>
         <b-col>
         <b-form-select v-model="selected" :options="options"></b-form-select></b-col>
-        <b-col></b-col>
+        <b-col><b-form-input
+                v-model="text"
+                required
+                placeholder="검색 내용"
+                @keyup.enter="confirm"
+              ></b-form-input></b-col>
         <b-col class="text-right">
         <b-button variant="outline-primary" @click="moveWrite()">글쓰기</b-button>
       </b-col>
@@ -45,11 +52,12 @@ export default {
         { key: "hit", label: "조회수", tdClass: "tdClass" },
       ],
       selected: null,
-        options: [
+      options: [
           { value: null, text: '옵션' },
           { value: 'a', text: '제목' },
           { value: 'b', text: '작성자' },
-        ]
+        ],
+      text : "",
     };
   },
   created() {
@@ -78,6 +86,10 @@ export default {
         name: "placeview",
         params: { articleno: article.articleno },
       });
+    },
+    confirm(selected, text){
+      console.log(selected)
+      console.log(text)
     },
   },
 };
