@@ -17,39 +17,44 @@
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav class="ml-auto">
           <b-nav-item href="#">
-            <router-link :to="{ name: 'main' }" class="link">
-              <b-icon icon="house-door" animation="fade" font-scale="2"></b-icon>
-              홈
+            <router-link :to="{ name: 'constellation' }" class="link">
+              <b-icon icon="star" animation="fade" font-scale="2"></b-icon>
+              별자리
             </router-link>
             <router-link :to="{ path: 'observatory' }" class="m-2 link">
-              <b-icon icon="star" animation="fade" font-scale="2"></b-icon>
+              <b-icon icon="moon" animation="fade" font-scale="2"></b-icon>
               천문대
             </router-link>
-            <router-link :to="{ name: 'place' }" class="m-2 link">
+            <router-link :to="{ name: 'main' }" class="m-2 link">
               <b-icon icon="map" animation="fade" font-scale="2"/>
               마이플레이스
+            </router-link>
+            <router-link :to="{ name: 'place' }" class="m-2 link">
+              <b-icon icon="clipboard" animation="fade" font-scale="2"/>
+              게시판
             </router-link>
             
           </b-nav-item>
 
-        <!-- Right aligned nav items -->
-        
-          <router-link :to="{ name: 'login' }" class="link m-2" font-scale = "2" v-if="!getUser">
-           로그인
-        </router-link>
-          <b-nav-item-dropdown right v-if="getUser">
+        <b-nav-item-dropdown right v-if="userInfo">
             <template #button-content>
-              <b-icon icon="people" font-scale="2"></b-icon>
+              <img src="@/assets/star.png" id = "img1"/>
             </template>
             <b-dropdown-item href="#">
-              <a href="#" @click="logout">로그아웃</a>
+              <a href="#" @click="onClickLogout">로그아웃</a>
             </b-dropdown-item>
             <b-dropdown-item href="#">
-              <router-link :to="{ name: 'login' }" class="link">
-                <b-icon icon="key"></b-icon> 마이페이지
+              <router-link :to="{ name: 'mypage' }" class="link">
+                마이페이지
               </router-link>
             </b-dropdown-item>
           </b-nav-item-dropdown>
+        <router-link :to="{ name: 'login' }" class="link m-2" font-scale = "2" v-else>
+           <b-icon icon="key" animation="fade" font-scale="1.5" class = "mt-2"></b-icon>
+           로그인
+        </router-link>
+          
+          
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>
@@ -57,23 +62,29 @@
 </template>
 
 <script>
+import { mapState, mapGetters, mapActions } from "vuex";
+
+const memberStore = "memberStore";
+
 export default {
   name: "TheHeaderNavbar",
   data() {
     return {};
   },
-  methods:{
-    logout() {
-      this.$emit("logout");
-    },
-  },
   computed: {
-    getUser() {
-      if (this.user) {
-        return true;
-      } else {
-        return false;
-      }
+    ...mapState(memberStore, ["isLogin", "userInfo"]),
+    ...mapGetters(["checkUserInfo"]),
+  },
+  methods: {
+    ...mapActions(memberStore, ["userLogout", "setIsLoginError"]),
+    temp(){
+      this.setIsLoginError();
+    },
+    onClickLogout() {
+      console.log(this.userInfo.id);
+      this.userLogout();
+      console.log("logout")
+      if (this.$route.path != "/")this.$router.push({ name: "main" });
     },
   },
 };
@@ -86,5 +97,8 @@ export default {
 
 .link {
   text-decoration: none;
+}
+#img1{
+  width:40px;
 }
 </style>

@@ -1,15 +1,17 @@
 <template>
   <b-container class="bv-example-row mt-3 text-center">
-    <h3 class="underline-steelblue"><b-icon icon="house"></b-icon> 5조 관통 Vue</h3>
+    <h3 class="underline-steelblue"><b-icon icon="star"></b-icon> 별자리</h3>
     <b-row>
+      <b-col></b-col>
       
+      <b-col></b-col>
     </b-row>
   </b-container>
 </template>
 
 <script>
 export default {
-  name: "MainApp",
+  name: "ConstellationApp",
   props: {
     msg: String,
   },

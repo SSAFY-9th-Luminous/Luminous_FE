@@ -1,12 +1,12 @@
 <template>
   <b-container class="bv-example-row mt-3 text-center">
-    <h3 class="underline-hotpink"><b-icon icon="clipboard"></b-icon> 마이플레이스 게시판</h3>
+    <h3 class="underline-hotpink"><b-icon icon="clipboard"></b-icon> 게시판</h3>
     <router-view></router-view>
   </b-container>
 </template>
 <script>
 export default {
-  name: "PlaceApp",
+  name: "BoardApp",
 };
 </script>
 <style scoped>

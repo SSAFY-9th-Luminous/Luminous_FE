@@ -1,7 +1,7 @@
 <template>
   <b-container class="bv-example-row mt-3 text-center">
     <h3 class="underline-green">
-      <b-icon icon="star"></b-icon> 천문대
+      <b-icon icon="moon"></b-icon> 천문대
     </h3>
     
   </b-container>
