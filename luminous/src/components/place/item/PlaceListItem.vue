@@ -17,7 +17,7 @@ export default {
   name: "PlaceListItem",
   props: {
     articleno: Number,
-    userid: String,
+    userid: Object,
     subject: String,
     hit: Number,
     regtime: String,

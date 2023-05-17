@@ -18,8 +18,8 @@ function modifyPlace(article, success, fail) {
   api.put(`/places`, JSON.stringify(article)).then(success).catch(fail);
 }
 
-function deletePlace(articleno, success, fail) {
-  api.delete(`/places/${articleno}`).then(success).catch(fail);
+function deletePlace(id, success, fail) {
+  api.delete(`/places/${id}`).then(success).catch(fail);
 }
 
 export { listPlace, writePlace, getPlace, modifyPlace, deletePlace };
