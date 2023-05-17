@@ -11,9 +11,9 @@
         <b-col></b-col>
         <b-col></b-col>
         <b-col>
-        <b-form-select v-model="selected" :options="options"></b-form-select></b-col>
+        <b-form-select v-model="category" :options="options"></b-form-select></b-col>
         <b-col><b-form-input
-                v-model="text"
+                v-model="keyword"
                 required
                 placeholder="검색 내용"
                 @keyup.enter="confirm"
@@ -51,21 +51,19 @@ export default {
         { key: "regtime", label: "작성일", tdClass: "tdClass" },
         { key: "hit", label: "조회수", tdClass: "tdClass" },
       ],
-      selected: null,
+      category: null,
       options: [
           { value: null, text: '옵션' },
           { value: 'a', text: '제목' },
           { value: 'b', text: '작성자' },
         ],
-      text : "",
+      keyword : "",
     };
   },
   created() {
     let param = {
-      pg: 1,
-      spp: 20,
-      key: null,
-      word: null,
+      category: null,
+      keyword: null,
     };
     listPlace(
       param,
