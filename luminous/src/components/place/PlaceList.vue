@@ -54,8 +54,9 @@ export default {
       category: null,
       options: [
           { value: null, text: '옵션' },
-          { value: 'a', text: '제목' },
-          { value: 'b', text: '작성자' },
+          { value: 'place', text: '제목' },
+          { value: 'user', text: '작성자' },
+          { value: 'desc', text: '설명' },
         ],
       keyword : "",
     };
@@ -85,9 +86,8 @@ export default {
         params: { articleno: article.articleno },
       });
     },
-    confirm(selected, text){
-      console.log(selected)
-      console.log(text)
+    confirm(){
+      
     },
   },
 };
