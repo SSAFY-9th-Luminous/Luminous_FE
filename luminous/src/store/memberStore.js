@@ -1,12 +1,13 @@
 import jwtDecode from "jwt-decode";
 // import router from "@/router";
-import { login, findById } from "@/api/member";
+import { login, findById , register} from "@/api/member";
 
 const memberStore = {
   namespaced: true,
   state: {
     isLogin: false,
     isLoginError: false,
+    signInError: false,
     userInfo: null,
     isValidToken: false,
   },
@@ -24,6 +25,9 @@ const memberStore = {
     },
     SET_IS_LOGIN_ERROR: (state, isLoginError) => {
       state.isLoginError = isLoginError;
+    },
+    SET_SIGNIN_ERROR: (state, signInError) => {
+      state.signInError = signInError;
     },
     SET_IS_VALID_TOKEN: (state, isValidToken) => {
       state.isValidToken = isValidToken;
@@ -78,7 +82,21 @@ const memberStore = {
         }
       );
     },
-
+    async userRegist({ commit }, member) {
+      await register(
+        member,
+        ({ data }) => {
+          if (data.message === "success") {
+            console.log(1);
+            commit("SET_SIGNIN_ERROR", true);
+          } else {
+            commit("SET_SIGNIN_ERROR", false);
+            alert("회원가입 완료")
+          }
+        },
+      );
+      
+    },
     userLogout({ commit }) {
       function logout() {
         commit("SET_IS_LOGIN", false);

@@ -11,4 +11,8 @@ async function findById(id, success, fail) {
   await api.get(`/member/detail/${id}`).then(success).catch(fail);
 }
 
-export { login, findById };
+async function register(member, success, fail) {
+  await api.post(`/member/register`, JSON.stringify(member)).then(success).catch(fail);
+}
+
+export { login, findById, register};

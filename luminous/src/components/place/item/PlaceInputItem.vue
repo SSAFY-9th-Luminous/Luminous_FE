@@ -2,11 +2,11 @@
   <b-row class="mb-1">
     <b-col style="text-align: left">
       <b-form @submit="onSubmit" @reset="onReset">
-        <b-form-group id="userid-group" label="작성자:" label-for="userid" description="작성자를 입력하세요.">
+        <b-form-group id="userid-group" label="작성자:" label-for="memberId" description="작성자를 입력하세요.">
           <b-form-input
-            id="userid"
+            id="memberId"
             :disabled="isUserid"
-            v-model="place.userid"
+            v-model="place.memberId"
             type="text"
             required
             placeholder="작성자 입력..."
@@ -50,7 +50,7 @@ export default {
     return {
       place: {
         placeno: 0,
-        userid: "",
+        memberId: "",
         subject: "",
         content: "",
       },
@@ -96,7 +96,7 @@ export default {
     },
     registplace() {
       let param = {
-        userid: this.place.userid,
+        memberId: this.place.memberId,
         subject: this.place.subject,
         content: this.place.content,
       };
@@ -118,7 +118,7 @@ export default {
     modifyPlace() {
       let param = {
         placeno: this.place.placeno,
-        userid: this.place.userid,
+        memberId: this.place.memberId,
         subject: this.place.subject,
         content: this.place.content,
       };
