@@ -5,15 +5,24 @@
 </template>
 
 <script>
-
+import { listObservatory } from "@/api/observatory";
 export default {
   name: "KaKaoMap",
   data() {
     return {
       map: null,
       markers: [],
+      locations:[],
       latitude: 0,
-      longitude: 0
+      longitude: 0,
+      category: null,
+      options: [
+          { value: null, text: '옵션' },
+          { value: 'place', text: '제목' },
+          { value: 'user', text: '작성자' },
+          { value: 'desc', text: '설명' },
+        ],
+      keyword : "",
     }
   },
   created() {
@@ -40,6 +49,23 @@ export default {
     }, err => {
       alert(err.message);
     })
+    let param = {
+      category: null,
+      keyword: null,
+    };
+    listObservatory(
+      param,
+      (response) => {
+        console.log(response)
+        // this.locations = data;
+        // console.log(this.locations)
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+
+
   },
   methods: {
     initMap() {
