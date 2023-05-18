@@ -1,6 +1,6 @@
 import jwtDecode from "jwt-decode";
 // import router from "@/router";
-import { login, findById , register} from "@/api/member";
+import { login, findById, register, checkId } from "@/api/member";
 
 const memberStore = {
   namespaced: true,
@@ -37,13 +37,13 @@ const memberStore = {
       state.userInfo = userInfo;
       // sessionStorage.setItem("userinfo", JSON.stringify(userInfo.id));
     },
-    setIsLoginError(state, value) {
-      state.isLoginError = value;
+    setSIGN_ERROR(state, value) {
+      state.signInError = value;
     },
   },
   actions: {
-    setIsLoginError({ commit }) {
-      commit("SET_IS_LOGIN_ERROR", false);
+    setSIGN_ERROR({ commit }) {
+      commit("SET_SIGNIN_ERROR", false);
     },
     async userConfirm({ commit }, member) {
       await login(
@@ -82,20 +82,27 @@ const memberStore = {
         }
       );
     },
+    async registCheckId({ commit }, memberId) {
+      await checkId(memberId, (response) => {
+        console.log(response);
+        if (response.data === true) {
+          commit("SET_SIGNIN_ERROR", false);
+        } else {
+          commit("SET_SIGNIN_ERROR", true);
+        }
+      });
+    },
+
     async userRegist({ commit }, member) {
-      await register(
-        member,
-        ({ data }) => {
-          if (data.message === "success") {
-            console.log(1);
-            commit("SET_SIGNIN_ERROR", true);
-          } else {
-            commit("SET_SIGNIN_ERROR", false);
-            alert("회원가입 완료")
-          }
-        },
-      );
-      
+      await register(member, (response) => {
+        console.log(response);
+        if (response.data === true) {
+          alert("회원가입 완료");
+        } else {
+          console.log(1);
+          console.log(commit);
+        }
+      });
     },
     userLogout({ commit }) {
       function logout() {
