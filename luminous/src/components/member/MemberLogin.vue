@@ -9,7 +9,7 @@
     </b-row>
     <b-row>
       <b-col></b-col>
-      <b-col>
+      <b-col cols="5">
         <b-card class="text-center mt-3" style="max-width: 40rem" align="left">
           <b-form class="text-left">
             <b-alert show variant="danger" v-if="isLoginError">아이디 또는 비밀번호를 확인하세요.</b-alert>

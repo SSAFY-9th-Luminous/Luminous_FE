@@ -16,21 +16,54 @@ export default {
 </script>
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: GmarketSans;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3450;
+  color: #2c3050;
 }
+
+
+*{
+  font-weight : 100;
+}
+
+a.router-link{
+  color:aliceblue;
+}
+
+a.router-link:hover {
+  font-weight : 800;
+}
+
 
 a.router-link-exact-active {
   color: #efe589;
-  
+  font-weight : 100;
 }
 
 a.router-link-exact-active:hover {
   /* text-decoration: none; */
   animation : none;
   color: #efe589;
+  font-weight : 800;
 }
+
+@font-face { 
+  font-family: "GmarketSans";
+  src: url("@/assets/font/GmarketSansTTFMedium.ttf") format("truetype");
+  font-weight: 500;
+} 
+
+@font-face { 
+  font-family: "GmarketSans";
+  src: url("@/assets/font/GmarketSansTTFLight.ttf") format("truetype");
+  font-weight: 100;
+} 
+
+@font-face { 
+  font-family: "GmarketSans";
+  src: url("@/assets/font/GmarketSansTTFBold.ttf") format("truetype");
+  font-weight: 800;
+} 
 </style>

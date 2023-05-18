@@ -13,46 +13,46 @@
       </b-navbar-brand>
 
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
-
+        
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav class="ml-auto">
-          <b-nav-item href="#">
-            <router-link :to="{ name: 'constellation' }" class="link">
-              <b-icon icon="star" animation="fade" font-scale="2"></b-icon>
+          <b-nav-item href="#" style="display:inline-block">
+            <router-link :to="{ name: 'constellation' }" class="link newcolor">
+              <b-icon icon="star" animation="fade" ></b-icon>
               별자리
             </router-link>
-            <router-link :to="{ path: 'observatory' }" class="m-2 link">
-              <b-icon icon="moon" animation="fade" font-scale="2"></b-icon>
+            <router-link :to="{ path: 'observatory' }" class="m-2 link newcolor">
+              <b-icon icon="moon" animation="fade" ></b-icon>
               천문대
             </router-link>
-            <router-link :to="{ name: 'main' }" class="m-2 link">
-              <b-icon icon="map" animation="fade" font-scale="2"/>
-              마이플레이스
+            <router-link :to="{ name: 'map' }" class="m-2 link newcolor">
+              <b-icon icon="map" animation="fade" />
+              지도
             </router-link>
-            <router-link :to="{ name: 'place' }" class="m-2 link">
-              <b-icon icon="clipboard" animation="fade" font-scale="2"/>
+            <router-link :to="{ name: 'placelist' }" class="m-2 link newcolor">
+              <b-icon icon="clipboard" animation="fade" />
               게시판
             </router-link>
             
-          </b-nav-item>
 
-        <b-nav-item-dropdown right v-if="userInfo">
+        <b-nav-item-dropdown right v-if="userInfo" class="custom-dropdown" style="display:inline-block">
             <template #button-content>
               <img src="@/assets/star.png" id = "img1"/>
             </template>
             <b-dropdown-item href="#">
-              <a href="#" @click="onClickLogout">로그아웃</a>
+              <a href="#" @click="onClickLogout" class = "aa" style="text-decoration: none">로그아웃</a>
             </b-dropdown-item>
             <b-dropdown-item href="#">
-              <router-link :to="{ name: 'mypage' }" class="link">
+              <router-link :to="{ name: 'mypage' }" class="link aa">
                 마이페이지
               </router-link>
             </b-dropdown-item>
           </b-nav-item-dropdown>
-        <router-link :to="{ name: 'login' }" class="link m-2" font-scale = "2" v-else>
+        <router-link :to="{ name: 'login' }" class="link m-2 newcolor"  style="display:inline-block" font-scale = "2" v-else>
            <b-icon icon="key" animation="fade" font-scale="1.5" class = "mt-2"></b-icon>
            로그인
         </router-link>
+          </b-nav-item>
           
           
         </b-navbar-nav>
@@ -94,11 +94,44 @@ export default {
 #logo {
   width: 120px;
 }
-
 .link {
   text-decoration: none;
 }
+
+.link:hover{
+  font-weight: 800;
+}
 #img1{
   width:40px;
+}
+.newcolor{
+  color:aliceblue;
+}
+a.router-link-exact-active {
+  color: #efe589;
+  font-weight : 100;
+}
+
+a.router-link-exact-active:hover {
+  /* text-decoration: none; */
+  animation : none;
+  color: #efe589;
+  font-weight : 800;
+}
+
+.aa:hover{
+  font-weight : 800;
+}
+
+.aa{
+  color:rgb(49, 49, 49);
+}
+
+.aa.router-link-exact-active{
+  color: blue;
+}
+
+.aa.router-link-exact-active:hover{
+  color: navy;
 }
 </style>

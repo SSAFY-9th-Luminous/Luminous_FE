@@ -1,5 +1,4 @@
 import jwtDecode from "jwt-decode";
-// import router from "@/router";
 import { login, findById, register, checkId } from "@/api/member";
 
 const memberStore = {
@@ -7,7 +6,7 @@ const memberStore = {
   state: {
     isLogin: false,
     isLoginError: false,
-    signInError: false,
+    signInError: "",
     userInfo: null,
     isValidToken: false,
   },
@@ -35,7 +34,6 @@ const memberStore = {
     SET_USER_INFO: (state, userInfo) => {
       state.isLogin = true;
       state.userInfo = userInfo;
-      // sessionStorage.setItem("userinfo", JSON.stringify(userInfo.id));
     },
     setSIGN_ERROR(state, value) {
       state.signInError = value;
@@ -43,17 +41,17 @@ const memberStore = {
   },
   actions: {
     setSIGN_ERROR({ commit }) {
-      commit("SET_SIGNIN_ERROR", false);
+      commit("SET_SIGNIN_ERROR", "");
     },
     async userConfirm({ commit }, member) {
       await login(
         member,
-        ({ data }) => {
-          let accessToken = data["accessToken"];
+        (response) => {
+          let accessToken = response.data.result["accessToken"];
           commit("SET_IS_LOGIN", true);
           commit("SET_IS_LOGIN_ERROR", false);
           commit("SET_IS_VALID_TOKEN", true);
-          commit("SET_USER_INFO", data["member"]);
+          commit("SET_USER_INFO", response.data.result["member"]);
           sessionStorage.setItem("access-token", accessToken);
         },
         (error) => {
@@ -65,18 +63,15 @@ const memberStore = {
       let decodeToken = jwtDecode(token);
       await findById(
         decodeToken.id,
-        ({ data }) => {
-          if (data.message === "success") {
-            console.log(data);
+        (response) => {
+          if (response.data.isSuccess === true) {
+            commit("SET_USER_INFO", response.data.result);
           } else {
-            commit("SET_USER_INFO", data);
+            console.log(0);
           }
         },
         async (error) => {
-          console.log(
-            "getUserInfo() error code [토큰 만료되어 사용 불가능.] ::: ",
-            error.response.status
-          );
+          console.log(error.response.status);
           commit("SET_IS_VALID_TOKEN", false);
           await dispatch("tokenRegeneration");
         }
@@ -85,10 +80,12 @@ const memberStore = {
     async registCheckId({ commit }, memberId) {
       await checkId(memberId, (response) => {
         console.log(response);
-        if (response.data === true) {
-          commit("SET_SIGNIN_ERROR", false);
+        if (response.data.isSuccess === true) {
+          commit("SET_SIGNIN_ERROR", "사용가능한 아이디입니다");
         } else {
-          commit("SET_SIGNIN_ERROR", true);
+          commit("SET_SIGNIN_ERROR", response.data.message);
+
+          console.log(response.data.message);
         }
       });
     },
@@ -96,7 +93,7 @@ const memberStore = {
     async userRegist({ commit }, member) {
       await register(member, (response) => {
         console.log(response);
-        if (response.data === true) {
+        if (response.data.isSuccess === true) {
           alert("회원가입 완료");
         } else {
           console.log(1);

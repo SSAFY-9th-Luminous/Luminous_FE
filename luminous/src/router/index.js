@@ -5,7 +5,7 @@ import PlaceApp from "@/views/PlaceApp";
 import ConstellationApp from "@/views/ConstellationApp";
 import MainApp from "@/views/MainApp";
 import store from "@/store";
-
+import Map from "@/components/Map";
 Vue.use(VueRouter);
 
 // https://v3.router.vuejs.org/kr/guide/advanced/navigation-guards.html
@@ -43,11 +43,11 @@ const routes = [
     name: "observe",
     component: ObservatoryApp,
   },
-  // {
-  //   path: "/place",
-  //   name: "place",
-  //   component: PlaceApp,
-  // },
+  {
+    path: "/map",
+    name: "map",
+    component: Map,
+  },
   {
     path: "/place",
     name: "place",

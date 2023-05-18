@@ -9,26 +9,28 @@
     </b-row>
     <b-row>
       <b-col></b-col>
-      <b-col>
+      <b-col cols="5">
         <b-card class="text-center mt-3" style="max-width: 40rem" align="left">
           <b-form class="text-left">
-            <b-alert show variant="danger" v-if="signInError">아이디 또는 비밀번호를 확인하세요.</b-alert>
+            <b-alert show variant="danger" v-if="signInError === '중복된 아이디입니다.'">{{signInError}}</b-alert>
+            <b-alert show variant="primary" v-else-if="signInError ===''" hidden>{{signInError}}</b-alert>
+            <b-alert show variant="primary" v-else>{{signInError}}</b-alert>
             <div class="row">
-  <div class="col-sm-8">
-    <b-form-group label-for="memberId">
-      <b-form-input
-        id="memberId"
-        v-model="member.memberId"
-        required
-        placeholder="ID"
-        @keyup.enter="confirm"
-      ></b-form-input>
-    </b-form-group>
-  </div>
-  <div class="col-sm-4">
-    <b-button type="button" variant="primary" size="sm" class = "mt-1" @click="confirm">중복확인</b-button>
-  </div>
-</div>
+              <div class="col-sm-8">
+                <b-form-group label-for="memberId">
+                  <b-form-input
+                    id="memberId"
+                    v-model="member.memberId"
+                    required
+                    placeholder="ID"
+                    @keyup.enter="confirm"
+                  ></b-form-input>
+                </b-form-group>
+              </div>
+              <div class="col-sm-4">
+                <b-button type="button" variant="primary" size="sm" class = "mt-1" @click="confirm">중복확인</b-button>
+              </div>
+            </div>
             <b-form-group label-for="memberPassword">
               <b-form-input
                 type="password"
@@ -62,7 +64,7 @@
             
       
             <b-button type="button" variant="primary" class="m-1" @click="regist">회원가입</b-button>
-            <b-button type="button" variant="danger" class="m-1" @click="temp">다시하기</b-button>
+            <b-button type="button" variant="danger" class="m-1" @click="movePage">취소</b-button>
           </b-form>
         </b-card>
       </b-col>
@@ -90,14 +92,21 @@ export default {
   computed: {
     ...mapState(memberStore, ["signInError"]),
   },
+  created() {
+    this.temp()
+  },
   methods: {
     ...mapActions(memberStore, ["userRegist", "registCheckId", "setSIGN_ERROR"]),
+    
     temp(){
       this.setSIGN_ERROR();
-      console.log(1)
+      this.member.memberId = null;
+      this.member.memberPassword = null;
+      this.member.memberName = null
+      this.member.birth = null;
     },
     async confirm() {
-      this.temp();
+      this.setSIGN_ERROR();
       await this.registCheckId(this.member.memberId).catch()
     },
     async regist(){
