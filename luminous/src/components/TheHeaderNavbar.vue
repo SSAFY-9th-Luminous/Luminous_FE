@@ -1,6 +1,8 @@
 <template>
   <div>
+    
     <b-navbar toggleable="lg" type="dark" variant="dark">
+      <b-container>
       <b-navbar-brand href="#">
         <router-link :to="{ name: 'main' }">
           <b-img
@@ -57,6 +59,7 @@
           
         </b-navbar-nav>
       </b-collapse>
+      </b-container>
     </b-navbar>
   </div>
 </template>
@@ -98,6 +101,7 @@ export default {
   text-decoration: none;
 }
 
+
 .link:hover{
   font-weight: 800;
 }
@@ -133,5 +137,10 @@ a.router-link-exact-active:hover {
 
 .aa.router-link-exact-active:hover{
   color: navy;
+}
+
+.container{
+  margin-right : 10px;
+  margin-left : 10px;
 }
 </style>
