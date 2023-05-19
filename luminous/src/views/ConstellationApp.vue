@@ -1,20 +1,17 @@
 <template>
+  
   <b-container class="bv-example-row mt-3 text-center">
     <h3 class="underline-steelblue"><b-icon icon="star"></b-icon> 별자리</h3>
-    <b-row>
-      <b-col></b-col>
-      
-      <b-col></b-col>
-    </b-row>
+    <router-view></router-view>
   </b-container>
 </template>
 
 <script>
+
 export default {
-  name: "ConstellationApp",
-  props: {
-    msg: String,
-  },
+    name: "ConstellationApp",
+    components(){
+    },
 };
 </script>
 

@@ -37,6 +37,16 @@ const routes = [
     path: "/constellation",
     name: "constellation",
     component: ConstellationApp,
+    
+    redirect: "/constellation/list",
+    children: [
+      {
+        path: "list",
+        name: "constellationlist",
+        component: () => import("@/components/constellation/ConstellationList"),
+
+      },
+    ]
   },
   {
     path: "/observatory",
