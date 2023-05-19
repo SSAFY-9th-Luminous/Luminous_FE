@@ -1,13 +1,16 @@
 <template>
   <b-container class="mt-4" v-if="userInfo">
     <b-row>
+      <b-col></b-col>
       <b-col>
         <b-alert variant="secondary" show><h3>마이페이지</h3></b-alert>
       </b-col>
+      <b-col></b-col>
     </b-row>
     <b-row>
       <b-col></b-col>
-      <b-col cols="8">
+      <b-col></b-col>
+      <b-col cols="6">
         <b-jumbotron>
           <template #header>My Page</template>
 
@@ -45,6 +48,7 @@
           <b-button variant="danger" href="#">회원탈퇴</b-button>
         </b-jumbotron>
       </b-col>
+      <b-col></b-col>
       <b-col></b-col>
     </b-row>
   </b-container>

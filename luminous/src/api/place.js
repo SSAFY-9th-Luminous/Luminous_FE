@@ -6,8 +6,8 @@ async function listPlace(param, success, fail) {
   await api.get(`/places`, { params: param }).then(success).catch(fail);
 }
 
-async function writePlace(article, success, fail) {
-  await api.post(`/places`, JSON.stringify(article)).then(success).catch(fail);
+async function writePlace(place, success, fail) {
+  await api.post(`/places`, JSON.stringify(place)).then(success).catch(fail);
 }
 
 async function getPlace(articleno, success, fail) {
