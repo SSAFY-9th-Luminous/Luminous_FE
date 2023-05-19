@@ -1,6 +1,7 @@
 <template>
   <div>
     <div id="map"></div>
+    <b-button @click = searchSubmit>a</b-button>
   </div>
 </template>
 
@@ -13,6 +14,8 @@ export default {
       map: null,
       markers: [],
       locations:[],
+      marker_locations:[],
+      coords:[],
       latitude: 0,
       longitude: 0,
       category: null,
@@ -23,6 +26,7 @@ export default {
           { value: 'desc', text: '설명' },
         ],
       keyword : "",
+      geocoder:null,
     }
   },
   created() {
@@ -43,7 +47,7 @@ export default {
         script.onload = () => kakao.maps.load(this.initMap);
         script.src = "//dapi.kakao.com/v2/maps/sdk.js?appkey=" +
         process.env.VUE_APP_KAKAO_MAP_API_KEY +
-        "&autoload=false";
+        "&libraries=services&autoload=false";
         document.head.appendChild(script);
       }
     }, err => {
@@ -56,9 +60,9 @@ export default {
     listObservatory(
       param,
       (response) => {
-        console.log(response)
-        // this.locations = data;
-        // console.log(this.locations)
+        // console.log(response)
+        this.locations = response.data;
+        console.log(this.locations)
       },
       (error) => {
         console.log(error);
@@ -69,6 +73,7 @@ export default {
   },
   methods: {
     initMap() {
+      console.log(this.markers)
       const container = document.getElementById("map");
       const options = {
         center: new kakao.maps.LatLng(33.450701, 126.570667),
@@ -76,6 +81,7 @@ export default {
       };
       this.map = new kakao.maps.Map(container, options);
       this.displayMarker([[this.latitude, this.longitude]]);
+      this.geocoder = new kakao.maps.services.Geocoder();
     },
     displayMarker(markerPositions) {
       if (this.markers.length > 0) {
@@ -92,11 +98,40 @@ export default {
                   position,
                 })
         );
+        
         const bounds = positions.reduce(
             (bounds, latlng) => bounds.extend(latlng),
             new kakao.maps.LatLngBounds()
         );
         this.map.setBounds(bounds);
+        console.log(this.marker_locations)
+      }
+    },
+     searchSubmit() {
+      let i = 0;
+      
+      for  (let data of this.locations){
+        
+        const res = data.address
+         this.geocoder.addressSearch(res, (result, status) => {
+          console.log(i)
+            if (status === kakao.maps.services.Status.OK) {
+              this.coords = [result[0].y, result[0].x]
+              console.log(this.coords)
+            }
+            
+            if(i === 66){
+                this.marker_locations.push(this.coords)
+                this.displayMarker(this.marker_locations)
+
+              }else if(i<66){
+                this.marker_locations.push(this.coords)
+              }   
+
+              i++;
+        });
+
+         
       }
     }
   }
