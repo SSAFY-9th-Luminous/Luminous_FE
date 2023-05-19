@@ -2,11 +2,13 @@
   <div>
     <div id="map"></div>
     <b-button @click = searchSubmit>a</b-button>
+    <b-button @click = searchSubmit1>camping</b-button>
   </div>
 </template>
 
 <script>
-import { listObservatory } from "@/api/observatory";
+import { observatoryMap } from "@/api/observatory";
+import {listCamping} from "@/api/camping"
 export default {
   name: "KaKaoMap",
   data() {
@@ -14,6 +16,7 @@ export default {
       map: null,
       markers: [],
       locations:[],
+      campings:[],
       marker_locations:[],
       coords:[],
       latitude: 0,
@@ -69,7 +72,7 @@ export default {
       category: null,
       keyword: null,
     };
-    listObservatory(
+    observatoryMap(
       param,
       (response) => {
         // console.log(response)
@@ -80,7 +83,17 @@ export default {
         console.log(error);
       }
     );
-
+     listCamping(
+      param,
+      (response) => {
+        // console.log(response)
+        this.campings = response.data;
+        console.log(this.campings)
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
 
   },
   methods: {
@@ -149,7 +162,19 @@ export default {
 
          
       }
-    }
+    },
+    // searchSubmit1() {
+    //   let i = 0;
+      
+    //   for  (let data of this.campings){
+        
+    //           this.coords = [result[0].y, result[0].x]
+    //           console.log(this.coords)
+            
+
+         
+    //   }
+    // }
   }
 }
 </script>

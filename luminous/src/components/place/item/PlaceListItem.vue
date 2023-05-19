@@ -1,8 +1,8 @@
 <template>
   <b-tr>
-    <b-td>{{ articleno }}</b-td>
+    <b-td>{{ id }}</b-td>
     <b-th class="text-left">
-      <router-link :to="{ name: 'placeview', params: { articleno: articleno } }">{{ subject }}</router-link>
+      <router-link :to="{ name: 'placeview', params: { id: id } }">{{ subject }}</router-link>
     </b-th>
     <b-td>{{ hit }}</b-td>
     <b-td>{{ userid }}</b-td>
@@ -16,7 +16,7 @@ import moment from "moment";
 export default {
   name: "PlaceListItem",
   props: {
-    articleno: Number,
+    id: Number,
     userid: Object,
     subject: String,
     hit: Number,

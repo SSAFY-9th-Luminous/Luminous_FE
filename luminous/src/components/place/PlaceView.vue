@@ -9,7 +9,7 @@
       <b-col class="text-left">
         <b-button variant="outline-primary" @click="moveList">목록</b-button>
       </b-col>
-      <b-col class="text-right" v-if="userInfo.userid === place.userid">
+      <b-col class="text-right" v-if="userInfo.memberId === place.member.memberId">
         <b-button variant="outline-info" size="sm" @click="moveModifyPlace" class="mr-2">글수정</b-button>
         <b-button variant="outline-danger" size="sm" @click="deletePlace">글삭제</b-button>
       </b-col>
@@ -17,14 +17,14 @@
     <b-row class="mb-1">
       <b-col>
         <b-card
-          :header-html="`<h3>${place.placeno}.
-          ${place.subject} [${place.hit}]</h3><div><h6>${place.userid}</div><div>${place.regtime}</h6></div>`"
+          :header-html="`<h3>${place.id}.
+          ${place.placeName} [${place.hit}]</h3><div><h6>${place.member.memberId}</div><div>${place.createdDate}</h6></div><div>${place.lastModifiedDate}</h6></div>`"
           class="mb-2"
           border-variant="dark"
           no-body
         >
           <b-card-body class="text-left">
-            <div v-html="message"></div>
+            <div>{{place.placeDescription}}</div>
           </b-card-body>
         </b-card>
       </b-col>
@@ -40,10 +40,15 @@ import { mapState } from "vuex";
 const memberStore = "memberStore";
 
 export default {
-  name: "PlaceDetail",
+  name: "PlaceView",
   data() {
     return {
-      place: {},
+      place: {
+        member:{
+          memberId:null
+        },
+
+      },
     };
   },
   computed: {
@@ -54,11 +59,13 @@ export default {
     },
   },
   created() {
-    let param = this.$route.params.placeno;
+    let param = this.$route.params.id;
+    console.log(param)
     getPlace(
       param,
       ({ data }) => {
-        this.place = data;
+        console.log(data)
+        this.place = data.result;
       },
       (error) => {
         console.log(error);

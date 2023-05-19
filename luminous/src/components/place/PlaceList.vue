@@ -24,9 +24,9 @@
     </b-row>
     <b-row>
       <b-col>
-        <b-table striped hover :items="articles" :fields="fields" @row-clicked="viewArticle">
+        <b-table striped hover :items="places" :fields="fields" @row-clicked="viewArticle">
           <template #cell(subject)="data">
-            <router-link :to="{ name: 'placeview', params: { articleno: data.item.articleno } }">
+            <router-link :to="{ name: 'placeview', params: { id: data.item.id } }">
               {{ data.item.subject }}
             </router-link>
           </template>
@@ -43,18 +43,13 @@ export default {
   name: "PlaceList",
   data() {
     return {
-      articles: [],
+      places: [],
       fields: [
       { key: "id", label: "글번호", tdClass: "tdClass" },
         { key: "placeName", label: "제목", tdClass: "tdSubject" },
         { key: "member.memberName", label: "작성자", tdClass: "tdClass" },
         { key: "createdDate", label: "작성일", tdClass: "tdClass" },
         { key: "hit", label: "조회수", tdClass: "tdClass" },
-        // { key: "articleno", label: "글번호", tdClass: "tdClass" },
-        // { key: "subject", label: "제목", tdClass: "tdSubject" },
-        // { key: "userid", label: "작성자", tdClass: "tdClass" },
-        // { key: "regtime", label: "작성일", tdClass: "tdClass" },
-        // { key: "hit", label: "조회수", tdClass: "tdClass" },
       ],
       category: null,
       options: [
@@ -74,7 +69,8 @@ export default {
     listPlace(
       param,
       ({ data }) => {
-        this.articles = data;
+        console.log(data)
+        this.places = data;
       },
       (error) => {
         console.log(error);
@@ -85,10 +81,10 @@ export default {
     moveWrite() {
       this.$router.push({ name: "placewrite" });
     },
-    viewArticle(article) {
+    viewArticle(place) {
       this.$router.push({
         name: "placeview",
-        params: { articleno: article.articleno },
+        params: { id: place.id },
       });
     },
     confirm(){

@@ -37,16 +37,15 @@ const routes = [
     path: "/constellation",
     name: "constellation",
     component: ConstellationApp,
-    
+
     redirect: "/constellation/list",
     children: [
       {
         path: "list",
         name: "constellationlist",
         component: () => import("@/components/constellation/ConstellationList"),
-
       },
-    ]
+    ],
   },
   {
     path: "/observatory",
@@ -77,7 +76,7 @@ const routes = [
         component: () => import(/* webpackChunkName: "place" */ "@/components/place/PlaceWrite"),
       },
       {
-        path: "view/:articleno",
+        path: "view/:id",
         name: "placeview",
         beforeEnter: onlyAuthUser,
         component: () => import(/* webpackChunkName: "place" */ "@/components/place/PlaceView"),
