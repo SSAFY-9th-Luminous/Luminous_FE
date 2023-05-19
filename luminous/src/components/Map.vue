@@ -30,10 +30,10 @@ export default {
     }
   },
   created() {
+    /* global kakao */
     if (!("geolocation" in navigator)) {
       return;
     }
-
     navigator.geolocation.getCurrentPosition(position => {
       this.latitude = position.coords.latitude;
       this.longitude = position.coords.longitude;
@@ -43,7 +43,6 @@ export default {
       } 
       else {
         const script = document.createElement("script");
-        /* global kakao */
         script.onload = () => kakao.maps.load(this.initMap);
         script.src = "//dapi.kakao.com/v2/maps/sdk.js?appkey=" +
         process.env.VUE_APP_KAKAO_MAP_API_KEY +
@@ -51,7 +50,20 @@ export default {
         document.head.appendChild(script);
       }
     }, err => {
-      alert(err.message);
+      console.log(err.message);
+      this.latitude = 37.500786;
+      this.longitude= 127.036886;
+      if (window.kakao && window.kakao.maps) {
+        this.initMap();
+      } 
+      else {
+        const script = document.createElement("script");
+        script.onload = () => kakao.maps.load(this.initMap);
+        script.src = "//dapi.kakao.com/v2/maps/sdk.js?appkey=" +
+        process.env.VUE_APP_KAKAO_MAP_API_KEY +
+        "&libraries=services&autoload=false";
+        document.head.appendChild(script);
+      }
     })
     let param = {
       category: null,
@@ -77,9 +89,12 @@ export default {
       const container = document.getElementById("map");
       const options = {
         center: new kakao.maps.LatLng(33.450701, 126.570667),
-        level: 5,
+        level: 1,
       };
+
+
       this.map = new kakao.maps.Map(container, options);
+      
       this.displayMarker([[this.latitude, this.longitude]]);
       this.geocoder = new kakao.maps.services.Geocoder();
     },
@@ -103,6 +118,7 @@ export default {
             (bounds, latlng) => bounds.extend(latlng),
             new kakao.maps.LatLngBounds()
         );
+        this.map.setMinLevel(3);
         this.map.setBounds(bounds);
         console.log(this.marker_locations)
       }
