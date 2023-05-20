@@ -1,8 +1,9 @@
 <template>
   <div>
     <div id="map"></div>
-    <b-button @click = placeSearch>place</b-button>
+    <b-button @click = observatorySearch>천문대</b-button>
     <b-button @click = campingSearch>camping</b-button>
+    <b-button @click = myplaceSearch>myplace</b-button>
   </div>
 </template>
 
@@ -107,20 +108,51 @@ export default {
 
       this.map = new kakao.maps.Map(container, options);
       
-      this.displayMarker([[this.latitude, this.longitude]]);
+      this.displayMarkerMyCur([[this.latitude, this.longitude]]);
       this.geocoder = new kakao.maps.services.Geocoder();
     },
-    displayMarker(markerPositions) {
+    displayMarkerMyCur(markerPositions) {
       if (this.markers.length > 0) {
         this.markers.forEach((marker) => marker.setMap(null));
       }
       const positions = markerPositions.map(
           (position) => new kakao.maps.LatLng(...position)
       );
-      const markerImageUrl = require('@/assets/star.png');
-      const markerSize = new kakao.maps.Size(30, 30);
+      const markerImageUrl = require('@/assets/img/marker/mycur.png');
+      const markerSize = new kakao.maps.Size(40, 40);
       const markerOptions = {
-        offset: new kakao.maps.Point(15, 30) // Offset the marker image
+        offset: new kakao.maps.Point(20, 20) // Offset the marker image
+      };
+      const markerImage = new kakao.maps.MarkerImage(markerImageUrl, markerSize, markerOptions);
+      if (positions.length > 0) {
+        this.markers = positions.map(
+            (position) =>
+                new kakao.maps.Marker({
+                  map: this.map,
+                  position,
+                  image : markerImage
+                })
+        );
+        
+        const bounds = positions.reduce(
+            (bounds, latlng) => bounds.extend(latlng),
+            new kakao.maps.LatLngBounds()
+        );
+        this.map.setMinLevel(3);
+        this.map.setBounds(bounds);
+      }
+    },
+    displayMarkerMyPlace(markerPositions) {
+      if (this.markers.length > 0) {
+        this.markers.forEach((marker) => marker.setMap(null));
+      }
+      const positions = markerPositions.map(
+          (position) => new kakao.maps.LatLng(...position)
+      );
+      const markerImageUrl = require('@/assets/img/marker/myplace.png');
+      const markerSize = new kakao.maps.Size(44, 44);
+      const markerOptions = {
+        offset: new kakao.maps.Point(22, 22) // Offset the marker image
       };
       const markerImage = new kakao.maps.MarkerImage(markerImageUrl, markerSize, markerOptions);
       if (positions.length > 0) {
@@ -148,10 +180,10 @@ export default {
       const positions = markerPositions.map(
           (position) => new kakao.maps.LatLng(...position)
       );
-      const markerImageUrl = '@/assets/star.png';
-      const markerSize = new kakao.maps.Size(30, 30);
+      const markerImageUrl = require('@/assets/img/marker/campingMarker.png');
+      const markerSize = new kakao.maps.Size(60, 60);
       const markerOptions = {
-        offset: new kakao.maps.Point(15, 30) // Offset the marker image
+        offset: new kakao.maps.Point(30, 60) // Offset the marker image
       };
   
       const markerImage = new kakao.maps.MarkerImage(markerImageUrl, markerSize, markerOptions);
@@ -173,7 +205,39 @@ export default {
         this.map.setBounds(bounds);
       }
     },
-     placeSearch() {
+    displayObservatoryMarker(markerPositions) {
+      if (this.markers.length > 0) {
+        this.markers.forEach((marker) => marker.setMap(null));
+      }
+      const positions = markerPositions.map(
+          (position) => new kakao.maps.LatLng(...position)
+      );
+      const markerImageUrl = require('@/assets/img/marker/observatoryMarker.png');
+      const markerSize = new kakao.maps.Size(60, 60);
+      const markerOptions = {
+        offset: new kakao.maps.Point(30, 60) // Offset the marker image
+      };
+  
+      const markerImage = new kakao.maps.MarkerImage(markerImageUrl, markerSize, markerOptions);
+      if (positions.length > 0) {
+        this.markers = positions.map(
+            (position) =>
+                new kakao.maps.Marker({
+                  map: this.map,
+                  position,
+                  image : markerImage
+                })
+        );
+        
+        const bounds = positions.reduce(
+            (bounds, latlng) => bounds.extend(latlng),
+            new kakao.maps.LatLngBounds()
+        );
+        this.map.setMinLevel(3);
+        this.map.setBounds(bounds);
+      }
+    },
+    ObservatorySearch() {
       let i = 0;
       
       for  (let data of this.locations){
@@ -208,7 +272,16 @@ export default {
 
          
       }
-    }
+    },
+    myPlaceSearch() {
+      for (let data of this.myplaces){
+          this.myplace_coords = [data.latitude, data.longitude]
+          this.marker_locations.push(this.myplace_coords);
+          this.displayMarkerMyPlace(this.marker_locations)
+
+         
+      }
+    },
   }
 }
 </script>
