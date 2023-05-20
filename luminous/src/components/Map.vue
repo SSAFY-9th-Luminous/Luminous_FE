@@ -1,8 +1,8 @@
 <template>
   <div>
     <div id="map"></div>
-    <b-button @click = observatorySearch>천문대</b-button>
-    <b-button @click = campingSearch>camping</b-button>
+    <b-button @click = observatorySearch>천문대</b-button> |
+    <b-button @click = campingSearch>camping</b-button> |
     <b-button @click = myplaceSearch>myplace</b-button>
   </div>
 </template>
@@ -14,7 +14,9 @@ export default {
   name: "KaKaoMap",
   data() {
     return {
-      map: null,
+      map: {
+        
+      },
       markers: [],
       locations:[],
       campings:[],
@@ -23,6 +25,7 @@ export default {
       camping_coords:[],
       latitude: 0,
       longitude: 0,
+      level : 3,
       category: null,
       options: [
           { value: null, text: '옵션' },
@@ -100,16 +103,14 @@ export default {
   },
   methods: {
     initMap() {
-      const container = document.getElementById("map");
-      const options = {
+      this.map = new kakao.maps.Map(document.getElementById('map'), {
         center: new kakao.maps.LatLng(33.450701, 126.570667),
-        level: 1,
-      };
-
-      this.map = new kakao.maps.Map(container, options);
-      
+        level: 3,
+      })
       this.displayMarkerMyCur([[this.latitude, this.longitude]]);
       this.geocoder = new kakao.maps.services.Geocoder();
+      this.map.setMaxLevel(10)
+      
     },
     displayMarkerMyCur(markerPositions) {
       if (this.markers.length > 0) {
@@ -173,7 +174,7 @@ export default {
         this.map.setBounds(bounds);
       }
     },
-    displayCampingMarker(markerPositions) {
+    displayMarkerCamping(markerPositions) {
       if (this.markers.length > 0) {
         this.markers.forEach((marker) => marker.setMap(null));
       }
@@ -197,12 +198,12 @@ export default {
                 })
         );
         
-        const bounds = positions.reduce(
-            (bounds, latlng) => bounds.extend(latlng),
-            new kakao.maps.LatLngBounds()
-        );
-        this.map.setMinLevel(3);
-        this.map.setBounds(bounds);
+        // const bounds = positions.reduce(
+        //     (bounds, latlng) => bounds.extend(latlng),
+        //     new kakao.maps.LatLngBounds()
+        // );
+        // this.map.setMinLevel(3);
+        // this.map.setBounds(bounds);
       }
     },
     displayObservatoryMarker(markerPositions) {
@@ -252,7 +253,6 @@ export default {
             
             if(i === 66){
                 this.marker_locations.push(this.place_coords)
-                this.displayMarker(this.marker_locations)
 
               }else if(i<66){
                 this.marker_locations.push(this.place_coords)
@@ -263,24 +263,21 @@ export default {
 
          
       }
+      this.displayMarker(this.marker_locations)
     },
     campingSearch() {
       for (let data of this.campings){
               this.camping_coords = [data.latitude, data.longitude]
           this.marker_locations.push(this.camping_coords);
-          this.displayCampingMarker(this.marker_locations)
-
-         
       }
+          this.displayMarkerCamping(this.marker_locations)
     },
     myPlaceSearch() {
       for (let data of this.myplaces){
           this.myplace_coords = [data.latitude, data.longitude]
           this.marker_locations.push(this.myplace_coords);
-          this.displayMarkerMyPlace(this.marker_locations)
-
-         
       }
+          this.displayMarkerMyPlace(this.marker_locations)
     },
   }
 }
