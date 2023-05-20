@@ -44,8 +44,8 @@
           </b-container>
           <hr class="my-4" />
 
-          <b-button variant="primary" href="#" class="mr-1">정보수정</b-button>
-          <b-button variant="danger" href="#">회원탈퇴</b-button>
+          <b-button variant="primary" @click = modifyInfo class="mr-1">정보수정</b-button>
+          <b-button variant="danger" @click = withdraw>회원탈퇴</b-button>
         </b-jumbotron>
       </b-col>
       <b-col></b-col>
@@ -55,15 +55,33 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapActions } from "vuex";
 
 const memberStore = "memberStore";
 
 export default {
   name: "MemberMyPage",
-  components: {},
+  components: {
+    
+  },
   computed: {
     ...mapState(memberStore, ["userInfo"]),
+  },
+  
+  methods: {
+    ...mapActions(memberStore, ["userWithdraw"]),
+    withdraw() {
+      let token = sessionStorage.getItem("access-token");
+      if(confirm("회원 탈퇴하시겠습니까?"))
+      {
+        if(confirm("정말로 탈퇴하시겠습니까?")){
+          
+          this.userWithdraw(token);
+          this.$router.push({ name: "main" });
+        }
+      }
+
+    },
   },
 };
 </script>

@@ -1,5 +1,5 @@
 import jwtDecode from "jwt-decode";
-import { login, findById, register, checkId } from "@/api/member";
+import { login, findById, register, checkId, withdraw} from "@/api/member";
 
 const memberStore = {
   namespaced: true,
@@ -110,6 +110,21 @@ const memberStore = {
       }
       logout();
     },
+    async userWithdraw({ commit }, token) {
+      let decodeToken = jwtDecode(token);
+      await withdraw(decodeToken.id, (response) => {
+        if (response.data.isSuccess === true) {
+          alert("회원탈퇴 완료");
+          commit("SET_IS_LOGIN", false);
+          commit("SET_USER_INFO", null);
+          commit("SET_IS_VALID_TOKEN", false);
+          sessionStorage.clear();
+        }
+        else {
+          alert("오류 발생")
+        }
+      })
+    }
   },
 };
 

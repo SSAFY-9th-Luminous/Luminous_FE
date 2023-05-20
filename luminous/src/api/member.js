@@ -18,4 +18,8 @@ async function register(member, success, fail) {
   await api.post(`/member/register`, JSON.stringify(member)).then(success).catch(fail);
 }
 
-export { login, findById, register, checkId };
+async function withdraw(id, success, fail){
+  await api.delete(`/member/${id}`).then(success).catch(fail);
+}
+
+export { login, findById, register, checkId, withdraw};
