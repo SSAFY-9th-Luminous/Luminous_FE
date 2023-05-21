@@ -47,12 +47,12 @@ const memberStore = {
       await login(
         member,
         (response) => {
-          let accessToken = response.data.result["accessToken"];
+          let jwt = response.headers.authorization;
           commit("SET_IS_LOGIN", true);
           commit("SET_IS_LOGIN_ERROR", false);
           commit("SET_IS_VALID_TOKEN", true);
           commit("SET_USER_INFO", response.data.result["member"]);
-          sessionStorage.setItem("access-token", accessToken);
+          sessionStorage.setItem("access-token", jwt);
           
         },
         (error) => {
