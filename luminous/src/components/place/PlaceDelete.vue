@@ -17,12 +17,12 @@ import { deletePlace } from "@/api/place";
 export default {
   name: "PlaceDelete",
   created() {
-    let param = this.$route.params.articleno;
+    let param = this.$route.params.id;
     deletePlace(
       param,
       ({ data }) => {
         let msg = "삭제 처리시 문제가 발생했습니다.";
-        if (data === "success") {
+        if (data.isSuccess === true) {
           msg = "삭제가 완료되었습니다.";
         }
         alert(msg);

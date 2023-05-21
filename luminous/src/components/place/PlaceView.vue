@@ -76,14 +76,14 @@ export default {
     moveModifyPlace() {
       this.$router.replace({
         name: "placemodify",
-        params: { placeno: this.place.placeno },
+        params: { id: this.place.id },
       });
     },
     deletePlace() {
       if (confirm("정말로 삭제하시겠습니까?")) {
         this.$router.replace({
           name: "placedelete",
-          params: { placeno: this.place.placeno },
+          params: { id: this.place.id },
         });
       }
     },

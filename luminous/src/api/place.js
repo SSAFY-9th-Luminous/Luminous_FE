@@ -15,7 +15,8 @@ async function getPlace(articleno, success, fail) {
 }
 
 async function modifyPlace(article, success, fail) {
-  await api.put(`/places`, JSON.stringify(article)).then(success).catch(fail);
+  console.log(JSON.stringify(article))
+  await api.put(`/places/${article.id}`, JSON.stringify(article)).then(success).catch(fail);
 }
 
 async function deletePlace(id, success, fail) {

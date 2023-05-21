@@ -26,8 +26,8 @@
       <b-col>
         <b-table striped hover :items="places" :fields="fields" @row-clicked="viewArticle">
           <template #cell(subject)="data">
-            <router-link :to="{ name: 'placeview', params: { id: data.item.id } }">
-              {{ data.item.subject }}
+            <router-link :to="{ name: 'placeview', params: { id: data.item.id  } }">
+              {{ data.item.placeName }}
             </router-link>
           </template>
         </b-table>
@@ -70,7 +70,7 @@ export default {
       param,
       ({ data }) => {
         console.log(data)
-        this.places = data;
+        this.places = data.result;
       },
       (error) => {
         console.log(error);
