@@ -13,8 +13,8 @@
     <b-row class="mb-1">
       <b-col>
         <b-card
-          :header-html="`<h3>${place.id}.
-          ${place.placeName} [${place.hit}]</h3><div><h6>${place.member.memberId}</div><div>${place.createdDate}</h6></div><div>${place.lastModifiedDate}</h6></div>`"
+          :header-html="`<h3>${observatory.id}.
+          ${observatory.observatoryName}</h3><div><h6>${observatory.id}</div><div>${observatory.siDoName}</h6></div><div>${observatory.address}</h6></div>`"
           class="mb-2"
           border-variant="dark"
           no-body
@@ -65,7 +65,7 @@ export default {
   },
   methods: {
     moveList() {
-      this.$router.push({ name: "placelist" });
+      this.$router.push({ name: "observatorylist" });
     },
   },
 };
