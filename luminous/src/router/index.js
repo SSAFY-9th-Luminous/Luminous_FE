@@ -49,8 +49,17 @@ const routes = [
   },
   {
     path: "/observatory",
-    name: "observe",
+    name: "observatory",
     component: ObservatoryApp,
+    redirect: "/observatory/list",
+    children: [
+      {
+      path: "list",
+      name: "observatorlist",
+
+      component: () => import( "@/components/observatory/ObservatoryList"),
+      }
+    ]
   },
   {
     path: "/map",

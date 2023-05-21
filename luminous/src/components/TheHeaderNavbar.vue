@@ -23,7 +23,7 @@
               <b-icon icon="star" animation="fade" ></b-icon>
               별자리
             </router-link>
-            <router-link :to="{ path: 'observatory' }" class="m-2 link newcolor">
+            <router-link :to="{ name: 'observatory' }" class="m-2 link newcolor">
               <b-icon icon="moon" animation="fade" ></b-icon>
               천문대
             </router-link>

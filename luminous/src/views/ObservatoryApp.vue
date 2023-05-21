@@ -3,6 +3,8 @@
     <h3 class="underline-green">
       <b-icon icon="moon"></b-icon> 천문대
     </h3>
+
+    <router-view></router-view>
     
   </b-container>
 </template>
