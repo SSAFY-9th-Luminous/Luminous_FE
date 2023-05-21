@@ -41,8 +41,8 @@
             <template #button-content>
               <img src="@/assets/star.png" id = "img1"/>
             </template>
-            <b-dropdown-item href="#">
-              <a href="#" @click="onClickLogout" class = "aa" style="text-decoration: none">로그아웃</a>
+            <b-dropdown-item href="#" @click="onClickLogout">
+              <a href="#"  class = "aa" style="text-decoration: none">로그아웃</a>
             </b-dropdown-item>
             <b-dropdown-item href="#">
               <router-link :to="{ name: 'mypage' }" class="link aa">
