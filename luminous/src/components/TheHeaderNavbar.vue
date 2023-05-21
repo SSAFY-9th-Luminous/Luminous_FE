@@ -44,10 +44,8 @@
             <b-dropdown-item href="#" @click="onClickLogout">
               <a href="#"  class = "aa" style="text-decoration: none">로그아웃</a>
             </b-dropdown-item>
-            <b-dropdown-item href="#">
-              <router-link :to="{ name: 'mypage' }" class="link aa">
-                마이페이지
-              </router-link>
+            <b-dropdown-item href="#" :to="{name: 'mypage'}">
+              <a href="#"  class = "aa" style="text-decoration: none">마이페이지</a>
             </b-dropdown-item>
           </b-nav-item-dropdown>
         <router-link :to="{ name: 'login' }" class="link m-2 newcolor"  style="display:inline-block" font-scale = "2" v-else>
@@ -89,6 +87,11 @@ export default {
       console.log("logout")
       if (this.$route.path != "/")this.$router.push({ name: "main" });
     },
+    goToPage(url){
+      this.$router.push({name: `${url}`});
+    }
+    ,
+
   },
 };
 </script>
