@@ -1,5 +1,7 @@
 <template>
-  <b-row class="mb-1">
+  <div>
+    <b-row class="mb-1">
+    <div id= "map"></div>    
     <b-col style="text-align: left">
       <b-form @submit="onSubmit" @reset="onReset">
         <b-form-group hidden id="memberId-group" label="작성자:" label-for="memberId" description="작성자를 입력하세요.">
@@ -38,6 +40,7 @@
       </b-form>
     </b-col>
   </b-row>
+    </div>
 </template>
 
 <script>
@@ -48,6 +51,8 @@ export default {
   name: "PlaceInputItem",
   data() {
     return {
+      map:null,
+      marker:null,
       place: {
         id: 0,
         memberId: "",
@@ -62,6 +67,9 @@ export default {
         hit: 0,
       },
       isUserid: false,
+      geocoder:null,
+      latitude:0,
+      longitude:0,
     };
   },
   props: {
@@ -70,7 +78,45 @@ export default {
   computed: {
     ...mapState(memberStore, ["userInfo"]),
   },
+  mounted() {
+    kakao.maps.event.addListener(this.map, 'click', function(mouseEvent) {
+                // 마커를 클릭한 위치에 표시합니다
+                this.marker.setPosition(mouseEvent.latLng);
+                this.marker.setMap(this.map);
+
+                // 인포윈도우에 클릭한 위치에 대한 법정동 상세 주소정보를 표시합니다
+
+                
+    });
+
+  },
   created() {
+    /* global kakao */
+    if (!("geolocation" in navigator)) {
+      return;
+    }
+    navigator.geolocation.getCurrentPosition(position => {
+      this.latitude = position.coords.latitude;
+      this.longitude = position.coords.longitude;
+      console.log(1)
+        const script = document.createElement("script");
+        script.onload = () => kakao.maps.load(this.initMap);
+        script.src = "//dapi.kakao.com/v2/maps/sdk.js?appkey=" +
+        process.env.VUE_APP_KAKAO_MAP_API_KEY +
+        "&libraries=services&autoload=false";
+        document.head.appendChild(script);
+    }, err => {
+      console.log(err.message);
+      this.latitude = 37.500786;
+      this.longitude= 127.036886;
+        const script = document.createElement("script");
+        script.onload = () => kakao.maps.load(this.initMap);
+        script.src = "//dapi.kakao.com/v2/maps/sdk.js?appkey=" +
+        process.env.VUE_APP_KAKAO_MAP_API_KEY +
+        "&libraries=services&autoload=false";
+        document.head.appendChild(script);
+        console.log(2)
+    })
     if (this.type === "modify") {
       let param = this.$route.params.id;
       getPlace(
@@ -85,7 +131,6 @@ export default {
       );
       this.isUserid = true;
     }
-    console.log(this.userInfo)
   },
   methods: {
     onSubmit(event) {
@@ -133,6 +178,52 @@ export default {
         }
       );
     },
+    initMap() {
+      var map = new kakao.maps.Map(document.getElementById('map'), {
+        center: new kakao.maps.LatLng(33.450701, 126.570667),
+        level: 3,
+      })
+      this.map = map
+      this.geocoder = new kakao.maps.services.Geocoder();
+      this.map.setMaxLevel(10)
+       var marker = new kakao.maps.Marker({ 
+                // 지도 중심좌표에 마커를 생성합니다 
+                position: map.getCenter() 
+            }); 
+            // 지도에 마커를 표시합니다
+            marker.setMap(this.map);
+
+            kakao.maps.event.addListener(map, 'click', (mouseEvent)=> {
+              marker.setPosition(mouseEvent.latLng);
+              marker.setMap(map);
+
+
+              this.searchDetailAddrFromCoords(mouseEvent.latLng, function(result, status) {
+                if (status === kakao.maps.services.Status.OK) {
+                    let latlng = mouseEvent.latLng
+                    // 마커를 클릭한 위치에 표시합니다
+                    marker.setPosition(latlng);
+                    marker.setMap(map);
+
+                    // 인포윈도우에 클릭한 위치에 대한 법정동 상세 주소정보를 표시합니다
+                    
+                    console.log(latlng)
+                    console.log(result[0].address.address_name)
+                    
+                }
+              });
+          });
+    },  
+        searchAddrFromCoords(coords, callback) {
+            // 좌표로 행정동 주소 정보를 요청합니다
+            this.geocoder.coord2RegionCode(coords.getLng(), coords.getLat(), callback);
+        },
+
+        searchDetailAddrFromCoords(coords, callback) {
+            // 좌표로 법정동 상세 주소 정보를 요청합니다
+            this.geocoder.coord2Address(coords.getLng(), coords.getLat(), callback);
+        },
+
     modifyPlace() {
       let param = {
         id : this.place.id,
@@ -168,4 +259,9 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+#map {
+  width: 100%;
+  height: 300px;
+}
+</style>

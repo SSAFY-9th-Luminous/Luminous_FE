@@ -150,6 +150,7 @@ export default {
             const markerOptions = {
               offset: new kakao.maps.Point(22, 22) // Offset the marker image
             };
+            
             // 마커이미지와 마커를 생성합니다
             var markerImage = this.createMarkerImage(markerImageUrl, markerSize, markerOptions),    
                 marker = this.createMarker(this.myplacePositions[i], markerImage);  
