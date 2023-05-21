@@ -100,12 +100,13 @@ export default {
       param,
       (response) => {
         this.observatorys = response.data.result;
+        console.log(this.observatorys)
         setTimeout(() => {
-          this.observatorySearch();
-          console.log(this.observatoryPositions)
+          // this.observatorySearch();
+          // console.log(this.observatoryPositions)
         }, 500);
         setTimeout(() => {
-          this.createObservatoryMarkers();
+          // this.createObservatoryMarkers();
         }, 500);
         // console.log(this.observatorys)
       },
@@ -167,8 +168,8 @@ export default {
 
     // 천문대 마커를 생성하고 천문대 마커 배열에 추가하는 함수입니다
     createObservatoryMarkers() {
+      console.log(this.observatoryPositions.length)
       console.log(this.observatoryPositions)
-      console.log(JSON.stringify(this.observatoryPositions))
         for (var i = 0; i < this.observatoryPositions.length; i++) {
             console.log(this.observatoryPositions[i])
             const markerImageUrl = require('@/assets/img/marker/observatoryMarker.png');

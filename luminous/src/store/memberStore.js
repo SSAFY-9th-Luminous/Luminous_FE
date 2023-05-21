@@ -53,6 +53,7 @@ const memberStore = {
           commit("SET_IS_VALID_TOKEN", true);
           commit("SET_USER_INFO", response.data.result["member"]);
           sessionStorage.setItem("access-token", accessToken);
+          
         },
         (error) => {
           console.log(error);

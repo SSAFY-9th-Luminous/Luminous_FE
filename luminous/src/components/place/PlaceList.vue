@@ -69,7 +69,6 @@ export default {
     listPlace(
       param,
       ({ data }) => {
-        console.log(data)
         this.places = data.result;
       },
       (error) => {
@@ -79,7 +78,7 @@ export default {
   },
   methods: {
     moveWrite() {
-      this.$router.push({ name: "placewrite" });
+      this.$router.push({ name: "placewrite"});
     },
     viewArticle(place) {
       this.$router.push({

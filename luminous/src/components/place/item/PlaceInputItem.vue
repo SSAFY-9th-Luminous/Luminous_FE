@@ -2,11 +2,11 @@
   <b-row class="mb-1">
     <b-col style="text-align: left">
       <b-form @submit="onSubmit" @reset="onReset">
-        <b-form-group id="memberId-group" label="작성자:" label-for="memberId" description="작성자를 입력하세요.">
-          <b-form-input
+        <b-form-group hidden id="memberId-group" label="작성자:" label-for="memberId" description="작성자를 입력하세요.">
+          <b-form-input 
             id="memberId"
             :disabled="isUserid"
-            v-model="place.member.memberId"
+            v-model=userInfo.memberId
             type="text"
             required
             placeholder="작성자 입력..."
@@ -32,7 +32,6 @@
             max-rows="15"
           ></b-form-textarea>
         </b-form-group>
-
         <b-button type="submit" variant="primary" class="m-1" v-if="this.type === 'register'">글작성</b-button>
         <b-button type="submit" variant="primary" class="m-1" v-else>글수정</b-button>
         <b-button type="reset" variant="danger" class="m-1">초기화</b-button>
@@ -43,7 +42,8 @@
 
 <script>
 import { writePlace, modifyPlace, getPlace } from "@/api/place";
-
+import { mapState } from "vuex";
+const memberStore = "memberStore";
 export default {
   name: "PlaceInputItem",
   data() {
@@ -67,6 +67,9 @@ export default {
   props: {
     type: { type: String },
   },
+  computed: {
+    ...mapState(memberStore, ["userInfo"]),
+  },
   created() {
     if (this.type === "modify") {
       let param = this.$route.params.id;
@@ -74,7 +77,7 @@ export default {
         param,
         ({ data }) => {
           this.place = data.result;
-          console.log(this.place)
+          // console.log(this.place)
         },
         (error) => {
           console.log(error);
@@ -82,6 +85,7 @@ export default {
       );
       this.isUserid = true;
     }
+    console.log(this.userInfo)
   },
   methods: {
     onSubmit(event) {
@@ -102,15 +106,23 @@ export default {
     },
     registplace() {
       let param = {
-        memberId: this.place.memberId,
-        subject: this.place.subject,
-        content: this.place.content,
+        placeName: this.place.placeName,
+        placeDescription: this.place.placeDescription,
+        visitedDate: this.place.visitedDate,
+        img: this.place.img,
+        latitude: this.place.latitude,
+        longitude: this.place.longitude,
+        address: this.place.address,
+        rate:this.place.rate,
+        id : this.userInfo.id
       };
+      console.log(param)
       writePlace(
         param,
         ({ data }) => {
+          console.log(data)
           let msg = "등록 처리시 문제가 발생했습니다.";
-          if (data === "success") {
+          if (data.isSuccess === "success") {
             msg = "등록이 완료되었습니다.";
           }
           alert(msg);
@@ -123,6 +135,7 @@ export default {
     },
     modifyPlace() {
       let param = {
+        id : this.place.id,
         placeName: this.place.placeName,
         placeDescription: this.place.placeDescription,
         visitedDate: this.place.visitedDate,
@@ -132,6 +145,7 @@ export default {
         address: this.place.address,
         rate:this.place.rate,
       };
+      
       modifyPlace(
         param,
         ({ data }) => {
