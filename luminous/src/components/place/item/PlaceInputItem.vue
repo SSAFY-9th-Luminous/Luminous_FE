@@ -11,7 +11,7 @@
             v-model=userInfo.memberId
             type="text"
             required
-            placeholder="작성자 입력..."
+            placeholder="작성자"
           ></b-form-input>
         </b-form-group>
 
@@ -21,15 +21,35 @@
             v-model="place.placeName"
             type="text"
             required
-            placeholder="제목 입력..."
+            placeholder="제목"
           ></b-form-input>
         </b-form-group>
 
+        <b-form-group id="address-group" label="주소:" label-for="address" description="지도를 클릭하면 자동입력돼요.">
+          <b-form-input
+            id="address"
+            v-model="place.address"
+            type="text"
+            required
+            placeholder="주소"
+            readonly
+          ></b-form-input>
+        </b-form-group>
+
+        <b-form-group id="visitedDate-group" label="방문 날짜:" label-for="visitedDate">
+          <b-form-input
+            id="visitedDate"
+            v-model="place.visitedDate"
+            type="date"
+            required
+            placeholder="방문날짜"
+          ></b-form-input>
+        </b-form-group>
         <b-form-group id="placeDescription-group" label="내용:" label-for="placeDescription">
           <b-form-textarea
             id="placeDescription"
             v-model="place.placeDescription"
-            placeholder="내용 입력..."
+            placeholder="내용 입력"
             rows="10"
             max-rows="15"
           ></b-form-textarea>
@@ -167,7 +187,7 @@ export default {
         ({ data }) => {
           console.log(data)
           let msg = "등록 처리시 문제가 발생했습니다.";
-          if (data.isSuccess === "success") {
+          if (data.isSuccess === true) {
             msg = "등록이 완료되었습니다.";
           }
           alert(msg);
@@ -180,7 +200,7 @@ export default {
     },
     initMap() {
       var map = new kakao.maps.Map(document.getElementById('map'), {
-        center: new kakao.maps.LatLng(33.450701, 126.570667),
+        center: new kakao.maps.LatLng(37.50140734, 127.0380327),
         level: 3,
       })
       this.map = map
@@ -198,7 +218,7 @@ export default {
               marker.setMap(map);
 
 
-              this.searchDetailAddrFromCoords(mouseEvent.latLng, function(result, status) {
+              this.searchDetailAddrFromCoords(mouseEvent.latLng, (result, status)=> {
                 if (status === kakao.maps.services.Status.OK) {
                     let latlng = mouseEvent.latLng
                     // 마커를 클릭한 위치에 표시합니다
@@ -209,6 +229,9 @@ export default {
                     
                     console.log(latlng)
                     console.log(result[0].address.address_name)
+                    this.place.address = result[0].address.address_name
+                    this.place.latitude = latlng.getLat()
+                    this.place.longitude = latlng.getLng()
                     
                 }
               });

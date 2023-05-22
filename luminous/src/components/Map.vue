@@ -26,6 +26,7 @@
 <script>
 import { observatoryMap } from "@/api/observatory";
 import { campingMap} from "@/api/camping"
+import { listPlace } from "@/api/place"
 export default {
   name: "KaKaoMap",
   data() {
@@ -98,12 +99,10 @@ export default {
     };
     observatoryMap(
       param,
-      (response) => {
+      async (response) => {
         this.observatorys = response.data.result;
-        this.observatorySearch();
-        // console.log(this.observatoryPositions)
-        this.createObservatoryMarkers();
-        // console.log(this.observatorys)
+        await this.observatorySearch();
+        await this.createObservatoryMarkers();
       },
       (error) => {
         console.log(error);
@@ -111,10 +110,22 @@ export default {
     );
      campingMap(
       param,
-      (response) => {
+      async (response) => {
         this.campings = response.data.result;
-        this.campingSearch();
-        this.createCampingMarkers();
+        await this.campingSearch();
+        await this.createCampingMarkers();
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+    listPlace(
+      param,
+      async (response) => {
+        this.myplaces = response.data.result;
+        await this.myplaceSearch();
+        await this.createMyplaceMarkers();
+        console.log(this.myplaces)
       },
       (error) => {
         console.log(error);
@@ -141,9 +152,9 @@ export default {
         for (var i = 0; i < this.myplacePositions.length; i++) {  
             
             const markerImageUrl = require('@/assets/img/marker/myplace.png');
-            const markerSize = new kakao.maps.Size(44, 44);
+            const markerSize = new kakao.maps.Size(60, 60);
             const markerOptions = {
-              offset: new kakao.maps.Point(22, 22) // Offset the marker image
+              offset: new kakao.maps.Point(30, 60) // Offset the marker image
             };
             
             // 마커이미지와 마커를 생성합니다
@@ -283,45 +294,13 @@ export default {
     //   }
     // },
     
-    // displayObservatoryMarker(markerPositions) {
-    //   if (this.markers.length > 0) {
-    //     this.markers.forEach((marker) => marker.setMap(null));
-    //   }
-    //   const positions = markerPositions.map(
-    //       (position) => new kakao.maps.LatLng(...position)
-    //   );
-    //   const markerImageUrl = require('@/assets/img/marker/observatoryMarker.png');
-    //   const markerSize = new kakao.maps.Size(60, 60);
-    //   const markerOptions = {
-    //     offset: new kakao.maps.Point(30, 60) // Offset the marker image
-    //   };
-  
-    //   const markerImage = new kakao.maps.MarkerImage(markerImageUrl, markerSize, markerOptions);
-    //   if (positions.length > 0) {
-    //     this.markers = positions.map(
-    //         (position) =>
-    //             new kakao.maps.Marker({
-    //               map: this.map,
-    //               position,
-    //               image : markerImage
-    //             })
-    //     );
-        
-    //     const bounds = positions.reduce(
-    //         (bounds, latlng) => bounds.extend(latlng),
-    //         new kakao.maps.LatLngBounds()
-    //     );
-    //     this.map.setMinLevel(3);
-    //     this.map.setBounds(bounds);
-    //   }
-    // },
+ 
     observatorySearch() {
       for (let data of this.observatorys){
           let observatoryPosition = new kakao.maps.LatLng(data.latitude, data.longitude)
           
           this.observatoryPositions.push(observatoryPosition);
       }
-      console.log(this.observatoryPositions)
     },
     
     
@@ -331,7 +310,6 @@ export default {
           
           this.campingPositions.push(campingPosition);
       }
-      console.log(this.campingPositions)
     },
     myplaceSearch() {
       for (let data of this.myplaces){
