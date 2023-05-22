@@ -25,7 +25,8 @@
           ></b-form-input>
         </b-form-group>
 
-        <b-form-group id="address-group" label="주소:" label-for="address" description="지도를 클릭하면 자동입력돼요.">
+        <b-form-group id="address-group" label="주소:" label-for="address" description="주소를 검색하거나 위치를 지도에 클릭해주세요.">
+        <div class = "mb-1"><b-button  @click="execDaumPostcode()" >주소 검색</b-button><br></div>
           <b-form-input
             id="address"
             v-model="place.address"
@@ -35,9 +36,7 @@
             readonly
           ></b-form-input>
         </b-form-group>
-        <!-- <b-form-group id="address-group" label="주소:" label-for="address" description="지도를 클릭하면 자동입력돼요.">
-        <b-form-input type="button" @click=sample5_execDaumPostcode() v-model="place.address" style="width:20%"></b-form-input>
-        </b-form-group> -->
+        
         <b-form-group id="visitedDate-group" label="방문 날짜:" label-for="visitedDate">
           <b-form-input
             id="visitedDate"
@@ -92,6 +91,9 @@ export default {
       geocoder:null,
       latitude:0,
       longitude:0,
+      postcode: "",
+      address: "",
+      extraAddress: "",
     };
   },
   props: {
@@ -222,6 +224,7 @@ export default {
                 position: map.getCenter(),
                 image: markerImage
       }); 
+      this.marker = marker
       // 지도에 마커를 표시합니다
       marker.setMap(this.map);
 
@@ -290,9 +293,27 @@ export default {
     moveList() {
       this.$router.push({ name: "placelist" });
     },
-    
-
+    execDaumPostcode() {
+      new window.daum.Postcode({
+        oncomplete: (data) => {
+          this.place.address = data.address
+          this.geocoder.addressSearch(data.address, (results)=>{
+              var result = results[0]
+              var coords = new kakao.maps.LatLng(result.y, result.x);
+              // 지도 중심을 변경한다.
+              this.map.setCenter(coords);
+              // 마커를 결과값으로 받은 위치로 옮긴다.
+              console.log(this.marker)
+              this.marker.setPosition(coords)
+              
+              
+          })
+        },
+      }).open();
+    },
   },
+
+
 };
 </script>
 

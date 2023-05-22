@@ -79,13 +79,16 @@ export default {
         document.head.appendChild(script);
       }
     }, err => {
+      //현재 좌표를 못 불러오는 상황일때
       console.log(err.message);
       this.latitude = 37.500786;
       this.longitude= 127.036886;
       if (window.kakao && window.kakao.maps) {
+        //다른 페이지를 갔다가 다시 돌아왔을때
         this.initMap();
       } 
       else {
+        //맵페이지를 새로고침했을때
         const script = document.createElement("script");
         script.onload = () => kakao.maps.load(this.initMap);
         script.src = "//dapi.kakao.com/v2/maps/sdk.js?appkey=" +
@@ -148,7 +151,7 @@ export default {
       })
       this.displayMarkerMyCur(new kakao.maps.LatLng(this.latitude, this.longitude));
       this.geocoder = new kakao.maps.services.Geocoder();
-      this.map.setMaxLevel(10)
+      this.map.setMaxLevel(12)
       
     },
     displayMarkerMyCur(locPosition) {
