@@ -65,11 +65,12 @@ export default {
     navigator.geolocation.getCurrentPosition(position => {
       this.latitude = position.coords.latitude;
       this.longitude = position.coords.longitude;
-
       if (window.kakao && window.kakao.maps) {
+        //다른 페이지를 갔다가 다시 돌아왔을 때
         this.initMap();
       } 
       else {
+        //맵페이지를 새로고침했을때
         const script = document.createElement("script");
         script.onload = () => kakao.maps.load(this.initMap);
         script.src = "//dapi.kakao.com/v2/maps/sdk.js?appkey=" +
@@ -100,44 +101,74 @@ export default {
       category: null,
       keyword: null,
     };
-    observatoryMap(
-      param,
-       (response) => {
-        this.observatorys = response.data.result;
-         this.observatorySearch();
-         this.createObservatoryMarkers();
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
-     campingMap(
-       param,
-       (response) => {
-        this.campings = response.data.result;
-         this.campingSearch();
-         this.createCampingMarkers();
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
-    listPlace(
-      param,
-       (response) => {
-        this.myplaces = response.data.result;
-         this.myplaceSearch();
-         this.createMyplaceMarkers();
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
+    setTimeout(() => {
+      observatoryMap(
+        param,
+        (response) => {
+          this.observatorys = response.data.result;
+            this.observatorySearch(); 
+            this.createObservatoryMarkers();
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+      campingMap(
+        param,
+        (response) => {
+          this.campings = response.data.result;
+            this.campingSearch();
+            this.createCampingMarkers();
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+      listPlace(
+        param,
+        (response) => {
+          this.myplaces = response.data.result;
+            this.myplaceSearch();
+            this.createMyplaceMarkers();
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    }, 500);
     
 
 
   },
   methods: {
+    initMap() {
+      this.map = new kakao.maps.Map(document.getElementById('map'), {
+        center: new kakao.maps.LatLng(33.450701, 126.570667),
+        level: 3,
+      })
+      this.displayMarkerMyCur(new kakao.maps.LatLng(this.latitude, this.longitude));
+      this.geocoder = new kakao.maps.services.Geocoder();
+      this.map.setMaxLevel(10)
+      
+    },
+    displayMarkerMyCur(locPosition) {
+      
+      const markerImageUrl = require('@/assets/img/marker/mycur.png');
+      const markerSize = new kakao.maps.Size(40, 40);
+      const markerOptions = {
+        offset: new kakao.maps.Point(20, 20) // Offset the marker image
+      };
+      const markerImage = new kakao.maps.MarkerImage(markerImageUrl, markerSize, markerOptions);
+      
+      this.marker = new kakao.maps.Marker({
+        map: this.map,
+        position: locPosition,
+        image : markerImage
+      })
+      
+      this.map.setMinLevel(3);
+      this.map.setCenter(locPosition)
+    },
     createMarkerImage(src, size, options) {
       var markerImage = new kakao.maps.MarkerImage(src, size, options);
       return markerImage;            
@@ -222,47 +253,6 @@ export default {
         for (var i = 0; i < this.campingMarkers.length; i++) {
           this.campingMarkers[i].setMap(map);
         }        
-    },
-    initMap() {
-      this.map = new kakao.maps.Map(document.getElementById('map'), {
-        center: new kakao.maps.LatLng(33.450701, 126.570667),
-        level: 3,
-      })
-      this.displayMarkerMyCur([[this.latitude, this.longitude]]);
-      this.geocoder = new kakao.maps.services.Geocoder();
-      this.map.setMaxLevel(10)
-      
-    },
-    displayMarkerMyCur(markerPositions) {
-      if (this.markers.length > 0) {
-        this.markers.forEach((marker) => marker.setMap(null));
-      }
-      const positions = markerPositions.map(
-          (position) => new kakao.maps.LatLng(...position)
-      );
-      const markerImageUrl = require('@/assets/img/marker/mycur.png');
-      const markerSize = new kakao.maps.Size(40, 40);
-      const markerOptions = {
-        offset: new kakao.maps.Point(20, 20) // Offset the marker image
-      };
-      const markerImage = new kakao.maps.MarkerImage(markerImageUrl, markerSize, markerOptions);
-      if (positions.length > 0) {
-        this.markers = positions.map(
-            (position) =>
-                new kakao.maps.Marker({
-                  map: this.map,
-                  position,
-                  image : markerImage
-                })
-        );
-        
-        const bounds = positions.reduce(
-            (bounds, latlng) => bounds.extend(latlng),
-            new kakao.maps.LatLngBounds()
-        );
-        this.map.setMinLevel(3);
-        this.map.setBounds(bounds);
-      }
     },
 
  
