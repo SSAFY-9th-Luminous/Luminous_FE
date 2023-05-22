@@ -100,14 +100,9 @@ export default {
       param,
       (response) => {
         this.observatorys = response.data.result;
-        console.log(this.observatorys)
-        setTimeout(() => {
-          // this.observatorySearch();
-          // console.log(this.observatoryPositions)
-        }, 500);
-        setTimeout(() => {
-          // this.createObservatoryMarkers();
-        }, 500);
+        this.observatorySearch();
+        // console.log(this.observatoryPositions)
+        this.createObservatoryMarkers();
         // console.log(this.observatorys)
       },
       (error) => {
@@ -169,10 +164,7 @@ export default {
 
     // 천문대 마커를 생성하고 천문대 마커 배열에 추가하는 함수입니다
     createObservatoryMarkers() {
-      console.log(this.observatoryPositions.length)
-      console.log(this.observatoryPositions)
         for (var i = 0; i < this.observatoryPositions.length; i++) {
-            console.log(this.observatoryPositions[i])
             const markerImageUrl = require('@/assets/img/marker/observatoryMarker.png');
             const markerSize = new kakao.maps.Size(60, 60);
             const markerOptions = {
@@ -189,7 +181,6 @@ export default {
 
     // 천문대 마커들의 지도 표시 여부를 설정하는 함수입니다
     setObservatoryMarkers(map) {        
-      console.log(this.observatoryMarkers)
         for (var i = 0; i < this.observatoryMarkers.length; i++) {  
             this.observatoryMarkers[i].setMap(map);
         }        
@@ -325,21 +316,12 @@ export default {
     //   }
     // },
     observatorySearch() {
-      let geocoder = new kakao.maps.services.Geocoder();
-      let observatoryPositions =[];
-      console.log(this.observatorys)
-      let list = this.observatorys;
-      list.forEach(function(addr){
-        let item = addr.address
-        geocoder.addressSearch(item, function(result, status){
-          if(status === kakao.maps.services.Status.OK){
-            let coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-            observatoryPositions.push(coords);
-          }
-        });
-      });         
-        this.observatoryPositions = observatoryPositions;
-        return;
+      for (let data of this.observatorys){
+          let observatoryPosition = new kakao.maps.LatLng(data.latitude, data.longitude)
+          
+          this.observatoryPositions.push(observatoryPosition);
+      }
+      console.log(this.observatoryPositions)
     },
     
     
