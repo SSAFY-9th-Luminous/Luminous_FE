@@ -85,7 +85,6 @@ export default {
   },
   created() {
     this.temp()
-
   },
   methods: {
     ...mapActions(memberStore, ["userModify"]),

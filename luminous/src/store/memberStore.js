@@ -40,8 +40,8 @@ const memberStore = {
     },
   },
   actions: {
-    setSIGN_ERROR({ commit }) {
-      commit("SET_SIGNIN_ERROR", "");
+    setSIGN_ERROR({ commit }, status) {
+      commit("SET_SIGNIN_ERROR", status);
     },
     async userConfirm({ commit }, member) {
       await login(
