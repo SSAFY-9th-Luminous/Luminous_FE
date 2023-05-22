@@ -12,7 +12,7 @@
                     </div>
                     <div class="back">
                         <div class="content">
-                            First Back
+                            {{ constellation12List[(j-1)*3+i -1].contentsDescription }}
                         </div>
                     </div>
                 </div>
