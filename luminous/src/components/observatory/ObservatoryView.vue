@@ -7,7 +7,7 @@
     </b-row>
     <b-row class="mb-1">
       <b-col class="text-left">
-        <b-button variant="outline-primary" @click="moveList">목록</b-button>
+        <b-button variant="outline-primary" @click="moveList1">목록</b-button>
       </b-col>
     </b-row>
     <b-row class="mb-1">
@@ -20,7 +20,7 @@
           no-body
         >
           <b-card-body class="text-left">
-            <div>{{place.placeDescription}}</div>
+            <div>{{observatory.placeDescription}}</div>
           </b-card-body>
         </b-card>
       </b-col>
@@ -39,7 +39,10 @@ export default {
   name: "ObservatoryView",
   data() {
     return {
-      observatory,
+      observatory: {
+      },
+
+      
     };
   },
   computed: {
@@ -64,8 +67,8 @@ export default {
     );
   },
   methods: {
-    moveList() {
-      this.$router.push({ name: "observatorylist" });
+    moveList1() {
+      this.$router.push({ name: "observatory" });
     },
   },
 };

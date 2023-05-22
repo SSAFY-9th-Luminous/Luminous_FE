@@ -55,10 +55,17 @@ const routes = [
     children: [
       {
       path: "list",
-      name: "observatorlist",
+      name: "observatorylist",
 
-      component: () => import( "@/components/observatory/ObservatoryList"),
-      }
+      component: () => import(/* webpackChunkName: "observatory" */  "@/components/observatory/ObservatoryList"),
+      },
+      {
+        path: "view/:id",
+        name: "observatoryView",
+  
+        component: () => import(/* webpackChunkName: "observatory" */  "@/components/observatory/ObservatoryView"),
+        }
+
     ]
   },
   {

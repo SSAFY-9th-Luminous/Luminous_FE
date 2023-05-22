@@ -19,14 +19,13 @@
                 @keyup.enter="confirm"
               ></b-form-input></b-col>
         <b-col class="text-right">
-        <b-button variant="outline-primary" @click="moveWrite()">글쓰기</b-button>
       </b-col>
     </b-row>
     <b-row>
       <b-col>
-        <b-table striped hover :items="places" :fields="fields" @row-clicked="viewArticle">
+        <b-table striped hover :items="observatories" :fields="fields" @row-clicked="viewArticle">
           <template #cell(subject)="data">
-            <router-link :to="{ name: 'placeview', params: { id: data.item.id  } }">
+            <router-link :to="{ name: 'observatoryView', params: { id: data.item.id  } }">
               {{ data.item.placeName }}
             </router-link>
           </template>
@@ -69,6 +68,7 @@ export default {
       param,
       ({ data }) => {
         this.observatories = data.result;
+        console.log(this.observatories)
       },
       (error) => {
         console.log(error);
@@ -76,12 +76,9 @@ export default {
     );
   },
   methods: {
-    moveWrite() {
-      this.$router.push({ name: "placewrite"});
-    },
     viewArticle(place) {
       this.$router.push({
-        name: "placeview",
+        name: "observatoryView",
         params: { id: place.id },
       });
     },
