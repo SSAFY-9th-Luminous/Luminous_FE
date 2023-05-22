@@ -48,97 +48,95 @@ methods: {},
 
 <style scoped>
 body {
-display: flex;
-justify-content: center;
-align-items: center;
-min-height: 100vh;
-
-
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
 }
 
 .flip-boxes {
-justify-content: center;
+  justify-content: center;
 
 }
 
 .flip-box {
-display: flex;
-align-content: stretch;
-min-height: 340px;
-
-min-width: 280px;
-flex-wrap: wrap;
-position: relative;
-border: 35px solid transparent;
-padding: 0;
-border-top: 400;
--webkit-perspective: 1000;
-perspective: 1000;
+  display: flex;
+  align-content: stretch;
+  min-height: 340px;
+  min-width: 280px;
+  flex-wrap: wrap;
+  position: relative;
+  border: 35px solid transparent;
+  padding: 0;
+  border-top: 400;
+  -webkit-perspective: 1000;
+  perspective: 1000;
 }
 .flip-box:hover .back {
-transform: rotateY(0deg);
-z-index: 10;
+  transform: rotateY(0deg);
+  z-index: 10;
 }
 .flip-box:hover .front {
-transform: rotateY(180deg);
-z-index: -1;
-}
+  transform: rotateY(180deg);
+  z-index: -1;
+  }
 .flip-box .back,
 .flip-box .front {
-position: relative;
-background-color: #1b2d61;
-color: white;
-display: flex;
-justify-content: center;
-align-content: center;
-flex: 0 0 100%;
--webkit-transition: all 1s cubic-bezier(0.5, 1, 0.5, 1);
-transition: all 1s cubic-bezier(0.5, 1.3, 0.5, 1.3);
-transform-style: preserve-3d;
-background-size: cover;
-border-radius: 10px;
-background-position: center;
+  position: relative;
+  background-color: #1b2d61;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  flex: 0 0 100%;
+  -webkit-transition: all 1s cubic-bezier(0.5, 1, 0.5, 1);
+  transition: all 1s cubic-bezier(0.5, 1.3, 0.5, 1.3);
+  transform-style: preserve-3d;
+  background-size: cover;
+  border-radius: 10px;
+  background-position: center;
 }
 .flip-box .back {
-background-color: #2c3246;
-position: absolute;
-left: 0;
-top: 0;
-bottom: 0;
-width: 100%;
-z-index: -1;
-transform: rotateY(-180deg);
+  background-color: #2c3246;
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  z-index: -1;
+  transform: rotateY(-180deg);
 }
 .flip-box .back:after {
-content: "";
-position: absolute;
-bottom: 0;
-left: 0;
-width: 30px;
-height: 30px;
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 30px;
+  height: 30px;
 }
 .flip-box .front {
-z-index: 10;
+  z-index: 10;
 }
 .flip-box .front .content {
-font-size: 2rem;
+  font-size: 2rem;  
 }
-.flip-box .front:after {
-content: "";
-position: absolute;
-bottom: 0;
-right: 0;
-width: 30px;
-height: 30px;
 
+.flip-box .front:after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 30px;
+  height: 30px;
 }
+
 .flip-box .content {
-display: flex;
-justify-content: center;
-align-items: center;
-flex-direction: column;
--webkit-transform: translateZ(50px);
-transform: translateZ(50px);
-text-shadow: 0px 0px 2px black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  -webkit-transform: translateZ(50px);
+  transform: translateZ(50px);
+  text-shadow: 0px 0px 2px black;
 }
 </style>

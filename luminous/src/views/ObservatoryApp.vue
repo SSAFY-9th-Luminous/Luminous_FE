@@ -25,6 +25,5 @@ export default {
   );
 }
 .container{
-  width: 75%
 }
 </style>

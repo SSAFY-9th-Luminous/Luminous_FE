@@ -32,8 +32,8 @@
                 @keyup.enter="confirm"
               ></b-form-input>
             </b-form-group>
-            <b-button type="button" variant="primary" class="m-1" @click="confirm">로그인</b-button>
-            <b-button type="button" variant="success" class="m-1" @click="movePage">회원가입</b-button>
+            <b-button type="button" variant="primary" class="m-1" id="button1" @click="confirm">로그인</b-button>
+            <b-button type="button" variant="success" class="m-1" id="button2" @click="movePage">회원가입</b-button>
           </b-form>
         </b-card>
       </b-col>
@@ -86,6 +86,39 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+#button{
+  outline: 2px solid black;
+  outline-offset: 0px;
+}
+#button1:hover{
+  outline:2px solid black;
+  background-color:red;
+}
+.card {
+  padding : 10px 0px;
+  position: relative;
+  border-radius: 11px;
+}
+.card::after {
+  position: absolute;
+  content: "";
+  background: linear-gradient(135deg,#9d71bb, #5a70b2, #9d71bb,#5a70b2,#9d71bb);
+  background-size: 200% 200%;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  z-index: -1;
+  filter: blur(20px);
+  animation: neon 0.6s linear infinite;
+}
+@keyframes neon {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 100% 100%;
+  }
+}
 
 </style>
