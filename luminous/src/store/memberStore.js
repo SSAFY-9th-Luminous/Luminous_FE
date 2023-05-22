@@ -102,6 +102,18 @@ const memberStore = {
         }
       });
     },
+    async userModify({ commit }, member) {
+      await register(member, (response) => {
+        console.log(response);
+        if (response.data.isSuccess === true) {
+          alert("회원가입 완료");
+        } else {
+          console.log(1);
+          console.log(commit);
+        }
+      });
+    },
+
     userLogout({ commit }) {
       function logout() {
         commit("SET_IS_LOGIN", false);

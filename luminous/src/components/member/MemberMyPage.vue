@@ -70,6 +70,9 @@ export default {
   
   methods: {
     ...mapActions(memberStore, ["userWithdraw"]),
+    modifyInfo(){
+      this.$router.push({name:"memberModify"});
+    },
     withdraw() {
       let token = sessionStorage.getItem("access-token");
       if(confirm("회원 탈퇴하시겠습니까?"))
