@@ -80,8 +80,8 @@ export default {
         placeDescription: "",
         visitedDate: null,
         img: null,
-        latitude: null,
-        longitude: null,
+        latitude: 37.50140734,
+        longitude: 127.0380327,
         address: null,
         rate: 0.0,
         hit: 0,
@@ -98,58 +98,56 @@ export default {
   computed: {
     ...mapState(memberStore, ["userInfo"]),
   },
-  mounted() {
-    kakao.maps.event.addListener(this.map, 'click', function(mouseEvent) {
-                // 마커를 클릭한 위치에 표시합니다
-                this.marker.setPosition(mouseEvent.latLng);
-                this.marker.setMap(this.map);
-
-                // 인포윈도우에 클릭한 위치에 대한 법정동 상세 주소정보를 표시합니다
-
-                
-    });
-
-  },
   created() {
+    
+  
+  
     /* global kakao */
     if (!("geolocation" in navigator)) {
       return;
     }
-    navigator.geolocation.getCurrentPosition(position => {
-      this.latitude = position.coords.latitude;
-      this.longitude = position.coords.longitude;
-      console.log(1)
-        const script = document.createElement("script");
-        script.onload = () => kakao.maps.load(this.initMap);
-        script.src = "//dapi.kakao.com/v2/maps/sdk.js?appkey=" +
-        process.env.VUE_APP_KAKAO_MAP_API_KEY +
-        "&libraries=services&autoload=false";
-        document.head.appendChild(script);
-    }, err => {
-      console.log(err.message);
-      this.latitude = 37.500786;
-      this.longitude= 127.036886;
-        const script = document.createElement("script");
-        script.onload = () => kakao.maps.load(this.initMap);
-        script.src = "//dapi.kakao.com/v2/maps/sdk.js?appkey=" +
-        process.env.VUE_APP_KAKAO_MAP_API_KEY +
-        "&libraries=services&autoload=false";
-        document.head.appendChild(script);
-        console.log(2)
-    })
     if (this.type === "modify") {
       let param = this.$route.params.id;
       getPlace(
         param,
         ({ data }) => {
           this.place = data.result;
-          // console.log(this.place)
+          console.log(this.place)
+          const script = document.createElement("script");
+          script.onload = () => kakao.maps.load(this.initMap);
+          script.src = "//dapi.kakao.com/v2/maps/sdk.js?appkey=" +
+          process.env.VUE_APP_KAKAO_MAP_API_KEY +
+          "&libraries=services&autoload=false";
+          document.head.appendChild(script);
         },
         (error) => {
           console.log(error);
         }
       );
       this.isUserid = true;
+    }else{
+      navigator.geolocation.getCurrentPosition(position => {
+        this.latitude = position.coords.latitude;
+        this.longitude = position.coords.longitude;
+        console.log(1)
+          const script = document.createElement("script");
+          script.onload = () => kakao.maps.load(this.initMap);
+          script.src = "//dapi.kakao.com/v2/maps/sdk.js?appkey=" +
+          process.env.VUE_APP_KAKAO_MAP_API_KEY +
+          "&libraries=services&autoload=false";
+          document.head.appendChild(script);
+      }, err => {
+        console.log(err.message);
+        this.latitude = 37.500786;
+        this.longitude= 127.036886;
+          const script = document.createElement("script");
+          script.onload = () => kakao.maps.load(this.initMap);
+          script.src = "//dapi.kakao.com/v2/maps/sdk.js?appkey=" +
+          process.env.VUE_APP_KAKAO_MAP_API_KEY +
+          "&libraries=services&autoload=false";
+          document.head.appendChild(script);
+          console.log(2)
+      })
     }
   },
   methods: {
@@ -199,13 +197,15 @@ export default {
       );
     },
     initMap() {
+      
       var map = new kakao.maps.Map(document.getElementById('map'), {
-        center: new kakao.maps.LatLng(37.50140734, 127.0380327),
+        center: new kakao.maps.LatLng( this.place.latitude, this.place.longitude),
         level: 3,
       })
+      console.log(this.place.latitude, this.place.longitude)
       this.map = map
       this.geocoder = new kakao.maps.services.Geocoder();
-      this.map.setMaxLevel(10)
+      this.map.setMaxLevel()
        var marker = new kakao.maps.Marker({ 
                 // 지도 중심좌표에 마커를 생성합니다 
                 position: map.getCenter() 

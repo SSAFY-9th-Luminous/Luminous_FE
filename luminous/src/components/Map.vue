@@ -125,7 +125,6 @@ export default {
         this.myplaces = response.data.result;
         await this.myplaceSearch();
         await this.createMyplaceMarkers();
-        console.log(this.myplaces)
       },
       (error) => {
         console.log(error);
@@ -262,38 +261,7 @@ export default {
         this.map.setBounds(bounds);
       }
     },
-    // displayMarkerMyPlace(markerPositions) {
-    //   if (this.markers.length > 0) {
-    //     this.markers.forEach((marker) => marker.setMap(null));
-    //   }
-    //   const positions = markerPositions.map(
-    //       (position) => new kakao.maps.LatLng(...position)
-    //   );
-    //   const markerImageUrl = require('@/assets/img/marker/myplace.png');
-    //   const markerSize = new kakao.maps.Size(44, 44);
-    //   const markerOptions = {
-    //     offset: new kakao.maps.Point(22, 22) // Offset the marker image
-    //   };
-    //   const markerImage = new kakao.maps.MarkerImage(markerImageUrl, markerSize, markerOptions);
-    //   if (positions.length > 0) {
-    //     this.markers = positions.map(
-    //         (position) =>
-    //             new kakao.maps.Marker({
-    //               map: this.map,
-    //               position,
-    //               image : markerImage
-    //             })
-    //     );
-        
-    //     const bounds = positions.reduce(
-    //         (bounds, latlng) => bounds.extend(latlng),
-    //         new kakao.maps.LatLngBounds()
-    //     );
-    //     this.map.setMinLevel(3);
-    //     this.map.setBounds(bounds);
-    //   }
-    // },
-    
+
  
     observatorySearch() {
       for (let data of this.observatorys){

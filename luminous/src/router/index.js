@@ -91,7 +91,7 @@ const routes = [
         component: () => import(/* webpackChunkName: "place" */ "@/components/place/PlaceView"),
       },
       {
-        path: "modify",
+        path: "modify/:id",
         name: "placemodify",
         beforeEnter: onlyAuthUser,
         component: () => import(/* webpackChunkName: "place" */ "@/components/place/PlaceModify"),
