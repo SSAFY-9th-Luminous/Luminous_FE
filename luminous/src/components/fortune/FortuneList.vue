@@ -100,7 +100,7 @@ border-radius: 10px;
 background-position: center;
 }
 .flip-box .back {
-background-color: #cecece;
+background-color: #2c3246;
 position: absolute;
 left: 0;
 top: 0;
