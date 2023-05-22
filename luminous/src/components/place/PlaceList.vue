@@ -110,7 +110,7 @@ export default {
   text-align: center;
 }
 .tdSubject {
-  width: 300px;
+  width: 200px;
   text-align: left;
 }
 </style>

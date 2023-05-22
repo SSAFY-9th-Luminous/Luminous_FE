@@ -24,4 +24,7 @@ export default {
     rgba(56, 233, 40, 0.3) 30%
   );
 }
+.container{
+  width: 75%
+}
 </style>
