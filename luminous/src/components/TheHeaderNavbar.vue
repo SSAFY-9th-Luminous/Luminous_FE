@@ -19,7 +19,7 @@
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav class="ml-auto">
           <b-nav-item href="#" style="display:inline-block">
-            <router-link :to="{ name: 'constellation' }" class="link newcolor">
+            <router-link :to="{ name: 'fortune' }" class="link newcolor">
               <b-icon icon="star" animation="fade" ></b-icon>
               별자리
             </router-link>

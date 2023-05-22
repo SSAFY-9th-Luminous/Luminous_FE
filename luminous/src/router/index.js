@@ -34,6 +34,20 @@ const routes = [
     component: MainApp,
   },
   {
+    path: "/fortune",
+    name: "fortune",
+    component: ConstellationApp,
+
+    redirect: "/fortune/list",
+    children: [
+      {
+        path: "list",
+        name: "fortunelist",
+        component: () => import("@/components/fortune/FortuneList"),
+      },
+    ],
+  },
+  {
     path: "/constellation",
     name: "constellation",
     component: ConstellationApp,
