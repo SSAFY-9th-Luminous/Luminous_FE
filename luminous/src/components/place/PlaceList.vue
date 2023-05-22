@@ -6,10 +6,6 @@
       </b-col>
     </b-row>
     <b-row class="mb-1">
-      <b-col></b-col>
-        <b-col></b-col>
-        <b-col></b-col>
-        <b-col></b-col>
         <b-col>
         <b-form-select v-model="category" :options="options"></b-form-select></b-col>
         <b-col><b-form-input
@@ -18,6 +14,9 @@
                 placeholder="검색 내용"
                 @keyup.enter="confirm"
               ></b-form-input></b-col>
+        <b-col></b-col>
+        <b-col></b-col>
+        <b-col></b-col>
         <b-col class="text-right">
         <b-button variant="outline-primary" @click="moveWrite()">글쓰기</b-button>
       </b-col>
@@ -56,7 +55,7 @@ export default {
           { value: null, text: '옵션' },
           { value: 'place', text: '제목' },
           { value: 'user', text: '작성자' },
-          { value: 'desc', text: '설명' },
+          { value: 'desc', text: '내용' },
         ],
       keyword : "",
     };
@@ -87,7 +86,19 @@ export default {
       });
     },
     confirm(){
-      
+      let param = {
+      category: this.category,
+      keyword: this.keyword,
+    };
+    listPlace(
+      param,
+      ({ data }) => {
+        this.places = data.result;
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
     },
   },
 };

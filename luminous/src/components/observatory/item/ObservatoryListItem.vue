@@ -2,7 +2,7 @@
   <b-tr>
     <b-td>{{ id }}</b-td>
     <b-th class="text-left">
-      <router-link :to="{ name: 'placeview', params: { id: id } }">{{ subject }}</router-link>
+      <router-link :to="{ name: 'observatoryView', params: { id: id } }">{{ subject }}</router-link>
     </b-th>
     <b-td>{{ hit }}</b-td>
     <b-td>{{ userid }}</b-td>
@@ -14,7 +14,7 @@
 import moment from "moment";
 
 export default {
-  name: "PlaceListItem",
+  name: "ObservatoryListItem",
   props: {
     id: Number,
     userid: Object,
