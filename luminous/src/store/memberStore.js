@@ -40,6 +40,9 @@ const memberStore = {
     },
   },
   actions: {
+    resetLOGIN_ERROR({ commit }) {
+      commit("SET_IS_LOGIN_ERROR", false);
+    },
     setSIGN_ERROR({ commit }, status) {
       commit("SET_SIGNIN_ERROR", status);
     },

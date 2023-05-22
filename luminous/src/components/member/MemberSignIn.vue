@@ -54,7 +54,7 @@
               class="input-error">
               영문,숫자,특수문자를 조합하여 입력해주세요.(8~16자)
             </p>
-            <b-form-group label-for="memberName">
+            <b-form-group label-for="memberName" label = "이름:">
               <b-form-input
                 id="memberName"
                 v-model="member.memberName"
@@ -64,7 +64,7 @@
               ></b-form-input>
             </b-form-group>
            
-            <b-form-group label-for="birth">
+            <b-form-group label-for="birth" label= "생일:">
               <b-form-input
                 type = "date"
                 id="birth"
@@ -179,12 +179,6 @@ export default {
     font-size: 11px;
     color: blue;
 }
-  .title-danger {
-    color: $color-error;
-  }
-  .input-danger {
-    border-bottom: 1px solid $color-error !important;
-  }
 </style>
 
 

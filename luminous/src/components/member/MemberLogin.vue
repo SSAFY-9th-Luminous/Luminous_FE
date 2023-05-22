@@ -58,14 +58,19 @@ export default {
       },
     };
   },
-  
+  created() {
+    this.reset();
+  },
 
   computed: {
     ...mapState(memberStore, ["isLogin", "isLoginError", "userInfo"]),
   },
 
   methods: {
-    ...mapActions(memberStore, ["userConfirm", "getUserInfo"]),
+    ...mapActions(memberStore, ["userConfirm", "getUserInfo", "resetLOGIN_ERROR"]),
+    reset(){
+      this.resetLOGIN_ERROR();
+    },
     async confirm() {
       await this.userConfirm(this.member).catch();
       let token = sessionStorage.getItem("access-token");
