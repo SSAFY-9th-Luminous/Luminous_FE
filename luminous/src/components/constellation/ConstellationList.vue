@@ -5,7 +5,7 @@
                     <div class="front"
                       :style="{'background-image':' url('+require('@/assets/img/star.png')+')'}">
                         <div class="content text-center">
-                            First<br>
+                            {{constellation12List[(j-1)*3+i -1 ].contentsName}}<br>
                             <span class="click-for-more">
                             </span>
                         </div>
@@ -22,15 +22,26 @@
 </template>
 
 <script>
+import { listConstellation12 } from "@/api/constellation12";
 export default {
     name: 'ConstellationList',
     components: {},
     data() {
         return {
-            message: '안녕하세요',
+          constellation12List :[],
         };
     },
-    created() { },
+    created() { 
+      listConstellation12(
+        ({data})=>{
+          this.constellation12List = data.result;
+          console.log(this.constellation12List)
+        },
+        (error)=>{
+          console.log(error);
+        }
+      );
+    },
     methods: {},
 };
 </script>
