@@ -93,27 +93,30 @@ export default {
         document.head.appendChild(script);
       }
     })
+  },
+  mounted() {
+    
     let param = {
       category: null,
       keyword: null,
     };
     observatoryMap(
       param,
-      async (response) => {
+       (response) => {
         this.observatorys = response.data.result;
-        await this.observatorySearch();
-        await this.createObservatoryMarkers();
+         this.observatorySearch();
+         this.createObservatoryMarkers();
       },
       (error) => {
         console.log(error);
       }
     );
      campingMap(
-      param,
-      async (response) => {
+       param,
+       (response) => {
         this.campings = response.data.result;
-        await this.campingSearch();
-        await this.createCampingMarkers();
+         this.campingSearch();
+         this.createCampingMarkers();
       },
       (error) => {
         console.log(error);
@@ -121,10 +124,10 @@ export default {
     );
     listPlace(
       param,
-      async (response) => {
+       (response) => {
         this.myplaces = response.data.result;
-        await this.myplaceSearch();
-        await this.createMyplaceMarkers();
+         this.myplaceSearch();
+         this.createMyplaceMarkers();
       },
       (error) => {
         console.log(error);
