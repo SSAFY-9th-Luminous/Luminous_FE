@@ -300,6 +300,8 @@ export default {
           this.geocoder.addressSearch(data.address, (results)=>{
               var result = results[0]
               var coords = new kakao.maps.LatLng(result.y, result.x);
+              this.place.latitude = result.y
+              this.place.longitude = result.x
               // 지도 중심을 변경한다.
               this.map.setCenter(coords);
               // 마커를 결과값으로 받은 위치로 옮긴다.
