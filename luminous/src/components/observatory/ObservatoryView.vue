@@ -86,9 +86,8 @@ export default {
       this.$router.push({ name: "observatorylist" });
     },
     initMap() {
-      
       var map = new kakao.maps.Map(document.getElementById('map'), {
-        center: new kakao.maps.LatLng( this.observatory.latitude, this.observatory.longitude),
+        center: new kakao.maps.LatLng(this.observatory.latitude, this.observatory.longitude),
         level: 3,
       })
       this.map = map

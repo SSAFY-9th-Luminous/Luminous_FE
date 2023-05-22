@@ -336,8 +336,8 @@ export default {
 }
 #mapwrap{position:relative;overflow:hidden;}
 .category, .category *{margin:0;padding:0;color:#000;border-radius: 10px}   
-.category {position:absolute;overflow:hidden;top:10px;left:10px;height:50px;z-index:10;border:1px solid black;font-family:'Malgun Gothic','맑은 고딕',sans-serif;font-size:12px;text-align:center;background-color:#fff;}
-.category .menu_selected {border-radius: 0px;background:#FF5F4A;color:#fff;border-left:1px solid #915B2F;border-right:1px solid #915B2F;} 
+.category {position:absolute;overflow:hidden;top:10px;left:10px;height:50px;z-index:10;border:1px solid black;font-family:'Malgun Gothic','맑은 고딕',sans-serif;font-size:12px;text-align:center;background-color:#b7c3ebd8;}
+.category .menu_selected {border-radius: 0px;background:#5c94d3;color:#fff;border-left:1px solid #915B2F;border-right:1px solid #915B2F;} 
 .category li{list-style:none;float:left;width:50px;height:50px;padding-top:5px;cursor:pointer;} 
 .category .ico_comm {display:block;margin:0 auto 2px;width:22px;height:26px;} 
 .category .ico_myplace {background-size : cover; background-image : url('~@/assets/img/marker/myplace.png'); background-repeat: no-repeat; background-position:  center center;}  

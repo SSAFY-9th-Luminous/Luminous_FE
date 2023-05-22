@@ -57,6 +57,7 @@ const memberStore = {
         },
         (error) => {
           console.log(error);
+          commit("SET_IS_LOGIN_ERROR", true);
         }
       );
     },
