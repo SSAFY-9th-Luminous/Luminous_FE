@@ -35,7 +35,9 @@
             readonly
           ></b-form-input>
         </b-form-group>
-
+        <!-- <b-form-group id="address-group" label="주소:" label-for="address" description="지도를 클릭하면 자동입력돼요.">
+        <b-form-input type="button" @click=sample5_execDaumPostcode() v-model="place.address" style="width:20%"></b-form-input>
+        </b-form-group> -->
         <b-form-group id="visitedDate-group" label="방문 날짜:" label-for="visitedDate">
           <b-form-input
             id="visitedDate"
@@ -202,40 +204,50 @@ export default {
         center: new kakao.maps.LatLng( this.place.latitude, this.place.longitude),
         level: 3,
       })
-      console.log(this.place.latitude, this.place.longitude)
       this.map = map
       this.geocoder = new kakao.maps.services.Geocoder();
-      this.map.setMaxLevel()
-       var marker = new kakao.maps.Marker({ 
+      this.map.setMaxLevel(15)
+      
+      //마커이미지 설정
+      const markerImageUrl = require('@/assets/img/marker/myplace.png');
+      const markerSize = new kakao.maps.Size(60, 60);
+      const markerOptions = {
+        offset: new kakao.maps.Point(30, 60) // Offset the marker image
+      };
+            
+      // 마커이미지와 마커를 생성합니다
+      var markerImage = new kakao.maps.MarkerImage(markerImageUrl, markerSize, markerOptions)
+      var marker = new kakao.maps.Marker({ 
                 // 지도 중심좌표에 마커를 생성합니다 
-                position: map.getCenter() 
-            }); 
-            // 지도에 마커를 표시합니다
-            marker.setMap(this.map);
+                position: map.getCenter(),
+                image: markerImage
+      }); 
+      // 지도에 마커를 표시합니다
+      marker.setMap(this.map);
 
-            kakao.maps.event.addListener(map, 'click', (mouseEvent)=> {
-              marker.setPosition(mouseEvent.latLng);
-              marker.setMap(map);
+      kakao.maps.event.addListener(map, 'click', (mouseEvent)=> {
+          marker.setPosition(mouseEvent.latLng);
+          marker.setMap(map);
 
 
-              this.searchDetailAddrFromCoords(mouseEvent.latLng, (result, status)=> {
-                if (status === kakao.maps.services.Status.OK) {
-                    let latlng = mouseEvent.latLng
-                    // 마커를 클릭한 위치에 표시합니다
-                    marker.setPosition(latlng);
-                    marker.setMap(map);
+          this.searchDetailAddrFromCoords(mouseEvent.latLng, (result, status)=> {
+            if (status === kakao.maps.services.Status.OK) {
+                let latlng = mouseEvent.latLng
+                // 마커를 클릭한 위치에 표시합니다
+                marker.setPosition(latlng);
+                marker.setMap(map);
 
-                    // 인포윈도우에 클릭한 위치에 대한 법정동 상세 주소정보를 표시합니다
-                    
-                    console.log(latlng)
-                    console.log(result[0].address.address_name)
-                    this.place.address = result[0].address.address_name
-                    this.place.latitude = latlng.getLat()
-                    this.place.longitude = latlng.getLng()
-                    
-                }
-              });
+                // 인포윈도우에 클릭한 위치에 대한 법정동 상세 주소정보를 표시합니다
+                
+                console.log(latlng)
+                console.log(result[0].address.address_name)
+                this.place.address = result[0].address.address_name
+                this.place.latitude = latlng.getLat()
+                this.place.longitude = latlng.getLng()
+                
+            }
           });
+      });
     },  
         searchAddrFromCoords(coords, callback) {
             // 좌표로 행정동 주소 정보를 요청합니다
@@ -278,6 +290,8 @@ export default {
     moveList() {
       this.$router.push({ name: "placelist" });
     },
+    
+
   },
 };
 </script>
