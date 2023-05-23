@@ -1,13 +1,25 @@
 <template>
   <b-container class="bv-example-row mt-3">
-    
+
+    <div id="br" class="mb-5"></div>
+
+    <!-- title -->
     <b-row>
       <b-col>
-        <h3 class="text-left">{{camping.campingName}}</h3>
+        <h3 v-if="camping.campingName" class="text-left mb-3">{{camping.campingName}}</h3>
+        <h3 v-else class="text-left mb-3">캠핑장</h3>
+      </b-col>
+    </b-row>
+
+    <!-- intro -->
+    <b-row>
+      <b-col>
+        <p v-if="camping.lineIntro" class="text-left">{{camping.lineIntro}}</p>
+        <p v-else class="text-left">맑은 공기 속에서 밤하늘의 별을 보며 잠들 수 있는 캠핑장</p>
       </b-col>
     </b-row>
     
-    <div class="mt-5 md-5">
+    <div class=" md-5">
       <vueper-slides id="slider">
         <vueper-slide
           v-for="(image, i) in images"
@@ -17,21 +29,77 @@
       </vueper-slides>
     </div>
 
-    <b-row class="mt-5 mb-1">
-      <b-col>
-        <b-card
-          :header-html="`<h3>${camping.id}.
-          ${camping.campingName}</h3><div><h6>${camping.id}</div><div>${camping.doName}</h6></div><div>${camping.address}</h6></div>`"
-          class="mb-2"
-          border-variant="dark"
-          no-body
-        >
-          <b-card-body class="text-left">
-            <div>{{camping.homePage}}</div>
-          </b-card-body>
-        </b-card>
-      </b-col>
-    </b-row>
+    <div id="content-main-container">
+      <div class="content-area">
+        <div class="content-title-area col-lg-2">
+          <h5 class="text-left">기본 정보</h5>
+        </div>
+        <div class="content-left-area col-lg-9">
+
+          <div class="content-detail">
+            <div class="content-sub-title"><h6>위치</h6></div>
+            <div v-if="camping.address" class="content col-lg-10">{{camping.address}}</div>
+            <div v-else class="content col-lg-10"> - </div>
+          </div>
+
+          <div class="content-detail">
+            <div class="content-sub-title"><h6>홈페이지</h6></div>
+            <div v-if="camping.homePage" calss="content col-lg-10">{{camping.homePage}}</div>
+            <div v-else class="content col-lg-10"> - </div>
+          </div>
+
+          <div class="content-detail">
+            <div class="content-sub-title"><h6>전화번호</h6></div>
+            <div v-if="camping.tel" class="content col-lg-10">{{camping.tel}}</div>
+            <div v-else class="content col-lg-10"> - </div>
+          </div>
+          
+          <div class="content-detail">
+            <div class="content-sub-title"><h6>상세 설명</h6></div>
+            <div v-if="camping.intro" class="content col-lg-10">{{camping.intro}}</div>
+            <div v-else class="content col-lg-10"> - </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="border"></div>
+
+      <div class="content-area">
+        <div class="content-title-area col-lg-2">
+          <h5 class="text-left">캠핑장 옵션</h5>
+        </div>
+        <div class="content-left-area col-lg-9">
+
+          <div class="content-detail">
+            <div class="content-sub-title"><h6>글램핑 정보</h6></div>
+            <div v-if="camping.glamping" class="content col-lg-10">{{camping.glamping}}</div>
+            <div v-else class="content col-lg-10"> - </div>
+          </div>
+
+          <div class="content-detail">
+            <div class="content-sub-title"><h6>카라반 정보</h6></div>
+            <div v-if="camping.caravan" calss="content col-lg-10">{{camping.caravan}}</div>
+            <div v-else class="content col-lg-10"> - </div>
+          </div>
+
+
+
+        </div>
+      </div>
+    </div>
+
+
+    <div class="border"></div>
+
+    <div class="content-area">
+      <div class="content-title-area col-lg-2">
+        <h5 class="text-left">지도</h5>
+      </div>
+      <div class="content-title-area col-lg-9">
+      </div>
+    </div>
 
     <div class="md-5 pd-5">
       <div id = "map"></div>
@@ -139,11 +207,60 @@ export default {
 </script>
 
 <style>
+#content-main-container {
+  margin-top: 50px;
+  margin-bottom: 50px;
+  display: felx;
+  flex-direction: column;
+}
 
+.content-area {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.content-left-area {
+  display: flex;
+  flex-direction: column;
+}
+
+.content-detail {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.tel {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 10px;
+}
+
+.content-sub-title {
+  display: flex;
+  flex-direction: row;
+}
+
+.border {
+  height: 1px;
+  width: 100%;
+  background-color: rgb(29, 29, 29);
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+#br {
+  height: 1px;
+  width: 100%;
+  background-color: rgb(197, 135, 20);
+}
 
 #map {
   width: 100%;
   height: 300px;
+  margin-bottom: 50px;
 }
 
 #slider {

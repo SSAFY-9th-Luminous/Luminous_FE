@@ -1,7 +1,6 @@
 <template>
   <b-container class="bv-example-row mt-3">
-    <b-row>
-    </b-row>
+    
     <b-row class="mb-1">
         <b-col>
         <b-form-select v-model="category" :options="options" @change="changeDetected"></b-form-select></b-col>
