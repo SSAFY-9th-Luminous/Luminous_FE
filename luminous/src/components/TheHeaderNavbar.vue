@@ -21,12 +21,16 @@
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav class="ml-auto">
           <b-nav-item href="#" style="display:inline-block">
-            <router-link :to="{ name: 'fortunelist' }" class="link newcolor">
+            <router-link :to="{ name: 'constellationlist' }" class="link newcolor">
               <b-icon icon="star" animation="fade" ></b-icon>
               별자리
             </router-link>
-            <router-link :to="{ name: 'observatorylist' }" class="m-2 link newcolor">
+            <router-link :to="{ name: 'fortunelist' }" class="m-2 link newcolor">
               <b-icon icon="moon" animation="fade" ></b-icon>
+              오늘의 운세
+            </router-link>
+            <router-link :to="{ name: 'observatorylist' }" class="m-2 link newcolor">
+              <b-icon icon="stars" animation="fade" ></b-icon>
               천문대
             </router-link>
             <router-link :to="{ name: 'map' }" class="m-2 link newcolor">

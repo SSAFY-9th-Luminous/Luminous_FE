@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 import ObservatoryApp from "@/views/ObservatoryApp";
 import PlaceApp from "@/views/PlaceApp";
 import ConstellationApp from "@/views/ConstellationApp";
+import FortuneApp from "@/views/FortuneApp";
 import MainApp from "@/views/MainApp";
 import store from "@/store";
 import Map from "@/components/Map";
@@ -21,7 +22,9 @@ const onlyAuthUser = async (to, from, next) => {
   }
   if (!checkToken || checkUserInfo === null) {
     alert("로그인이 필요한 페이지입니다..");
-    router.push({ name: "login" });
+    if (from.path !== '/member/login') {
+      next({ name: "login" });
+    }
   } else {
     next();
   }
@@ -36,14 +39,15 @@ const routes = [
   {
     path: "/fortune",
     name: "fortune",
-    component: ConstellationApp,
+    component: FortuneApp,
 
     redirect: "/fortune/list",
+    beforeEnter: onlyAuthUser,
     children: [
       {
         path: "list",
         name: "fortunelist",
-        component: () => import("@/components/fortune/FortuneList"),
+        component: () => import(/* webpackChunkName: "fotune" */"@/components/fortune/FortuneList"),
       },
     ],
   },
@@ -57,7 +61,7 @@ const routes = [
       {
         path: "list",
         name: "constellationlist",
-        component: () => import("@/components/constellation/ConstellationList"),
+        component: () => import(/* webpackChunkName: "constellation" */"@/components/constellation/ConstellationList"),
       },
     ],
   },
@@ -68,19 +72,35 @@ const routes = [
     redirect: "/observatory/list",
     children: [
       {
-      path: "list",
-      name: "observatorylist",
+        path: "list",
+        name: "observatorylist",
 
-      component: () => import(/* webpackChunkName: "observatory" */  "@/components/observatory/ObservatoryList"),
+        component: () =>
+          import(/* webpackChunkName: "observatory" */ "@/components/observatory/ObservatoryList"),
       },
       {
         path: "view/:id",
         name: "observatoryView",
-  
-        component: () => import(/* webpackChunkName: "observatory" */  "@/components/observatory/ObservatoryView"),
-        }
 
-    ]
+        component: () =>
+          import(/* webpackChunkName: "observatory" */ "@/components/observatory/ObservatoryView"),
+      },
+    ],
+  },
+  {
+    path: "/camping",
+    name: "camping",
+    component: ObservatoryApp,
+    redirect: "/camping/list",
+    children: [
+      {
+        path: "list",
+        name: "campinglist",
+
+        component: () =>
+          import(/* webpackChunkName: "camping" */ "@/components/camping/CampingList"),
+      },
+    ],
   },
   {
     path: "/map",
