@@ -151,13 +151,13 @@ body {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  -webkit-transform: translateZ(50px);
-  transform: translateZ(50px);
+  -webkit-transform: translateZ(40px);
+  transform: translateZ(40px);
   text-shadow: 0px 0px 2px black;
 }
 .flip-box .title{
   position: absolute;
-  top : 0;
+  top : 8px;
 }
 
 .neon_back {
