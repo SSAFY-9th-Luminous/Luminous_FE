@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 import ObservatoryApp from "@/views/ObservatoryApp";
 import PlaceApp from "@/views/PlaceApp";
 import ConstellationApp from "@/views/ConstellationApp";
+import FortuneApp from "@/views/FortuneApp";
 import MainApp from "@/views/MainApp";
 import store from "@/store";
 import Map from "@/components/Map";
@@ -38,7 +39,7 @@ const routes = [
   {
     path: "/fortune",
     name: "fortune",
-    component: ConstellationApp,
+    component: FortuneApp,
 
     redirect: "/fortune/list",
     beforeEnter: onlyAuthUser,
@@ -46,7 +47,7 @@ const routes = [
       {
         path: "list",
         name: "fortunelist",
-        component: () => import("@/components/fortune/FortuneList"),
+        component: () => import(/* webpackChunkName: "fotune" */"@/components/fortune/FortuneList"),
       },
     ],
   },
@@ -60,7 +61,7 @@ const routes = [
       {
         path: "list",
         name: "constellationlist",
-        component: () => import("@/components/constellation/ConstellationList"),
+        component: () => import(/* webpackChunkName: "constellation" */"@/components/constellation/ConstellationList"),
       },
     ],
   },
