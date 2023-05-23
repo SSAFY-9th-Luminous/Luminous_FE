@@ -21,7 +21,9 @@ const onlyAuthUser = async (to, from, next) => {
   }
   if (!checkToken || checkUserInfo === null) {
     alert("로그인이 필요한 페이지입니다..");
-    router.push({ name: "login" });
+    if (from.path !== '/member/login') {
+      next({ name: "login" });
+    }
   } else {
     next();
   }
@@ -39,6 +41,7 @@ const routes = [
     component: ConstellationApp,
 
     redirect: "/fortune/list",
+    beforeEnter: onlyAuthUser,
     children: [
       {
         path: "list",
