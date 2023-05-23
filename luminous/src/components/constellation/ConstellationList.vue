@@ -1,5 +1,13 @@
 <template>
         <div class="container">
+          <carousel-3d>
+            <slide :index="0">
+            </slide>
+            <slide :index="1">
+            </slide>
+            <slide :index="2">
+            </slide>
+          </carousel-3d>
             <div v-for="j in 4" :key="j" class="row flip-boxes">
                 <div v-for="i in 3" :key="i" class="col-md-3 col-sm-4 col-8 flip-box">
                     <div class="front"
@@ -23,9 +31,13 @@
 
 <script>
 import { listConstellation12 } from "@/api/constellation12";
+import {Carousel3d, Slide} from 'vue-carousel-3d';
 export default {
     name: 'ConstellationList',
-    components: {},
+    components: {
+      Carousel3d,
+      Slide
+    },
     data() {
         return {
           constellation12List :[],
