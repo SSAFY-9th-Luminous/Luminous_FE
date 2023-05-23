@@ -90,7 +90,7 @@ body {
   align-content: center;
   flex: 0 0 100%;
   -webkit-transition: all 1s cubic-bezier(0.5, 1, 0.5, 1);
-  transition: all 1s cubic-bezier(0.5, 1.3, 0.5, 1.3);
+  transition: all 1s cubic-bezier(0.5, 1.1, 0.5, 1.1);
   transform-style: preserve-3d;
   background-size: cover;
   border-radius: 10px;
