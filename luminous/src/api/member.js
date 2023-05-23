@@ -19,7 +19,7 @@ async function register(member, success, fail) {
 }
 
 async function modify(member, success, fail) {
-  await api.post(`/member`, JSON.stringify(member)).then(success).catch(fail);
+  await api.put(`/member`, JSON.stringify(member)).then(success).catch(fail);
 }
 
 async function withdraw(id, success, fail){

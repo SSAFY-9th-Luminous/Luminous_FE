@@ -2,6 +2,16 @@
   <div>
     <div id="mapwrap"> 
       <div id="map"></div>
+    <b-button id= "sidebarbutton" v-b-toggle.sidebar-1>=</b-button>
+    <b-sidebar id="sidebar-1" title="Sidebar" shadow>
+      <div class="px-3 py-2">
+        <p>
+          Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis
+          in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
+        </p>
+        <b-img src="https://picsum.photos/500/500/?image=54" fluid thumbnail></b-img>
+      </div>
+    </b-sidebar>
       <div class="category">
         <ul>
             <li id="myplaceMenu" @click="changeMarker('myplace')">
@@ -334,10 +344,15 @@ export default {
   width: 100%;
   height: 700px;
 }
+#sidebarbutton{position:absolute; z-index: 1;top:10px;left:10px;height:50px;z-index:5; height:35px }
+
 #mapwrap{position:relative;overflow:hidden;}
+#sidebar-1{
+  height:500px
+}
 .category, .category *{margin:0;padding:0;color:#000;border-radius: 10px}   
-.category {position:absolute;overflow:hidden;top:10px;left:10px;height:50px;z-index:10;border:1px solid black;font-family:'Malgun Gothic','맑은 고딕',sans-serif;font-size:12px;text-align:center;background-color:#b7c3ebd8;}
-.category .menu_selected {border-radius: 0px;background:#5c94d3;color:#fff;border-left:1px solid #915B2F;border-right:1px solid #915B2F;} 
+.category {position:absolute;overflow:hidden;top:15px;right:15px;height:50px;z-index:20;border:1px solid black;font-family:'Malgun Gothic','맑은 고딕',sans-serif;font-size:12px;text-align:center;background-color:#b7c3ebd8;}
+.category .menu_selected {border-radius: 0px;background:#5c94d3;color:#fff;border-left:1px solid #2f3691;border-right:1px solid #2f3691;} 
 .category li{list-style:none;float:left;width:50px;height:50px;padding-top:5px;cursor:pointer;} 
 .category .ico_comm {display:block;margin:0 auto 2px;width:22px;height:26px;} 
 .category .ico_myplace {background-size : cover; background-image : url('~@/assets/img/marker/myplace.png'); background-repeat: no-repeat; background-position:  center center;}  

@@ -14,8 +14,9 @@
           <b-form class="text-left">
             <div class="row">
               <div class="col-sm-8">
+                <b-form-input id = "id" v-model = userInfo.id readonly></b-form-input>
                 <b-form-group label-for="memberId" label="아이디:">
-                  <b-form-input id = "memberId" v-model = userInfo.memberId disabled></b-form-input>
+                  <b-form-input id = "memberId" v-model = userInfo.memberId readonly></b-form-input>
                 </b-form-group>
               </div>
             </div>
@@ -38,7 +39,6 @@
                 @keyup.enter="confirm"
               ></b-form-input>
             </b-form-group>
-           
             <b-form-group label-for="birth" label="생일:">
               <b-form-input
                 type = "date"
@@ -50,7 +50,6 @@
               ></b-form-input>
             </b-form-group>
             
-      
             <b-button type="button" variant="primary" class="m-1" @click="modify">수정</b-button>
             <b-button type="button" variant="danger" class="m-1" @click="movePage">취소</b-button>
           </b-form>
@@ -71,12 +70,8 @@ export default {
   name: "MemberModify",
   data() {
     return {
-      member: {
-        memberId: null,
-        memberPassword: null,
-        memberName:null,
-        birth : null,
-      },
+        
+      
     };
   },
   
@@ -91,7 +86,7 @@ export default {
     
     async modify(){
       if(!this.signInError){
-        await this.userModify(this.member);
+        await this.userModify(this.userInfo);
         this.$router.push({name:"main"})
       }
     },

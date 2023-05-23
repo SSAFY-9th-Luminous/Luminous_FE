@@ -1,5 +1,5 @@
 import jwtDecode from "jwt-decode";
-import { login, findById, register, checkId, withdraw} from "@/api/member";
+import { login, findById, register, checkId, withdraw, modify} from "@/api/member";
 
 const memberStore = {
   namespaced: true,
@@ -101,19 +101,17 @@ const memberStore = {
         if (response.data.isSuccess === true) {
           alert("회원가입 완료");
         } else {
-          console.log(1);
-          console.log(commit);
+          commit;
         }
       });
     },
     async userModify({ commit }, member) {
-      await register(member, (response) => {
+      await modify(member, (response) => {
         console.log(response);
         if (response.data.isSuccess === true) {
-          alert("회원가입 완료");
+          alert("회원정보 수정 완료");
         } else {
-          console.log(1);
-          console.log(commit);
+          commit;
         }
       });
     },
