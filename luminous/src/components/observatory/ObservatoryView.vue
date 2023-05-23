@@ -15,7 +15,7 @@
       <b-col>
         <b-card
           :header-html="`<h3>${observatory.id}.
-          ${observatory.observatoryName}</h3><div><h6>${observatory.id}</div><div>${observatory.siDoName}</h6></div><div>${observatory.address}</h6></div>`"
+          ${observatory.observatoryName}</h3><div><h6>${observatory.id}</div><div>${observatory.address.split(' ')[0]}</h6></div><div>${observatory.address}</h6></div>`"
           class="mb-2"
           border-variant="dark"
           no-body
@@ -41,6 +41,7 @@ export default {
   data() {
     return {
       observatory:{
+        address: ""
 
       },
       map:null,
@@ -65,8 +66,7 @@ export default {
       param,
       ({ data }) => {
         this.observatory = data.result;
-        console.log(this.observatory)
-        console.log(1)
+        
         const script = document.createElement("script");
         script.onload = () => kakao.maps.load(this.initMap);
         script.src = "//dapi.kakao.com/v2/maps/sdk.js?appkey=" +

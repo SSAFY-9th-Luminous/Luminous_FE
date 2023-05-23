@@ -1,46 +1,67 @@
 <template>
   <b-container class="bv-example-row mt-3">
+    
     <b-row>
       <b-col>
-        <b-alert show><h3>글보기</h3></b-alert>
+        <h3 class="text-left">{{camping.campingName}}</h3>
       </b-col>
     </b-row>
-    <b-row class="mb-1">
-      <b-col class="text-left">
-        <b-button variant="outline-primary" @click="moveList">목록</b-button>
-      </b-col>
-    </b-row>
-    <div id = "map"></div>
-    <b-row class="mb-1">
+    
+    <div class="mt-5 md-5">
+      <vueper-slides id="slider">
+        <vueper-slide
+          v-for="(image, i) in images"
+          :key="i"
+          :image="image.imageUri">
+        </vueper-slide>
+      </vueper-slides>
+    </div>
+
+    <b-row class="mt-5 mb-1">
       <b-col>
         <b-card
-          :header-html="`<h3>${observatory.id}.
-          ${observatory.observatoryName}</h3><div><h6>${observatory.id}</div><div>${observatory.siDoName}</h6></div><div>${observatory.address}</h6></div>`"
+          :header-html="`<h3>${camping.id}.
+          ${camping.campingName}</h3><div><h6>${camping.id}</div><div>${camping.doName}</h6></div><div>${camping.address}</h6></div>`"
           class="mb-2"
           border-variant="dark"
           no-body
         >
           <b-card-body class="text-left">
-            <div>{{observatory.homePage}}</div>
+            <div>{{camping.homePage}}</div>
           </b-card-body>
         </b-card>
       </b-col>
     </b-row>
+
+    <div class="md-5 pd-5">
+      <div id = "map"></div>
+    </div>
+
+    
+
+
   </b-container>
 </template>
 
 <script>
 // import moment from "moment";
-import { getObservatory } from "@/api/observatory";
+import { getCamping } from "@/api/camping";
 import { mapState } from "vuex";
+import { VueperSlides, VueperSlide } from 'vueperslides'
+import 'vueperslides/dist/vueperslides.css'
 
 const memberStore = "memberStore";
 
 export default {
-  name: "ObservatoryView",
+  name: "CampingView",
   data() {
     return {
-      observatory:{
+      slides: [
+      ],
+      camping:{
+
+      },
+      images: {
 
       },
       map:null,
@@ -51,6 +72,8 @@ export default {
       longitude:0,
     };
   },
+  components: { VueperSlides, VueperSlide },
+
   computed: {
     ...mapState(memberStore, ["userInfo"]),
   },
@@ -61,12 +84,12 @@ export default {
     }
     
     let param = this.$route.params.id;
-    getObservatory(
+    getCamping(
       param,
       ({ data }) => {
-        this.observatory = data.result;
-        console.log(this.observatory)
-        console.log(1)
+        this.camping = data.result.camping;
+        this.images = data.result.campingImageList;
+        console.log(this.images)
         const script = document.createElement("script");
         script.onload = () => kakao.maps.load(this.initMap);
         script.src = "//dapi.kakao.com/v2/maps/sdk.js?appkey=" +
@@ -83,11 +106,11 @@ export default {
   },
   methods: {
     moveList() {
-      this.$router.push({ name: "observatorylist" });
+      this.$router.push({ name: "campinglist" });
     },
     initMap() {
       var map = new kakao.maps.Map(document.getElementById('map'), {
-        center: new kakao.maps.LatLng(this.observatory.latitude, this.observatory.longitude),
+        center: new kakao.maps.LatLng(this.camping.latitude, this.camping.longitude),
         level: 3,
       })
       this.map = map
@@ -95,7 +118,7 @@ export default {
       this.map.setMaxLevel(15)
       
       //마커이미지 설정
-      const markerImageUrl = require('@/assets/img/marker/observatoryMarker.png');
+      const markerImageUrl = require('@/assets/img/marker/campingMarker.png');
       const markerSize = new kakao.maps.Size(60, 60);
       const markerOptions = {
         offset: new kakao.maps.Point(30, 60) // Offset the marker image
@@ -115,7 +138,16 @@ export default {
 };
 </script>
 
-<style>#map {
+<style>
+
+
+#map {
   width: 100%;
   height: 300px;
-}</style>
+}
+
+#slider {
+  
+}
+
+</style>

@@ -96,6 +96,13 @@ const routes = [
         component: () =>
           import(/* webpackChunkName: "camping" */ "@/components/camping/CampingList"),
       },
+      {
+        path: "view/:id",
+        name: "campingView",
+
+        component: () =>
+          import(/* webpackChunkName: "camping" */ "@/components/camping/CampingView"),
+      },
     ],
   },
   {

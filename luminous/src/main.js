@@ -4,7 +4,7 @@ import router from "./router";
 import store from "./store";
 import "@/api/fontAwesome.js"; // fontAwesomeIcon.js 불러옴
 import "@/api/vueBootstrap.js";
-import vueCookies from "vue-cookies"
+import vueCookies from "vue-cookies";
 
 Vue.config.productionTip = false;
 

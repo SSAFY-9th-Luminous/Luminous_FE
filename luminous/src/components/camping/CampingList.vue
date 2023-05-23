@@ -16,7 +16,7 @@
       <b-col>
         <b-table striped hover :items="campings" :fields="fields" @row-clicked="viewArticle">
           <template #cell(subject)="data">
-            <router-link :to="{ name: 'observatoryView', params: { id: data.item.id  } }">
+            <router-link :to="{ name: 'campingView', params: { id: data.item.id  } }">
               {{ data.item.campingName }}
             </router-link>
           </template>
@@ -78,7 +78,7 @@ export default {
   methods: {
     viewArticle(place) {
       this.$router.push({
-        name: "observatoryView",
+        name: "campingView",
         params: { id: place.id },
       });
     },

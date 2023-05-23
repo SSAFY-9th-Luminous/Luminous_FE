@@ -1,27 +1,40 @@
 <template>
-  <b-container class="bv-example-row mt-3 text-center">
-    <div class="float-right">
-      <router-link :to="{ name: 'observatory' }" class="m-2 link newcolor btn btn-primary" @click.native="cheangeTilteToObservatory">
-        <b-icon icon="moon"></b-icon>천문대
-      </router-link>
+  <div>
 
-      <router-link :to="{ name: 'camping' }" class="m-2 link newcolor btn btn-primary" @click.native="cheangeTilteToCamping">
-        <b-icon icon="tree"></b-icon>캠핑장
-      </router-link>
+      <div id="category-container" class="mb-3">
+        <b-container id="sub-container">
+        <div id="sub-menu" class="float-left">
+          <router-link :to="{ name: 'observatory' }" id="link" class="m-2 text-secondary" @click.native="cheangeTilteToObservatory">
+            <b-icon icon="moon"></b-icon>천문대
+          </router-link>
 
-    </div>
-    <h3 class="underline-green">
-      <div class="title" v-if="this.title == 'observatory'">
-        <b-icon icon='moon'></b-icon> 천문대
+          <router-link :to="{ name: 'camping' }" id="link" class="m-2 text-secondary" @click.native="cheangeTilteToCamping">
+            <b-icon icon="tree"></b-icon>캠핑장
+          </router-link>
+        </div>
+        </b-container>
       </div>
-      <div class="title" v-else-if="this.title == 'camping'">
-        <b-icon icon='tree'></b-icon> 캠핑장
-      </div>
-    </h3>
 
-    <router-view></router-view>
-    
-  </b-container>
+    <b-container class="bv-example-row text-center">
+
+      <div id="main-container">
+        <h3 class="underline">
+          <div class="title" v-if="this.title == 'observatory'">
+            <b-icon icon='moon'></b-icon> 천문대
+          </div>
+          <div class="title" v-else-if="this.title == 'camping'">
+            <b-icon icon='tree'></b-icon> 캠핑장
+          </div>
+        </h3>
+
+        
+        
+      </div>
+
+      <router-view></router-view>
+
+    </b-container>
+  </div>
 </template>
 
 <script>
@@ -44,13 +57,37 @@ export default {
 </script>
 
 <style scoped>
-.underline-green {
+#link {
+  display: flex;
+  align-content: flex-end;
+  flex-wrap: wrap;
+}
+
+#sub-container {
+  height: 50px;
+  display: flex;
+  justify-content: left;
+}
+
+#sub-menu {
+  display: flex;
+  justify-content: center;
+}
+
+#category-container {
+  height: 50px;
+  width: 100%;  
+  background-color: #ccc;
+}
+
+#main-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.underline{
   display: inline-block;
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0) 70%,
-    rgba(56, 233, 40, 0.3) 30%
-  );
+  background: rgba(255, 255, 255, 0);
 }
 .container{
 }

@@ -10,4 +10,8 @@ async function listCamping(param, success, fail) {
   await api.get("/camping", { params: param }).then(success).catch(fail);
 }
 
-export { campingMap, listCamping };
+async function getCamping(id, success, fail) {
+  await api.get(`/camping/${id}`).then(success).catch(fail);
+}
+
+export { campingMap, listCamping, getCamping };
