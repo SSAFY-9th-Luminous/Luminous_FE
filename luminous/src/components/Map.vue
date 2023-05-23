@@ -168,13 +168,25 @@ export default {
       }
     },
     initMap() {
-      this.map = new kakao.maps.Map(document.getElementById('map'), {
+      var map = new kakao.maps.Map(document.getElementById('map'), {
         center: new kakao.maps.LatLng(33.450701, 126.570667),
         level: 3,
       })
+      this.map = map;
       this.displayMarkerMyCur(new kakao.maps.LatLng(this.latitude, this.longitude));
       this.geocoder = new kakao.maps.services.Geocoder();
       this.map.setMaxLevel(12)
+      var iwContent = '<div style="padding:5px;">현재 위치입니다!</div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+      iwRemoveable = true; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
+
+      // 인포윈도우를 생성합니다
+      var infowindow = new kakao.maps.InfoWindow({
+          content : iwContent,
+          removable : iwRemoveable
+      });
+      kakao.maps.event.addListener(this.marker, 'click', ()=> {
+        infowindow.open(map, this.marker);  
+      });
       
     },
     displayMarkerMyCur(locPosition) {
@@ -189,7 +201,8 @@ export default {
       this.marker = new kakao.maps.Marker({
         map: this.map,
         position: locPosition,
-        image : markerImage
+        image : markerImage,
+          clickable: true
       })
       
       this.map.setMinLevel(3);
@@ -202,7 +215,8 @@ export default {
     createMarker(position, image) {
       var marker = new kakao.maps.Marker({
           position: position,
-          image: image
+          image: image,
+          clickable: true
       });
       
       return marker;  
@@ -217,9 +231,14 @@ export default {
             };
             
             // 마커이미지와 마커를 생성합니다
-            var markerImage = this.createMarkerImage(markerImageUrl, markerSize, markerOptions),    
-                marker = this.createMarker(this.myplacePositions[i], markerImage);  
-            
+            var markerImage = this.createMarkerImage(markerImageUrl, markerSize, markerOptions);
+            var marker = this.createMarker(this.myplacePositions[i].latlng, markerImage);  
+            var infowindow = new kakao.maps.InfoWindow({
+                content: this.myplacePositions[i].content // 인포윈도우에 표시할 내용
+            });
+
+            kakao.maps.event.addListener(marker, 'mouseover', this.makeOverListener(this.map, marker, infowindow));
+            kakao.maps.event.addListener(marker, 'mouseout', this.makeOutListener(infowindow));
             // 생성된 마커를 마이플레이스 마커 배열에 추가합니다
             this.myplaceMarkers.push(marker);
         }     
@@ -242,9 +261,15 @@ export default {
             };
             // 마커이미지와 마커를 생성합니다
             var markerImage = this.createMarkerImage(markerImageUrl, markerSize, markerOptions);
-            var marker = this.createMarker(this.observatoryPositions[i], markerImage);  
+            var marker = this.createMarker(this.observatoryPositions[i].latlng, markerImage);  
 
             // 생성된 마커를 천문대 마커 배열에 추가합니다
+            var infowindow = new kakao.maps.InfoWindow({
+                content: this.observatoryPositions[i].content // 인포윈도우에 표시할 내용
+            });
+
+            kakao.maps.event.addListener(marker, 'mouseover', this.makeOverListener(this.map, marker, infowindow));
+            kakao.maps.event.addListener(marker, 'mouseout', this.makeOutListener(infowindow));
             this.observatoryMarkers.push(marker);    
         }        
     },
@@ -267,8 +292,13 @@ export default {
             };
             // 마커이미지와 마커를 생성합니다
             var markerImage = this.createMarkerImage(markerImageUrl, markerSize, markerOptions);
-            var marker = this.createMarker(this.campingPositions[i], markerImage);  
+            var marker = this.createMarker(this.campingPositions[i].latlng, markerImage);  
+            var infowindow = new kakao.maps.InfoWindow({
+                content: this.campingPositions[i].content // 인포윈도우에 표시할 내용
+            });
 
+            kakao.maps.event.addListener(marker, 'mouseover', this.makeOverListener(this.map, marker, infowindow));
+            kakao.maps.event.addListener(marker, 'mouseout', this.makeOutListener(infowindow));
             // 생성된 마커를 캠핑장 마커 배열에 추가합니다
             this.campingMarkers.push(marker);    
         }              
@@ -286,7 +316,10 @@ export default {
       for (let data of this.observatorys){
           let observatoryPosition = new kakao.maps.LatLng(data.latitude, data.longitude)
           
-          this.observatoryPositions.push(observatoryPosition);
+          this.observatoryPositions.push({
+            content:'<div>천문대</div>',
+            latlng: observatoryPosition
+          });
       }
     },
     
@@ -295,14 +328,20 @@ export default {
       for (let data of this.campings){
           let campingPosition = new kakao.maps.LatLng(data.latitude, data.longitude)
           
-          this.campingPositions.push(campingPosition);
+          this.campingPositions.push({
+            content:'<div>캠핑</div>',
+            latlng: campingPosition
+          });
       }
     },
     myplaceSearch() {
       for (let data of this.myplaces){
           let myplacePosition = new kakao.maps.LatLng(data.latitude, data.longitude)
 
-          this.myplacePositions.push(myplacePosition);
+          this.myplacePositions.push({
+            content:'<div>카카오</div>',
+            latlng: myplacePosition
+          });
       }
     },
     changeMarker(type){
@@ -342,11 +381,23 @@ export default {
             }else{
               campingMenu.className = 'menu_selected';
               this.setCampingMarkers(this.map);  
+              
             }
             
             // 캠핑장 마커들만 지도에 표시하도록 설정합니다
         }    
-    } 
+    }, 
+    makeOverListener(map, marker, infowindow) {
+      return function() {
+        infowindow.open(map, marker);
+      };
+    },
+
+    makeOutListener(infowindow) {
+      return function() {
+        infowindow.close();
+    };
+    }
   }
 }
 </script>
