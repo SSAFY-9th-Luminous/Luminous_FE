@@ -1,7 +1,7 @@
 <template>
   <div>
 
-      <div id="category-container" class="mb-3">
+      <div id="category-container" class="mb-5">
         <b-container id="sub-container">
         <div id="sub-menu" class="float-left">
           <router-link :to="{ name: 'observatory' }" id="link" class="m-2 text-secondary" @click.native="cheangeTilteToObservatory">
@@ -78,6 +78,7 @@ export default {
   height: 50px;
   width: 100%;  
   background-color: #ccc;
+  box-shadow: 5px 1px 10px 3px gray;
 }
 
 #main-container {

@@ -43,20 +43,20 @@ export default {
       category:null,
       options: [
           { value: null, text: '지역' },
-          { value: '서울특별', text: '서울' },
-          { value: '경기도 ', text: '경기도' },
-          { value: '강원도 ', text: '강원도' },
+          { value: '서울시', text: '서울' },
+          { value: '경기도', text: '경기도' },
+          { value: '강원도', text: '강원도' },
           { value: '충청북도', text: '충청북도' },
-          { value: '충청남도 ', text: '충청남도' },
+          { value: '충청남도', text: '충청남도' },
           { value: '경상북도', text: '경상북도' },
-          { value: '경상남도 ', text: '경상남도' },
+          { value: '경상남도', text: '경상남도' },
           { value: '전라북도', text: '전라북도' },
-          { value: '전라남도 ', text: '전라남도' },
-          { value: '광주광역', text: '광주광역시' },
-          { value: '울산광역', text: '울산광역시' },
-          { value: '부산광역 ', text: '부산광역시' },
-          { value: '대전광역', text: '대전광역시' },
-          { value: '제주특별', text: '제주특별자치도' },
+          { value: '전라남도', text: '전라남도' },
+          { value: '광주시', text: '광주광역시' },
+          { value: '울산시', text: '울산광역시' },
+          { value: '부산시', text: '부산광역시' },
+          { value: '대전시', text: '대전광역시' },
+          { value: '제주도', text: '제주특별자치도' },
         ],
       keyword : "",
     };
@@ -84,7 +84,7 @@ export default {
     },
     changeDetected(){
       let param = {
-        address : this.category,
+        region : this.category,
       };
       listCamping(
         param,
