@@ -129,6 +129,7 @@ const memberStore = {
     async userWithdraw({ commit }, token) {
       let decodeToken = jwtDecode(token);
       await withdraw(decodeToken.id, (response) => {
+        console.log(response)
         if (response.data.isSuccess === true) {
           alert("회원탈퇴 완료");
           commit("SET_IS_LOGIN", false);

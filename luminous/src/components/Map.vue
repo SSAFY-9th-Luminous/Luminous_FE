@@ -10,8 +10,8 @@
         <div class="option">
             <div>
                 <form onsubmit="searchPlaces(); return false;">
-                    키워드 : <input type="text" value="이태원 맛집" id="keyword" size="15"> 
-                    <button type="submit">검색하기</button> 
+                   <input type="text" placeholder="..." id="keyword" size="15" class= "ml-3"> 
+                    <b-button type="submit" style="height : 25px; line-height : 1px; text-align: center;">검색</b-button> 
                 </form>
             </div>
         </div>

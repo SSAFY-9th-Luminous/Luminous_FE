@@ -38,7 +38,7 @@
           ></b-form-input>
         </b-form-group>
         <b-form-group class="col-md-6" id="img-group" label="이미지:" >
-          <b-form-file id="img" v-model="place.img" placeholder="이미지 업로드"></b-form-file>
+          <b-form-file @change="previewImage" accept=".jpg, .png" id="img" v-model="place.img" placeholder="이미지 업로드"></b-form-file>
         </b-form-group>
         </div>
         <b-form-group id="placeDescription-group" label="내용:" label-for="placeDescription">
@@ -70,6 +70,9 @@
           ></b-form-input>
         </b-form-group></div>  
   </b-row>
+  <b-card v-if="previewImageData">
+    <b-img :src="previewImageData"></b-img>
+  </b-card>
     </div>
 </template>
 
@@ -103,6 +106,7 @@ export default {
       postcode: "",
       address: "",
       extraAddress: "",
+      previewImageData: null
     };
   },
   props: {
@@ -272,7 +276,7 @@ export default {
         placeName: this.place.placeName,
         placeDescription: this.place.placeDescription,
         visitedDate: this.place.visitedDate,
-        img: this.place.img,
+        img: this.place.img.name,
         latitude: this.place.latitude,
         longitude: this.place.longitude,
         address: this.place.address,
@@ -316,6 +320,19 @@ export default {
         },
       }).open();
     },
+    previewImage(evt) {
+      var input = evt.target;
+
+      if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = e => {
+          this.previewImageData = e.target.result;
+        };
+        reader.readAsDataURL(input.files[0]);
+      } else {
+          this.previewImageData = null;
+      }
+    }
   },
 
 
