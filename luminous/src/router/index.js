@@ -68,19 +68,35 @@ const routes = [
     redirect: "/observatory/list",
     children: [
       {
-      path: "list",
-      name: "observatorylist",
+        path: "list",
+        name: "observatorylist",
 
-      component: () => import(/* webpackChunkName: "observatory" */  "@/components/observatory/ObservatoryList"),
+        component: () =>
+          import(/* webpackChunkName: "observatory" */ "@/components/observatory/ObservatoryList"),
       },
       {
         path: "view/:id",
         name: "observatoryView",
-  
-        component: () => import(/* webpackChunkName: "observatory" */  "@/components/observatory/ObservatoryView"),
-        }
 
-    ]
+        component: () =>
+          import(/* webpackChunkName: "observatory" */ "@/components/observatory/ObservatoryView"),
+      },
+    ],
+  },
+  {
+    path: "/camping",
+    name: "camping",
+    component: ObservatoryApp,
+    redirect: "/camping/list",
+    children: [
+      {
+        path: "list",
+        name: "campinglist",
+
+        component: () =>
+          import(/* webpackChunkName: "camping" */ "@/components/camping/CampingList"),
+      },
+    ],
   },
   {
     path: "/map",

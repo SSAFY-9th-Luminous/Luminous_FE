@@ -14,10 +14,10 @@
     </b-row>
     <b-row>
       <b-col>
-        <b-table striped hover :items="observatories" :fields="fields" @row-clicked="viewArticle">
+        <b-table striped hover :items="campings" :fields="fields" @row-clicked="viewArticle">
           <template #cell(subject)="data">
             <router-link :to="{ name: 'observatoryView', params: { id: data.item.id  } }">
-              {{ data.item.observatoryName }}
+              {{ data.item.campingName }}
             </router-link>
           </template>
         </b-table>
@@ -27,18 +27,18 @@
 </template>
 
 <script>
-import { listObservatory } from "@/api/observatory";
+import { listCamping } from "@/api/camping";
 
 export default {
-  name: "ObservatoryList",
+  name: "CampingList",
   data() {
     return {
-      observatories: [],
+      campings: [],
       fields: [
-        { key: "id", label: "천문대 번호", tdClass: "tdClass" },
-        { key: "siDoName", label: "시/도 구분", tdClass: "tdClass" },
-        { key: "observatoryName", label: "천문대 이름", tdClass: "tdSubject" },
-        { key: "address", label: "주소", tdClass: "tdClass" },
+        { key: "campingId", label: "캠핑장 번호", tdClass: "tdClass" },
+        { key: "doName", label: "시/도 구분", tdClass: "tdClass" },
+        { key: "campingName", label: "캠핑장 이름", tdClass: "tdSubject" },
+        { key: "address", label: "주소", tdClass: "tdClass" }
       ],
       category:null,
       options: [
@@ -65,10 +65,10 @@ export default {
     let param = {
       address: null,
     };
-    listObservatory(
+    listCamping(
       param,
       ({ data }) => {
-        this.observatories = data.result;
+        this.campings = data.result;
       },
       (error) => {
         console.log(error);
@@ -86,10 +86,10 @@ export default {
       let param = {
         address : this.category,
       };
-      listObservatory(
+      listCamping(
         param,
         ({ data }) => {
-          this.observatories = data.result;
+          this.campings = data.result;
         },
         (error) => {
           console.log(error);
