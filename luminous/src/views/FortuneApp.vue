@@ -1,7 +1,7 @@
 <template>
   
     <b-container class="bv-example-row mt-3 text-center">
-      <h3 class="underline-steelblue"><b-icon icon="star"></b-icon> 오늘의 운세</h3>
+      <h3 class="underline-steelblue"><b-icon icon="moon"></b-icon> 오늘의 운세</h3>
       <router-view></router-view>
     </b-container>
   </template>
