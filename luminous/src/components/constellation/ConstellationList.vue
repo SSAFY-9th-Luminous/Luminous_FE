@@ -4,9 +4,10 @@
             <slide class="slide"
               v-for="(constellation, i) in constellationList" :key="i" :index="i" >
               {{ constellation }}
-              <img :data-index="index" :src="constellation.img">
+              <img :data-index="index" :idx="data-index" :src="constellation.img">
             </slide>
           </carousel-3d>
+          {{ constellationList[idx] }}
         </div>
 </template>
 
@@ -21,6 +22,7 @@ export default {
     },
     data() {
         return {
+          idx : 0,
           constellationList :[],
         };
     },

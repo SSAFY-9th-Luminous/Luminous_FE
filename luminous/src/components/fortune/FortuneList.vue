@@ -3,7 +3,7 @@
         <div v-for="j in 4" :key="j" class="row flip-boxes">
             <div v-for="i in 3" :key="i" class="col-md-3 col-sm-4 col-8 flip-box " >
                 <div v-if="(j-1)*3+i==userInfo.constellation12Id" class="front neon_back"
-                  :style="{'background-image':' url('+require('@/assets/img/' + fortuneList[(j-1)*3+i -1].img + '')+')'}">
+                  :style="{'background-image':' url('+require('@/assets/img/constellation12/' + fortuneList[(j-1)*3+i -1].img + '')+')'}">
                     <div class="content text-center">
                         {{fortuneList[(j-1)*3+i -1 ].contentsName}}<br>
                         <span class="click-for-more">
@@ -11,7 +11,7 @@
                     </div>
                 </div>
                 <div v-else class="front"
-                  :style="{'background-image':' url('+require('@/assets/img/star.png')+')'}">
+                  :style="{'background-image':' url('+require('@/assets/img/constellation12/' + fortuneList[(j-1)*3+i -1].img + '')+')'}">
                     <div class="content text-center">
                         {{fortuneList[(j-1)*3+i -1 ].contentsName}}<br>
                         <span class="click-for-more">
