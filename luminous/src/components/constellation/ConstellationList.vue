@@ -2,10 +2,10 @@
   <div class="container">
     <carousel-3d :width="300" :height="300" v-if="constellationList.length !== 0" @before-slide-change="onBeforeSlideChange">
       <slide class="slide" v-for="(constellation, i) in constellationList" :key="i" :index="i">
-        <div class="title text-center"> 
-        {{ constellation.contentsName }}</div>
+        <span class="title text-center"> 
+        {{ constellation.contentsName }}</span>
 
-        <img :src="constellation.img" alt="Constellation Image">
+        <img :src= "require('@/assets/img/constellation/' + constellation.img)" >
 
       </slide>
       </carousel-3d>
@@ -29,9 +29,6 @@
       </div>
       <div>
         {{ constellationList[currentItem].contentsDescription }}
-      </div>
-      <div>
-        {{ constellationList[currentItem].img }}
       </div>
     </div>
   </div>
