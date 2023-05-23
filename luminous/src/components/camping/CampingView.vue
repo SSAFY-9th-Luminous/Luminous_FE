@@ -44,7 +44,7 @@
 
           <div class="content-detail">
             <div class="content-sub-title"><h6>홈페이지</h6></div>
-            <div v-if="camping.homePage" calss="content col-lg-10">{{camping.homePage}}</div>
+            <div v-if="camping.homepage" class="content col-lg-10">{{camping.homepage}}</div>
             <div v-else class="content col-lg-10"> - </div>
           </div>
 
