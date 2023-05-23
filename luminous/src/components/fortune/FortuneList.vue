@@ -1,8 +1,16 @@
 <template>
     <div class="container">
         <div v-for="j in 4" :key="j" class="row flip-boxes">
-            <div v-for="i in 3" :key="i" class="col-md-3 col-sm-4 col-8 flip-box">
-                <div class="front"
+            <div v-for="i in 3" :key="i" class="col-md-3 col-sm-4 col-8 flip-box " >
+                <div v-if="(j-1)*3+i==userInfo.constellation12Id" class="front neon_back"
+                  :style="{'background-image':' url('+require('@/assets/img/star.png')+')'}">
+                    <div class="content text-center">
+                        {{fortuneList[(j-1)*3+i -1 ].contentsName}}<br>
+                        <span class="click-for-more">
+                        </span>
+                    </div>
+                </div>
+                <div v-else class="front"
                   :style="{'background-image':' url('+require('@/assets/img/star.png')+')'}">
                     <div class="content text-center">
                         {{fortuneList[(j-1)*3+i -1 ].contentsName}}<br>
@@ -22,6 +30,9 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
+
+const memberStore = "memberStore";
 import { listFortune } from "@/api/fortune";
 export default {
 name: 'FortuneList',
@@ -31,7 +42,11 @@ data() {
       fortuneList :[],
     };
 },
+computed: {
+    ...mapState(memberStore, ["userInfo"]),
+  },
 created() { 
+  
   listFortune(
     ({data})=>{
       this.fortuneList = data.result;
@@ -139,4 +154,10 @@ body {
   transform: translateZ(50px);
   text-shadow: 0px 0px 2px black;
 }
+
+.neon_back {
+  
+  filter: drop-shadow(0 -5px 1rem #352f85); 
+}
+
 </style>
