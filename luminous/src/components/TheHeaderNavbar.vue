@@ -5,12 +5,14 @@
       <b-container>
       <b-navbar-brand href="#">
         <router-link :to="{ name: 'main' }">
+          <div class = "hello">
           <b-img
-            :src="require('@/assets/star.png')"
+            :src="require('@/assets/img/luminous.png')"
             id="logo"
             class="d-inline-block align-top"
             alt="logo"
           ></b-img>
+          </div>
         </router-link>
       </b-navbar-brand>
 
@@ -19,11 +21,11 @@
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav class="ml-auto">
           <b-nav-item href="#" style="display:inline-block">
-            <router-link :to="{ name: 'fortune' }" class="link newcolor">
+            <router-link :to="{ name: 'fortunelist' }" class="link newcolor">
               <b-icon icon="star" animation="fade" ></b-icon>
               별자리
             </router-link>
-            <router-link :to="{ name: 'observatory' }" class="m-2 link newcolor">
+            <router-link :to="{ name: 'observatorylist' }" class="m-2 link newcolor">
               <b-icon icon="moon" animation="fade" ></b-icon>
               천문대
             </router-link>
@@ -35,8 +37,7 @@
               <b-icon icon="clipboard" animation="fade" />
               게시판
             </router-link>
-            
-
+        
         <b-nav-item-dropdown right v-if="userInfo" class="custom-dropdown" style="display:inline-block">
             <template #button-content>
               <img src="@/assets/star.png" id = "img1"/>
@@ -107,6 +108,7 @@ export default {
 
 .link:hover{
   font-weight: 800;
+  filter: drop-shadow(0 0 0.75rem #fffb00); 
 }
 #img1{
   width:40px;
@@ -117,12 +119,14 @@ export default {
 a.router-link-exact-active {
   color: #efe589;
   font-weight : 100;
+  filter: drop-shadow(0 0 0.5rem #d0ff00); 
 }
 
 a.router-link-exact-active:hover {
   /* text-decoration: none; */
   animation : none;
-  color: #efe589;
+  color: white;
+  
   font-weight : 800;
 }
 
@@ -140,6 +144,11 @@ a.router-link-exact-active:hover {
 
 .aa.router-link-exact-active:hover{
   color: navy;
+}
+
+.hello:hover {
+  
+  filter: drop-shadow(0 -5px 1rem #fffb00); 
 }
 
 

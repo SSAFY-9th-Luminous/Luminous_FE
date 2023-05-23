@@ -32,8 +32,16 @@
                 @keyup.enter="confirm"
               ></b-form-input>
             </b-form-group>
+            <b-form-group>
+              <b-form-checkbox v-model = "saveStatus" value = "true" unchecked-value="false">
+                아이디 저장
+
+              </b-form-checkbox>
+            </b-form-group>
+            <div class = "mx-auto">
             <b-button type="button" variant="primary" class="m-1" id="button1" @click="confirm">로그인</b-button>
             <b-button type="button" variant="success" class="m-1" id="button2" @click="movePage">회원가입</b-button>
+            </div>
           </b-form>
         </b-card>
       </b-col>
@@ -53,9 +61,10 @@ export default {
   data() {
     return {
       member: {
-        memberId: null,
+        memberId: this.$cookies.get("idCookie"),
         memberPassword: null,
       },
+      saveStatus:false,
     };
   },
   created() {
@@ -64,6 +73,7 @@ export default {
 
   computed: {
     ...mapState(memberStore, ["isLogin", "isLoginError", "userInfo"]),
+    
   },
 
   methods: {
@@ -72,12 +82,19 @@ export default {
       this.resetLOGIN_ERROR();
     },
     async confirm() {
+     
       await this.userConfirm(this.member).catch();
       let token = sessionStorage.getItem("access-token");
       if (this.isLogin) {
+        if(this.saveStatus){
+          this.$cookies.set("idCookie", this.member.memberId);
+        }else if(!this.saveStatus){
+          this.$cookies.remove("idCookie");
+        }
         await this.getUserInfo(token);
         this.$router.push({ name: "main" });
       }
+
     },
     movePage() {
       this.$router.push({ name: "signin" });
@@ -87,16 +104,27 @@ export default {
 </script>
 
 <style scoped>
-#button{
-  outline: 2px solid black;
-  outline-offset: 0px;
+
+#button1{
+  align-content: center;
+  position: relative;
+  left:25%
+  
 }
+#button2{
+  align-content: center;
+  position: relative;
+  left:25%
+  
+}
+
+
 #button1:hover{
   outline:2px solid black;
   background-color:red;
 }
 .card {
-  padding : 10px 0px;
+  padding : 10px 10px;
   position: relative;
   border-radius: 11px;
 }
@@ -105,11 +133,11 @@ export default {
   content: "";
   background: linear-gradient(135deg,#9d71bb, #5a70b2, #9d71bb,#5a70b2,#9d71bb);
   background-size: 200% 200%;
-  height: 100%;
-  width: 100%;
+  height: 105%;
+  width: 105%;
   display: flex;
   z-index: -1;
-  filter: blur(20px);
+  filter: blur(30px);
   animation: neon 0.6s linear infinite;
 }
 @keyframes neon {
