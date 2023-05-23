@@ -70,6 +70,7 @@ const memberStore = {
         decodeToken.id,
         (response) => {
           if (response.data.isSuccess === true) {
+            console.log(response.data.result)
             commit("SET_USER_INFO", response.data.result);
           } else {
             console.log(0);
