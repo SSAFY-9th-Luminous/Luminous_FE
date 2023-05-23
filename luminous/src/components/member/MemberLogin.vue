@@ -45,7 +45,6 @@
           </b-form>
         </b-card>
       </b-col>
-      <div>{{saveStatus}}</div>
       <b-col></b-col>
     </b-row>
   </b-container>
