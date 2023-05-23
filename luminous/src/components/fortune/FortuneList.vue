@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container" v-if=" fortuneList.length!==0 && fortuneList[0].contentsName">
         <div v-for="j in 4" :key="j" class="row flip-boxes">
             <div v-for="i in 3" :key="i" class="col-md-3 col-sm-4 col-8 flip-box " >
                 <div v-if="(j-1)*3+i==userInfo.constellation12Id" class="front neon_back"
@@ -36,10 +36,11 @@ const memberStore = "memberStore";
 import { listFortune } from "@/api/fortune";
 export default {
 name: 'FortuneList',
-components: {},
 data() {
     return {
-      fortuneList :[],
+      fortuneList :[
+      ],
+    
     };
 },
 computed: {
