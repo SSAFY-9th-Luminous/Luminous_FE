@@ -33,7 +33,7 @@
               ></b-form-input>
             </b-form-group>
             <b-form-group>
-              <b-form-checkbox v-model = "saveStatus" value = "true" unchecked-value="false">
+              <b-form-checkbox v-model = "saveStatus" value =true unchecked-value=false>
                 아이디 저장
 
               </b-form-checkbox>
@@ -45,6 +45,7 @@
           </b-form>
         </b-card>
       </b-col>
+      <div>{{saveStatus}}</div>
       <b-col></b-col>
     </b-row>
   </b-container>
@@ -64,16 +65,16 @@ export default {
         memberId: this.$cookies.get("idCookie"),
         memberPassword: null,
       },
-      saveStatus:false,
+      saveStatus:false
     };
   },
   created() {
     this.reset();
+    
   },
 
   computed: {
     ...mapState(memberStore, ["isLogin", "isLoginError", "userInfo"]),
-    
   },
 
   methods: {
@@ -87,8 +88,9 @@ export default {
       let token = sessionStorage.getItem("access-token");
       if (this.isLogin) {
         if(this.saveStatus){
+          console.log(1)
           this.$cookies.set("idCookie", this.member.memberId);
-        }else if(!this.saveStatus){
+        }else{
           this.$cookies.remove("idCookie");
         }
         await this.getUserInfo(token);

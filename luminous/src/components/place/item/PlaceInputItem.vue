@@ -1,10 +1,11 @@
 <template>
   <div>
     <b-row class="mb-1">
-    <div id= "map"></div>    
+    <div class="col-xl-6 col-lg-6 col-md-6">
+
     <b-col style="text-align: left">
       <b-form @submit="onSubmit" @reset="onReset">
-        <b-form-group hidden id="memberId-group" label="작성자:" label-for="memberId" description="작성자를 입력하세요.">
+        <b-form-group class="col-md-6" hidden id="memberId-group" label="작성자:" label-for="memberId" description="작성자를 입력하세요.">
           <b-form-input 
             id="memberId"
             :disabled="isUserid"
@@ -24,20 +25,10 @@
             placeholder="제목"
           ></b-form-input>
         </b-form-group>
-
-        <b-form-group id="address-group" label="주소:" label-for="address" description="주소를 검색하거나 위치를 지도에 클릭해주세요.">
-        <div class = "mb-1"><b-button  @click="execDaumPostcode()" >주소 검색</b-button><br></div>
-          <b-form-input
-            id="address"
-            v-model="place.address"
-            type="text"
-            required
-            placeholder="주소"
-            readonly
-          ></b-form-input>
-        </b-form-group>
-        
-        <b-form-group id="visitedDate-group" label="방문 날짜:" label-for="visitedDate">
+        <div class="col-md-6">
+        </div>
+        <div class = "row g-6">
+        <b-form-group class="col-md-6" id="visitedDate-group" label="방문 날짜:" >
           <b-form-input
             id="visitedDate"
             v-model="place.visitedDate"
@@ -46,6 +37,10 @@
             placeholder="방문날짜"
           ></b-form-input>
         </b-form-group>
+        <b-form-group class="col-md-6" id="img-group" label="이미지:" >
+          <b-form-file id="img" v-model="place.img" placeholder="이미지 업로드"></b-form-file>
+        </b-form-group>
+        </div>
         <b-form-group id="placeDescription-group" label="내용:" label-for="placeDescription">
           <b-form-textarea
             id="placeDescription"
@@ -60,6 +55,20 @@
         <b-button type="reset" variant="danger" class="m-1">초기화</b-button>
       </b-form>
     </b-col>
+    </div>
+    <div class="col-xl-6 col-lg-6 col-md-6" style="text-align: left">
+      <div id = "map"></div>
+      <b-form-group id="address-group" class = "mt-2" label="주소:" label-size="sm" label-for="address" description="주소를 검색하거나 위치를 지도에 클릭해주세요.">
+        <div class = "mb-1"><b-button  @click="execDaumPostcode()" >주소 검색</b-button><br></div>
+          <b-form-input
+            id="address"
+            v-model="place.address"
+            type="text"
+            required
+            placeholder="주소"
+            readonly
+          ></b-form-input>
+        </b-form-group></div>  
   </b-row>
     </div>
 </template>
@@ -316,6 +325,10 @@ export default {
 <style>
 #map {
   width: 100%;
-  height: 300px;
+  height: 400px;
+}
+
+label{
+  margin-bottom: 0;
 }
 </style>

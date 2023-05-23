@@ -82,12 +82,13 @@ export default {
     this.temp()
   },
   methods: {
-    ...mapActions(memberStore, ["userModify"]),
+    ...mapActions(memberStore, ["userModify","getUserInfo"]),
     
     async modify(){
       if(!this.signInError){
         await this.userModify(this.userInfo);
-        this.$router.push({name:"main"})
+        this.$router.push({name:"main"});
+        await this.getUserInfo(sessionStorage.getItem('access-token'));
       }
     },
     

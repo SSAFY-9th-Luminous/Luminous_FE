@@ -1,41 +1,36 @@
 <template>
         <div class="container">
-            <div v-for="j in 4" :key="j" class="row flip-boxes">
-                <div v-for="i in 3" :key="i" class="col-md-3 col-sm-4 col-8 flip-box">
-                    <div class="front"
-                      :style="{'background-image':' url('+require('@/assets/img/star.png')+')'}">
-                        <div class="content text-center">
-                            {{constellation12List[(j-1)*3+i -1 ].contentsName}}<br>
-                            <span class="click-for-more">
-                            </span>
-                        </div>
-                    </div>
-                    <div class="back">
-                        <div class="content">
-                            {{ constellation12List[(j-1)*3+i -1].contentsDescription }}
-                        </div>
-                    </div>
-                </div>
-                
-            </div>
+          <carousel-3d v-if="constellationList.length !== 0">
+            <slide class="slide"
+              v-for="(constellation, i) in constellationList" :key="i" :index="i" >
+              {{ constellation }}
+              <img :data-index="index" :idx="data-index" :src="constellation.img">
+            </slide>
+          </carousel-3d>
+          {{ constellationList[idx] }}
         </div>
 </template>
 
 <script>
-import { listConstellation12 } from "@/api/constellation12";
+import { listConstellation } from "@/api/constellation";
+import {Carousel3d, Slide} from "vue-carousel-3d";
 export default {
     name: 'ConstellationList',
-    components: {},
+    components: {
+      Carousel3d,
+      Slide
+    },
     data() {
         return {
-          constellation12List :[],
+          idx : 0,
+          constellationList :[],
         };
     },
     created() { 
-      listConstellation12(
+      listConstellation(
         ({data})=>{
-          this.constellation12List = data.result;
-          console.log(this.constellation12List)
+          this.constellationList = data.result;
+          console.log(this.constellationList)
         },
         (error)=>{
           console.log(error);
@@ -54,6 +49,10 @@ body {
   min-height: 100vh;
 
   
+}
+
+.slide {
+  border-radius: 10px;
 }
 
 .flip-boxes {
