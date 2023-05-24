@@ -28,7 +28,6 @@
         </h3>
 
         
-        
       </div>
 
       <router-view></router-view>
@@ -57,6 +56,12 @@ export default {
 </script>
 
 <style scoped>
+#br {
+    height: 1px;
+    width: 100%;
+    background-color: rgb(197, 135, 20);
+}
+
 #link {
   display: flex;
   align-content: flex-end;
@@ -84,6 +89,7 @@ export default {
 #main-container {
   display: flex;
   flex-direction: column;
+  padding: 0px 15px;
 }
 
 .underline{

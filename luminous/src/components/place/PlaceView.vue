@@ -30,6 +30,7 @@
         </b-card>
       </b-col>
     </b-row>
+    <img :src="place.img">
   </b-container>
 </template>
 
