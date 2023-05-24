@@ -86,25 +86,31 @@ export default {
       let len = this.constellationList.length;
       if (event.deltaY > 0) {
         this.currentItem = (len+this.currentItem-1)%len
-      }
-      else if(event.deltaY < 0){
-        this.currentItem = (len+this.currentItem+1)%len
-
-      }
       this.$nextTick(() => {
         this.$refs.mycarousel.goSlide(this.currentItem);
       });
+      }
+      else if(event.deltaY < 0){
+        this.currentItem = (len+this.currentItem+1)%len
+      this.$nextTick(() => {
+        this.$refs.mycarousel.goSlide(this.currentItem);
+      });
+
+      }
     },
     handleKeyDown(event) {
       let len = this.constellationList.length;
       if (event.key === 'ArrowRight') {
           this.currentItem = (len+this.currentItem+1)%len
-      } else if (event.key === 'ArrowLeft') {
-          this.currentItem = (len+this.currentItem-1)%len
-      }
       this.$nextTick(() => {
         this.$refs.mycarousel.goSlide(this.currentItem);
       });
+      } else if (event.key === 'ArrowLeft') {
+          this.currentItem = (len+this.currentItem-1)%len
+      this.$nextTick(() => {
+        this.$refs.mycarousel.goSlide(this.currentItem);
+      });
+      }
   
     }
   }
