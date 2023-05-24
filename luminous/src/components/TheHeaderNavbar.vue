@@ -33,6 +33,9 @@
               <b-icon icon="stars" animation="fade" ></b-icon>
               천문대
             </router-link>
+            <router-link :to="{ name: 'camping' }" id="link" class="m-2 link newcolor">
+            <b-icon icon="tree"></b-icon>캠핑장
+          </router-link>
             <router-link :to="{ name: 'map' }" class="m-2 link newcolor">
               <b-icon icon="map" animation="fade" />
               지도
