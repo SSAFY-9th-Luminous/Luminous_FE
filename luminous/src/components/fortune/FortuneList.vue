@@ -10,7 +10,7 @@
                         </span>
                     </div>
                 </div>
-                <div v-else class="front"
+                <div v-else class="front shadow"
                   :style="{'background-image':' url('+require('@/assets/img/constellation12/' + fortuneList[(j-1)*3+i -1].img + '')+')'}">
                     <div class="content text-center title">
                         {{fortuneList[(j-1)*3+i -1 ].contentsName}}<br>
@@ -160,9 +160,13 @@ body {
   top : 8px;
 }
 
+.shadow {
+  
+  filter: drop-shadow(0 0px 0.4rem #000000); 
+}
 .neon_back {
   
-  filter: drop-shadow(0 -5px 1rem #352f85); 
+  filter: drop-shadow(0 -5px 2rem #211c6d); 
 }
 
 </style>
