@@ -44,7 +44,8 @@
         
         <b-nav-item-dropdown right v-if="userInfo" class="custom-dropdown" style="display:inline-block">
             <template #button-content>
-              <img src="@/assets/star.png" id = "img1"/>
+              <b-avatar button variant="secondary"></b-avatar>
+              <!-- <b-avatar button variant="secondary" :text="userInfo.memberName" :src="require('@/assets/img/constellation12/' + userInfo.constellation12Img)" ></b-avatar> -->
             </template>
             <b-dropdown-item href="#" @click="onClickLogout">
               <a href="#"  class = "aa" style="text-decoration: none">로그아웃</a>
@@ -58,7 +59,6 @@
            로그인
         </router-link>
           </b-nav-item>
-          
           
         </b-navbar-nav>
       </b-collapse>
@@ -75,7 +75,8 @@ const memberStore = "memberStore";
 export default {
   name: "TheHeaderNavbar",
   data() {
-    return {};
+    return {
+    };
   },
   computed: {
     ...mapState(memberStore, ["isLogin", "userInfo"]),
