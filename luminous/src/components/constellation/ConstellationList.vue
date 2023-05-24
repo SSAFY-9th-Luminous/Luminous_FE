@@ -80,7 +80,12 @@ export default {
       this.currentItem = index;
     },
     goToSlide(index) {
+      
+      try{
       this.$refs.mycarousel.goSlide(index)
+      }catch(error){
+        console.log()
+      }
     },
     handleScroll(event){
       let len = this.constellationList.length;
