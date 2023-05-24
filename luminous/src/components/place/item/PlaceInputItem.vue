@@ -40,6 +40,7 @@
         <b-form-group class="col-md-6" id="img-group" label="이미지:" >
           <b-form-file @change="previewImage" accept=".jpg, .png" id="img" v-model="place.img" placeholder="이미지 업로드"></b-form-file>
         </b-form-group>
+        
         </div>
         <b-form-group id="placeDescription-group" label="내용:" label-for="placeDescription">
           <b-form-textarea
@@ -183,20 +184,33 @@ export default {
       this.moveList();
     },
     registplace() {
-      let param = {
-        placeName: this.place.placeName,
-        placeDescription: this.place.placeDescription,
-        visitedDate: this.place.visitedDate,
-        img: this.place.img,
-        latitude: this.place.latitude,
-        longitude: this.place.longitude,
-        address: this.place.address,
-        rate:this.place.rate,
-        id : this.userInfo.id
-      };
-      console.log(param)
+      // let param = {
+      //   placeName: this.place.placeName,
+      //   placeDescription: this.place.placeDescription,
+      //   visitedDate: this.place.visitedDate,
+      //   img: this.place.img.name,
+      //   latitude: this.place.latitude,
+      //   longitude: this.place.longitude,
+      //   address: this.place.address,
+      //   rate:this.place.rate,
+      //   id : this.userInfo.id
+      // };
+      // console.log(param)
+      const formData = new FormData();
+      formData.append('placeName', this.place.placeName)
+      formData.append('placeDescription', this.place.placeDescription)
+      formData.append('visitedDate', this.place.visitedDate)
+      formData.append('img', this.place.img)
+      formData.append('latitude', this.place.latitude)
+      formData.append('longitude', this.place.longitude)
+      formData.append('address', this.place.address)
+      formData.append('rate', this.place.rate)
+      formData.append('id', this.userInfo.id)
+      for (let value of formData.values()) {
+        console.log(value);
+      }
       writePlace(
-        param,
+        formData,
         ({ data }) => {
           let msg = "등록 처리시 문제가 발생했습니다.";
           if (data.isSuccess === true) {
@@ -321,6 +335,7 @@ export default {
       }).open();
     },
     previewImage(evt) {
+      this.place.img = evt.target.files[0];
       var input = evt.target;
 
       if (input.files && input.files[0]) {
