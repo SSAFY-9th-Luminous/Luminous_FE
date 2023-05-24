@@ -1,39 +1,9 @@
 <template>
-  <div>
-
-      <div id="category-container" class="mb-5">
-        <b-container id="sub-container">
-        <div id="sub-menu" class="float-left">
-          <router-link :to="{ name: 'observatory' }" id="link" class="m-2 text-secondary" @click.native="cheangeTilteToObservatory">
-            <b-icon icon="moon"></b-icon>천문대
-          </router-link>
-
-          <router-link :to="{ name: 'camping' }" id="link" class="m-2 text-secondary" @click.native="cheangeTilteToCamping">
-            <b-icon icon="tree"></b-icon>캠핑장
-          </router-link>
-        </div>
-        </b-container>
-      </div>
-
-    <b-container class="bv-example-row text-center">
-
-      <div id="main-container">
-        <h3 class="underline">
-          <div class="title" v-if="this.title == 'observatory'">
-            <b-icon icon='moon'></b-icon> 천문대
-          </div>
-          <div class="title" v-else-if="this.title == 'camping'">
-            <b-icon icon='tree'></b-icon> 캠핑장
-          </div>
-        </h3>
-
-        
-      </div>
-
+  
+<b-container class="bv-example-row mt-3 text-center">
+      <h3 class="underline-steelblue"><b-icon icon="stars"></b-icon> 천문대 </h3>
       <router-view></router-view>
-
     </b-container>
-  </div>
 </template>
 
 <script>
@@ -44,18 +14,15 @@ export default {
       title: "observatory"
     }
   },
-  methods: {
-    cheangeTilteToCamping() {
-      this.title = "camping"
-    },
-    cheangeTilteToObservatory() {
-      this.title = "observatory"
-    }
-  }
 };
 </script>
 
 <style scoped>
+
+.underline-steelblue {
+  display: inline-block;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0) 70%, rgba(72, 190, 233, 0.3) 30%);
+}
 #br {
     height: 1px;
     width: 100%;

@@ -62,7 +62,7 @@ export default {
       ],
       category:null,
       options: [
-          { value: null, text: '지역' },
+          { value: null, text: '전체'},
           { value: '서울특별', text: '서울' },
           { value: '경기도 ', text: '경기도' },
           { value: '강원도 ', text: '강원도' },

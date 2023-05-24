@@ -1,6 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import ObservatoryApp from "@/views/ObservatoryApp";
+import CampingApp from "@/views/CampingApp"
 import PlaceApp from "@/views/PlaceApp";
 import ConstellationApp from "@/views/ConstellationApp";
 import FortuneApp from "@/views/FortuneApp";
@@ -90,7 +91,7 @@ const routes = [
   {
     path: "/camping",
     name: "camping",
-    component: ObservatoryApp,
+    component: CampingApp,
     redirect: "/camping/list",
     children: [
       {

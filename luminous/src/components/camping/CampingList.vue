@@ -63,9 +63,9 @@ export default {
         { key: "campingName", label: "캠핑장 이름", tdClass: "tdSubject" },
         { key: "address", label: "주소", tdClass: "tdClass" }
       ],
-      category:null,
+      category: null,
       options: [
-          { value: null, text: '지역' },
+          { value: null, text: '전체'},
           { value: '서울시', text: '서울' },
           { value: '경기도', text: '경기도' },
           { value: '강원도', text: '강원도' },
