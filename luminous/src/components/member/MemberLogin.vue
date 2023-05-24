@@ -32,6 +32,7 @@
                 @keyup.enter="confirm"
               ></b-form-input>
             </b-form-group>
+            
             <b-form-group>
               <b-form-checkbox v-model = "saveStatus" value =true unchecked-value=false>
                 아이디 저장

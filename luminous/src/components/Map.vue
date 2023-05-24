@@ -185,6 +185,7 @@ export default {
       // 인포윈도우를 생성합니다
       var infowindow = new kakao.maps.InfoWindow({
           content : iwContent,
+          zIndex:10,
           removable : iwRemoveable
       });
       
@@ -258,6 +259,7 @@ export default {
             var iwRemoveable = true; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
             var infowindow = new kakao.maps.InfoWindow({
                 content: this.myplacePositions[i].content, // 인포윈도우에 표시할 내용
+                zIndex:10,
                 removable :iwRemoveable 
             });
     
@@ -290,6 +292,7 @@ export default {
             // 생성된 마커를 천문대 마커 배열에 추가합니다
             var infowindow = new kakao.maps.InfoWindow({
                 content: this.observatoryPositions[i].content, // 인포윈도우에 표시할 내용
+                zIndex:10,
                 removable : iwRemoveable
             });
 
@@ -320,6 +323,7 @@ export default {
             var iwRemoveable = true;
             var infowindow = new kakao.maps.InfoWindow({
                 content: this.campingPositions[i].content, // 인포윈도우에 표시할 내용
+                zIndex:10,
                 removable : iwRemoveable
             });
 
@@ -384,7 +388,7 @@ export default {
     myplaceSearch() {
       for (let data of this.myplaces){
           let myplacePosition = new kakao.maps.LatLng(data.latitude, data.longitude)
-
+          
           this.myplacePositions.push({
             content: 
             '        <div><br></div>' + 

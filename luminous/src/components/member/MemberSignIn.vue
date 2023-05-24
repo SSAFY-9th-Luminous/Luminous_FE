@@ -29,6 +29,16 @@
                   중복된 아이디입니다.
                 </p>
                 <p
+                  v-show="IdIsError"
+                  class="input-error">
+                  아이디를 입력해주세요
+                </p>
+                <p
+                  v-show="IdCheckError"
+                  class="input-error">
+                  중복 체크해주세요
+                </p>
+                <p
                   v-show="idIsFine"
                   class="input-fine">
                   사용가능한 아이디입니다.
@@ -45,7 +55,7 @@
                 v-model="member.memberPassword"
                 required
                 placeholder="비밀번호"
-                :class="{ 'input-danger': passwordHasError }"
+                :class="{ 'input-danger': passwordHasError , 'shake' : passwordError}"
                 @keyup.enter="confirm"
               ></b-form-input>
             </b-form-group>
@@ -54,6 +64,11 @@
               class="input-error">
               영문,숫자,특수문자를 조합하여 입력해주세요.(8~16자)
             </p>
+            <p
+                  v-show="passwordIsError"
+                  class="input-error">
+                  비밀번호를 입력해주세요
+                </p>
             <b-form-group label-for="memberName" label = "이름:">
               <b-form-input
                 id="memberName"
@@ -63,20 +78,27 @@
                 @keyup.enter="confirm"
               ></b-form-input>
             </b-form-group>
-           
-            <b-form-group label-for="birth" label= "생일:">
+            <p
+                  v-show="nameIsError"
+                  class="input-error">
+                  이름을 입력해주세요
+                </p>
+            <b-form-group label-for="birth" label= "생일:" >
               <b-form-input
                 type = "date"
                 id="birth"
                 v-model="member.birth"
                 required
                 placeholder="생일"
-                @keyup.enter="confirm"
               ></b-form-input>
             </b-form-group>
-            
+            <p
+                  v-show="birthIsError"
+                  class="input-error">
+                  생일을 입력해주세요
+                </p>
       
-            <b-button type="button" variant="primary" class="m-1" @click="regist">회원가입</b-button>
+            <b-button type="button" variant="primary" class="m-1" @click="[regist(), checkform()]">회원가입</b-button>
             <b-button type="button" variant="danger" class="m-1" @click="movePage">취소</b-button>
           </b-form>
         </b-card>
@@ -103,7 +125,12 @@ export default {
       
       passwordHasError: false,
       idIsError : false,
+      IdIsError : false,
       idIsFine: false,
+      passwordError:false,
+      nameIsError:false,
+      birthIsError:false,
+      IdCheckError:false,
     };
   },
   computed: {
@@ -136,21 +163,50 @@ export default {
         this.idIsError = true;
       
       }else{
+        this.IdCheckError = false;
         this.idIsError = false;
         this.idIsFine = true;
       }
     },
-    async regist(){
+    checkform(){
+      if(this.member.memberName === null){
+        this.nameIsError = true
+      }else{
+        this.nameIsError = false;
+      }
+      if(this.member.birth === null){
+        this.birthIsError = true
+      }else{
+        this.birthIsError = false;
+      }
+      if(this.member.memberId === null){
+        this.IdIsError = true
+      }else{
+        this.IdIsError = false;
+      }
+      if(this.member.memberPassword === null){
+        this.passwordIsError = true
+      }else{
+        this.passwordIsError = false;
+      }
+
+    },
+     regist(){
       if(this.passwordHasError === true){
-        return
+        if(this.nameIsError || this.birthIsError){
+          this.passwordError = true;
+          return
+
+        }
+      }
+      if(this.signInError === ""){
+        this.IdCheckError = true;
       }
       if(this.signInError ==="사용가능한 아이디입니다"){
-        await this.userRegist(this.member);
+        this.userRegist(this.member);
         this.$router.push({name:"main"})
       }
-      else{
-        alert("중복된 아이디")
-      }
+      
     },
     movePage() {
       this.$router.push({ name: "login" });
@@ -163,6 +219,7 @@ export default {
         return
       } 
         this.passwordHasError = false
+        this.passwordError = false
     },
   }
 };
@@ -178,6 +235,34 @@ export default {
   line-height: 16px;
     font-size: 11px;
     color: blue;
+}
+.shake{
+  /* Start the shake animation and make the animation last for 0.5 seconds */
+  animation: shake 0.5s;
+
+  /* When the animation is finished, start again */
+  animation-iteration-count: infinite;
+}
+
+@keyframes shake {
+  0% { transform: translate(1px, 1px) rotate(0deg); }
+  10% { transform: translate(-1px, -2px) rotate(-1deg); }
+  20% { transform: translate(-3px, 0px) rotate(1deg); }
+  30% { transform: translate(3px, 2px) rotate(0deg); }
+  40% { transform: translate(1px, -1px) rotate(1deg); }
+  50% { transform: translate(-1px, 2px) rotate(-1deg); }
+  60% { transform: translate(-3px, 1px) rotate(0deg); }
+  70% { transform: translate(3px, 1px) rotate(-1deg); }
+  80% { transform: translate(-1px, -1px) rotate(1deg); }
+  90% { transform: translate(1px, 2px) rotate(0deg); }
+  100% { transform: translate(1px, -2px) rotate(-1deg); }
+}
+
+.shake:focus{
+  /* Start the shake animation and make the animation last for 0.5 seconds */
+  animation: none;
+
+  /* When the animation is finished, start again */
 }
 </style>
 
