@@ -1,16 +1,37 @@
 <template>
   <b-container class="bv-example-row mt-3">
     
-    <b-row class="mb-1">
-        <b-col>
-        <b-form-select v-model="category" :options="options" @change="changeDetected"></b-form-select></b-col>
-        <b-col></b-col>
-        <b-col></b-col>
-        <b-col></b-col>
-        <b-col></b-col>
-        <b-col class="text-right">
-      </b-col>
+    
+    <h3 class="text-left">현재위치 근처 캠핑장</h3>
+
+    <div class="bord"></div>
+
+    <div id="slider-container">
+      <vueper-slides id="slider" autoplay>
+        <vueper-slide
+          class="vueper-slide"
+          v-for="(camping, i) in locations"
+          :key="i"
+          :title="camping.campingName"
+          :content="camping.address"
+          :image="camping.imageUrl"
+          :style="`color: white`">
+        </vueper-slide>
+      </vueper-slides>
+    </div>
+
+
+
+    <h3 class="text-left mt-5">전국 캠핑장 목록</h3>
+
+    <div class="bord"></div>
+    
+    <b-row class="mt-3 mb-3">
+        <b-col class="col-lg-2">
+          <b-form-select  v-model="category" :options="options" @change="changeDetected"></b-form-select>
+        </b-col>
     </b-row>
+
     <b-row>
       <b-col>
         <b-table striped hover :items="campings" :fields="fields" @row-clicked="viewArticle">
@@ -26,13 +47,16 @@
 </template>
 
 <script>
-import { listCamping } from "@/api/camping";
+import { listCamping, getCampingListByLocation } from "@/api/camping";
+import { VueperSlides, VueperSlide } from 'vueperslides'
+import 'vueperslides/dist/vueperslides.css'
 
 export default {
   name: "CampingList",
   data() {
     return {
       campings: [],
+      locations: [],
       fields: [
         { key: "campingId", label: "캠핑장 번호", tdClass: "tdClass" },
         { key: "doName", label: "시/도 구분", tdClass: "tdClass" },
@@ -61,6 +85,32 @@ export default {
     };
   },
   created() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          let location = {
+            latitude : position.coords.latitude,
+            longitude : position.coords.longitude
+          }
+          
+          getCampingListByLocation(
+            location,
+            ({data}) => {
+              this.locations = data.result;
+              console.log(this.locations)
+            }
+          )
+
+        },
+        (error) => {
+          console.error('위치 정보를 가져오는 데 실패했습니다:', error);
+        }
+      );
+    } else {
+      console.error('Geolocation이 지원되지 않는 브라우저입니다.');
+    }
+
+
     let param = {
       address: null,
     };
@@ -68,12 +118,14 @@ export default {
       param,
       ({ data }) => {
         this.campings = data.result;
+        console.log(data)
       },
       (error) => {
         console.log(error);
       }
     );
   },
+  components: { VueperSlides, VueperSlide },
   methods: {
     viewArticle(place) {
       this.$router.push({
@@ -100,6 +152,33 @@ export default {
 </script>
 
 <style scope>
+
+.bord {
+  height: 2px;
+  width: 100%;
+  background-color: rgb(143 143 143);
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.vueperslide__title{
+  font-size: 1.3em; 
+  color: white; 
+  text-align:left;
+  background-color:#64646483;
+}
+
+.vueperslide__content-wrapper:not(.vueperslide__content-wrapper--outside-top):not(.vueperslide__content-wrapper--outside-bottom) {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-end;
+}
+/* 
+.vueperslide__content-wrapper {
+  background-color: #dadada75;
+} */
+
 .tdClass {
   width: 50px;
   text-align: center;

@@ -226,13 +226,16 @@ export default {
       
       return marker;  
     },
-    createcustomOverlay(position, image, zindex, name){ 
+    createcustomOverlay(position, image, zindex, name, id){ 
       var overlay = new kakao.maps.CustomOverlay({
-          map: this.map,
+          map: null,
           clickable: true,
-          content: `<div class="customOverlay">`+
-                      `<img src="${image}"/>`+
-                      `<a href="#">${name}</a></div>`,
+          content: `<div class="customOverlay mb-5" style = "background-color:white; border-radius:10px">`+
+          
+                      `<div><b-button style="position: absolute;top: 10px;right: 10px;width: 30px;height: 30px; z-index: 10;" 
+                      @click = "makeOutListener(${id})" title="닫기"></b-button></div>`+
+                      `<img src="${image}" width="70" height = "70" style = "border-radius:10px"/>`+
+                      `<a href="http://localhost:8080/camping/view/${id}">${name}</a></div>`,
           position: position,
           xAnchor: 0.5,
           yAnchor: 1,
@@ -257,7 +260,7 @@ export default {
                 content: this.myplacePositions[i].content, // 인포윈도우에 표시할 내용
                 removable :iwRemoveable 
             });
-
+    
             kakao.maps.event.addListener(marker, 'click', this.makeOverListener(this.map, marker, infowindow));
             // kakao.maps.event.addListener(marker, 'mouseout', this.makeOutListener(infowindow));
             // 생성된 마커를 마이플레이스 마커 배열에 추가합니다
@@ -306,7 +309,6 @@ export default {
     // 캠핑장 마커를 생성하고 캠핑장 마커 배열에 추가하는 함수입니다
     createCampingMarkers() {
         for (var i = 0; i < this.campingPositions.length; i++) {
-            
             const markerImageUrl = require('@/assets/img/marker/campingMarker.png');
             const markerSize = new kakao.maps.Size(60, 60);
             const markerOptions = {
@@ -320,9 +322,10 @@ export default {
                 content: this.campingPositions[i].content, // 인포윈도우에 표시할 내용
                 removable : iwRemoveable
             });
+
             
             kakao.maps.event.addListener(marker, 'click', this.makeOverListener(this.map, marker, infowindow));
-            // kakao.maps.event.addListener(marker, 'mouseout', this.makeOutListener(infowindow));
+            // kakao.maps.event.addListener(marker, 'doubleclick', this.this.makeOutListener(this.campingPositions[i].overlay));
             // 생성된 마커를 캠핑장 마커 배열에 추가합니다
             this.campingMarkers.push(marker);    
         }              
@@ -341,7 +344,17 @@ export default {
           let observatoryPosition = new kakao.maps.LatLng(data.latitude, data.longitude)
           
           this.observatoryPositions.push({
-            content:'<div>'+data.observatoryName+'</div>',
+            content:
+            '        <div><br></div>' + 
+            '            <div class="img" >' +
+            `                <img src="${data.imageUrl}" width="80" height="80" style ="float:right; margin-right:10px">` +
+            '        <div style = "height:90px;width:240px;">' + 
+                        data.observatoryName + 
+            '        </div>' + 
+            `                <div><a href="http://localhost:8080/observatory/view/${data.id}" target="_blank" class="link" >상세정보</a></div>` + 
+            '           </div>' +
+            '        <div style = "height:5px"></div>',
+            // '<div>'+data.observatoryName+'</div>',
             latlng: observatoryPosition
           });
       }
@@ -351,22 +364,19 @@ export default {
     campingSearch() {
       for (let data of this.campings){
           let campingPosition = new kakao.maps.LatLng(data.latitude, data.longitude)
-          this.createcustomOverlay(campingPosition, data.imageUrl, 4, data.campingName);
+          // var overlay = this.createcustomOverlay(campingPosition, data.imageUrl, 4, data.campingName, data.id);
           this.campingPositions.push({
-            // content:'<div class="wrap" style = "border-radius:10px;">' + 
-            // '    <div class="info" style = "justify-content:center">' + 
-            // '        <div class="title" style = "justify-content:center">' + 
-            //             data.campingName + 
-            // '        </div>' + 
-            // '        <div class="body">' + 
-            // '            <div class="img">' +
-            // `                <img src="${data.imageUrl}" width="70" height="70">` +
-            // '           </div>' + 
-            // `                <div><a href="http://localhost:8080/camping/view/${data.id}" target="_blank" class="link">홈페이지</a></div>` + 
-            // '        </div>' + 
-            // '    </div>' +    
-            // '</div>'
-            // ,
+            content: 
+            '        <div><br></div>' + 
+            '            <div class="img" >' +
+            `                <img src="${data.imageUrl}" width="80" height="80" style ="float:right; margin-right:10px">` +
+            '        <div style = "height:90px;width:240px;">' + 
+                        data.campingName + 
+            '        </div>' + 
+            `                <div><a href="http://localhost:8080/camping/view/${data.id}" target="_blank" class="link" >상세정보</a></div>` + 
+            '           </div>' +
+            '        <div style = "height:5px"></div>',
+            // content:'<div>'+data.campingName+'</div>',
             latlng: campingPosition
           });
       }
@@ -376,7 +386,17 @@ export default {
           let myplacePosition = new kakao.maps.LatLng(data.latitude, data.longitude)
 
           this.myplacePositions.push({
-            content:'<div>'+data.placeName+'</div>',
+            content: 
+            '        <div><br></div>' + 
+            '            <div class="img" >' +
+            `                <img src="${data.imageUrl}" width="80" height="80" style ="float:right; margin-right:10px">` +
+            '        <div style = "height:90px;width:240px;">' + 
+                        data.placeName + 
+            '        </div>' + 
+            `                <div><a href="http://localhost:8080/place/view/${data.id}" target="_blank" class="link" >상세정보</a></div>` + 
+            '           </div>' +
+            '        <div style = "height:5px"></div>',
+            // content:'<div>'+data.placeName+'</div>',
             latlng: myplacePosition
           });
       }
@@ -430,11 +450,13 @@ export default {
       };
     },
 
-    makeOutListener(infowindow) {
-      return function() {
-        infowindow.close();
-    };
-    },
+    // makeOutListener() {
+    //   console.log("closed")
+    //   return function() {
+        
+    //     this.campingPositions[i].overlay.setMap(null);
+    // };
+    // },
     
     
   }
