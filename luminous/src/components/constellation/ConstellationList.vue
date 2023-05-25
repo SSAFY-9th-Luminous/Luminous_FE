@@ -12,7 +12,7 @@
         <div style="margin-bottom: 20px;">
   <b-button @click="goToSlide(0)">처음으로</b-button>
 </div>
-      <b-container class="contents" >
+      <b-container class="contents" style="padding-bottom: 100px;" >
     <div v-if="constellationList.length !== 0" :constellation="constellationList[currentItem]" >
   <div class="constellation-info">
     <div class="contents-name" >{{ constellationList[currentItem].contentsName }}</div>
@@ -204,7 +204,7 @@ img {
 
 
 .constellation-info {
-  font-family: Arial, sans-serif;
+  /* font-family: Arial, sans-serif; */
   background-color: #f0f0f0;
   padding: 10px;
   border-radius: 5px;
@@ -218,7 +218,7 @@ img {
 }
 .contents-name {
   font-weight: bold;
-  font-size: 20px;
+  font-size: 30px;
 }
 
 .scientific-name {
@@ -246,7 +246,7 @@ img {
 }
 
 .label {
-  font-family: Arial, sans-serif;
+  /* font-family: Arial, sans-serif; */
   font-weight: normal;
   font-style :normal;
 }

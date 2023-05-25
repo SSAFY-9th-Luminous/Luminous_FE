@@ -1,5 +1,5 @@
 <template>
-  <b-container class="bv-example-row mt-3">
+  <b-container class="bv-example-row mt-3 font">
 
     <div id="br" class="mb-5"></div>
     <!-- title & locationInfo -->
@@ -328,11 +328,14 @@ export default {
 </script>
 
 <style>
+
 .image {
   width: 25px;
   height: 25px;
 }
-
+.font{
+  font-family: AppleSDGothicNeoR;
+}
 #top-container {
   display: flex;
   flex-direction: row;
