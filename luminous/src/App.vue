@@ -2,16 +2,20 @@
   <div id="app">
       <the-header-navbar></the-header-navbar>
       <router-view></router-view>
+      <scroll-to-top></scroll-to-top>
   </div>
 </template>
 <script>
 import TheHeaderNavbar from "@/components/TheHeaderNavbar";
+import ScrollToTop from "./components/ScrollToTop.vue";
 
 export default {
   name: "App",
   components: {
-    TheHeaderNavbar
+    TheHeaderNavbar,
+    ScrollToTop
   },
+  
 };
 </script>
 <style>
