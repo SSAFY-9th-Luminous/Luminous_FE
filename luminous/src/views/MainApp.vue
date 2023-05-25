@@ -63,7 +63,7 @@
                 <router-link :to="{ name: 'fortunelist' }" class="request-login">
                   오늘의 운세 보러가기
                 </router-link>
-                <div class="mosaic pt-5 " oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
+                <div class="mosaic" oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
                   <h4>물병자리</h4>
                   <p>계획한 대로 잘 이루어질 거에요. 함께 힘을 모아 꿈꾸는 것도 좋아요.</p>
                 </div>
@@ -339,7 +339,7 @@ p{
 
   position: absolute;
   left: 200px;
-  top: 80px;
+  top: 40px;
 
   transition: transform 0.3s ease-in-out; 
   z-index: 2;
