@@ -113,4 +113,8 @@ export default {
   margin-top: 20px;
   margin-bottom: 20px;
 }
+
+.container {
+  width: 100%;
+}
 </style>

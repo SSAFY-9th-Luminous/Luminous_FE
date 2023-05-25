@@ -315,14 +315,14 @@ a.router-link-exact-active:hover {
 }
 .third{
   position:absolute;
-  top:9.4%;
+  top:9.9%;
   left:32%;
   width : 1000px;
   
 }
 .fourth{
   position:absolute;
-  top:11.9%;
+  top:12.4%;
   left:32%;
   width : 1000px;
   z-index: 1;
