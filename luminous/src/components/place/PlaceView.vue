@@ -28,12 +28,12 @@
         </b-card>
       </b-col>
     </b-row>
-    <b-row class="mb-1">
-      <b-col>
-        <div id="map"></div>
+    <b-row class="mb-1" padding-bottom="100px">
+      <b-col cols="6">
+        <div id="map-view"></div>
       </b-col>
-      <b-col>
-        <img :src="place.img">
+      <b-col cols="6">
+        <img :src="place.img" style="width: 100%; height: 300px;">
       </b-col>
     </b-row>
   </b-container>
@@ -119,7 +119,7 @@ export default {
     },
     initMap() {
 
-      var map = new kakao.maps.Map(document.getElementById('map'), {
+      var map = new kakao.maps.Map(document.getElementById('map-view'), {
         center: new kakao.maps.LatLng(this.place.latitude, this.place.longitude),
         level: 3,
       })
@@ -149,8 +149,8 @@ export default {
 </script>
 
 <style>
-#map {
-  /* width: 100%; */
+#map-view {
+  width: 100%;
   height: 300px;
 }
 
