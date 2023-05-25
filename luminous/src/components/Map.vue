@@ -527,17 +527,17 @@ export default {
           const markerImage = new kakao.maps.MarkerImage(markerImageUrl, markerSize, markerOptions);
           var marker = null;  
           if(i == 0){
-            marker = this.createMarker(new kakao.maps.LatLng(38, 127), 1,  markerImage);  
+            marker = this.createMarker(new kakao.maps.LatLng(37.5, 127), 1,  markerImage);  
           }else if(i == 1){
-            marker = this.createMarker(new kakao.maps.LatLng(38, 128), 1,  markerImage);  
+            marker = this.createMarker(new kakao.maps.LatLng(38, 128.2), 1,  markerImage);  
           }else if(i == 2){
-            marker = this.createMarker(new kakao.maps.LatLng(37, 127), 1,  markerImage);  
+            marker = this.createMarker(new kakao.maps.LatLng(36.8, 127.2), 1,  markerImage);  
           }else if(i == 3){
-            marker = this.createMarker(new kakao.maps.LatLng(36, 129), 1,  markerImage);  
+            marker = this.createMarker(new kakao.maps.LatLng(36, 128.6), 1,  markerImage);  
           }else if(i == 4){
-            marker = this.createMarker(new kakao.maps.LatLng(35, 127), 1,  markerImage);  
+            marker = this.createMarker(new kakao.maps.LatLng(35.5, 127.3), 1,  markerImage);  
           }else{
-            marker = this.createMarker(new kakao.maps.LatLng(33, 127), 1,  markerImage);  
+            marker = this.createMarker(new kakao.maps.LatLng(33.4, 126.7), 1,  markerImage);  
           }
 
           this.WeatherMarkers.push(marker);    
