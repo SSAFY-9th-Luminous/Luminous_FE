@@ -1,7 +1,7 @@
 <template>
   <div>
     <b-container class="bv-example-row mt-3 text-center">
-      <h3 class="underline-hotpink"><b-icon icon="clipboard"></b-icon> 지도</h3>
+      <h3><b-icon icon="map"></b-icon> 지도</h3>
     <div id="mapwrap" class = "mt-5"> 
       <div id="map">
     </div>

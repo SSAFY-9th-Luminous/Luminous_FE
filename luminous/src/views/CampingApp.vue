@@ -2,7 +2,7 @@
 
 
 <b-container class="bv-example-row mt-3 text-center font">
-      <h3 class="underline-steelblue"><b-icon icon="tree"></b-icon> 캠핑장 </h3>
+      <h3><b-icon icon="tree"></b-icon> 캠핑장 </h3>
       <router-view></router-view>
     </b-container>
 </template>
