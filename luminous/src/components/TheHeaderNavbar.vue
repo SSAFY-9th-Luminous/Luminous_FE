@@ -296,13 +296,13 @@ a.router-link-exact-active:hover {
   width:80%;
 }
 .first{
-  position:absolute;
+  position:relative;
   top:9.3%;
   left:30%;
   width : 1000px;
 }
 .second{
-  position:absolute;
+  position:relative;
   top:11.3%;
   left:30%;
   width : 1000px;
@@ -318,12 +318,15 @@ a.router-link-exact-active:hover {
   top:9.3%;
   left:32%;
   width : 1000px;
+  
 }
 .fourth{
   position:absolute;
   top:11.3%;
   left:32%;
   width : 1000px;
+  z-index: 1;
 }
+
 
 </style>

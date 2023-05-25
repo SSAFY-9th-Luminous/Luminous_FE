@@ -355,7 +355,7 @@ export default {
             '        <div style = "height:90px;width:240px;">' + 
                         data.observatoryName + 
             '        </div>' + 
-            `                <div><a href="http://localhost:8080/observatory/view/${data.id}" target="_blank" class="link" >상세정보</a></div>` + 
+            `                <div><a href="http://localhost:8080/observatory/view/${data.id}" target="_self" class="link" >상세정보</a></div>` + 
             '           </div>' +
             '        <div style = "height:5px"></div>',
             // '<div>'+data.observatoryName+'</div>',
@@ -377,7 +377,7 @@ export default {
             '        <div style = "height:90px;width:240px;">' + 
                         data.campingName + 
             '        </div>' + 
-            `                <div><a href="http://localhost:8080/camping/view/${data.id}" target="_blank" class="link" >상세정보</a></div>` + 
+            `                <div><a href="http://localhost:8080/camping/view/${data.id}" target="_self" class="link" >상세정보</a></div>` + 
             '           </div>' +
             '        <div style = "height:5px"></div>',
             // content:'<div>'+data.campingName+'</div>',
@@ -397,7 +397,7 @@ export default {
             '        <div style = "height:90px;width:240px;">' + 
                         data.placeName + 
             '        </div>' + 
-            `                <div><a href="http://localhost:8080/place/view/${data.id}" target="_blank" class="link" >상세정보</a></div>` + 
+            `                <div><a href="http://localhost:8080/place/view/${data.id}" target="_self" class="link" >상세정보</a></div>` + 
             '           </div>' +
             '        <div style = "height:5px"></div>',
             // content:'<div>'+data.placeName+'</div>',
