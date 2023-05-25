@@ -1,7 +1,7 @@
 <template>
   <b-container class="bv-example-row mt-3 font">
 
-    <div id="br" class="mb-5"></div>
+    <div class="border mb-5"></div>
     <!-- title & locationInfo -->
     <div id="top-container">
       <div id="top-left">
@@ -66,11 +66,6 @@
     </div>
 
     <!-- intro -->
-    <b-row>
-      <b-col>
-        
-      </b-col>
-    </b-row>
     
     <div id="slider-container">
       <vueper-slides id="slider">
