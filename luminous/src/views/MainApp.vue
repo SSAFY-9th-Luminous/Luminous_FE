@@ -53,11 +53,12 @@
             <div v-else id="image-area" class="col-lg-3 text-left">
               <img class="fortune-image" :src="require('@/assets/img/constellation12/mosaic.png')" height="100%">
             </div>
-            <div id="desc-area" class="col-lg-8 text-left">
-              <div v-if="userInfo" class="pt-5">
+            <div id="desc-area" class="col-lg-8 text-left mt-5">
+              <router-link v-if="userInfo" :to="{ name: 'fortunelist' }" class="fortune-link">
                 <h4>{{userInfo.constellation12Name}}</h4>
-                <p>{{userInfo}}</p>
-              </div>
+                {{fortuneList[userInfo.constellation12Id-1].description}}
+              
+              </router-link>
               <div v-else>
                 <router-link :to="{ name: 'fortunelist' }" class="request-login">
                   오늘의 운세 보러가기
@@ -80,6 +81,7 @@
 <script>
 import { mapState, mapGetters } from "vuex";
 import { VueperSlides, VueperSlide } from 'vueperslides'
+import { listFortune } from "@/api/fortune";
 import 'vueperslides/dist/vueperslides.css'
 
 const memberStore = "memberStore";
@@ -88,9 +90,7 @@ export default {
   name: "MainApp",
   data() {
     return {
-      // observatoryRouterLink: observatorylist,
-      // campingRouterLink: campinglist,
-      // plcaeRouterLink: placelist
+      fortuneList: [],
       observatoryTitle : "천문대",
       slides: [
         {
@@ -116,6 +116,17 @@ export default {
     }
   },
   components: { VueperSlides, VueperSlide },
+  created() {
+    listFortune(
+      ({data})=>{
+        this.fortuneList = data.result;
+        console.log(this.fortuneList)
+      },
+      (error)=>{
+        console.log(error);
+      }
+    );
+  },
   computed: {
     ...mapState(memberStore, ["isLogin", "userInfo"]),
     ...mapGetters(["checkUserInfo"]),
@@ -340,6 +351,12 @@ p{
 
 .request-login:not(:hover) {
   transform: scale(1);
+}
+
+.fortune-link {
+  color: white;
+
+  text-decoration: none;
 }
 
 
