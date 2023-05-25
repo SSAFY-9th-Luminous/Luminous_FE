@@ -19,7 +19,7 @@
       </vueper-slides>
     </div>
 
-    <h3 class="text-left mt-5">전국 캠핑장 목록</h3>
+    <h3 class="text-left mt-5">전국 천문대 목록</h3>
 
     <div class="bord"></div>
 
