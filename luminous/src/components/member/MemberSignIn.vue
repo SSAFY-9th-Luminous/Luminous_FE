@@ -45,7 +45,7 @@
                 </p>
               </div>
               <div class="col-sm-4">
-                <b-button type="button" variant="primary" size="sm" class = "mt-1" @click="confirm">중복확인</b-button>
+                <b-button type="button" variant="primary" size="sm" id = "button3" @click="confirm">중복확인</b-button>
               </div>
             </div>
             <b-form-group label-for="memberPassword" label="비밀번호:">
@@ -98,8 +98,8 @@
                   생일을 입력해주세요
                 </p>
       
-            <b-button type="button" variant="primary" class="m-1" @click="[regist(), checkform()]">회원가입</b-button>
-            <b-button type="button" variant="danger" class="m-1" @click="movePage">취소</b-button>
+            <b-button type="button" id = "button1" variant="primary" class="m-1" @click="[regist(), checkform()]">회원가입</b-button>
+            <b-button type="button" id = "button2" variant="danger" class="m-1" @click="movePage">취소</b-button>
           </b-form>
         </b-card>
       </b-col>
@@ -204,7 +204,7 @@ export default {
       }
       if(this.signInError ==="사용가능한 아이디입니다"){
         this.userRegist(this.member);
-        this.$router.push({name:"main"})
+        this.$router.push({name:"login"})
       }
       
     },
@@ -225,7 +225,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .input-error {
     line-height: 16px;
     font-size: 11px;
@@ -235,6 +235,32 @@ export default {
   line-height: 16px;
     font-size: 11px;
     color: blue;
+}
+.card {
+  padding : 0px 0px;
+  position: relative;
+  border-radius: 11px;
+  box-shadow:0px 20px 20px -10px rgba(90, 95, 173, 0.644);
+}
+#button1{
+  align-content: center;
+  position: relative;
+  left:25%;
+  background-color: #1a1c8fa9;
+  border-color: transparent;
+}
+#button1:hover{
+  background-color: #1a1c8fc0;
+}
+#button2{
+  align-content: center;
+  position: relative;
+  left:25%;
+  border-color: transparent;
+  background-color: #1a5a8fa9;
+}
+#button2:hover{
+  background-color: #1a5a8fe7;
 }
 .shake{
   /* Start the shake animation and make the animation last for 0.5 seconds */
@@ -263,6 +289,14 @@ export default {
   animation: none;
 
   /* When the animation is finished, start again */
+}
+#button3{
+  margin-top :32px;
+  background-color: #1a3f8fa9;
+  border-color: transparent;
+}
+#button3:hover{
+  background-color: #1a2f8fc0;
 }
 </style>
 

@@ -187,6 +187,7 @@ export default {
   width: 100%;  
   background-color: #efefef;
   box-shadow: 5px 1px 10px 3px gray;
+  /* filter: drop-shadow(0 -5px 0.5rem #211c6d); */
 }
 
 
@@ -283,7 +284,5 @@ a.router-link-exact-active:hover {
 #sub-container{
   width:80%;
 }
-#slider-container{
-  
-}
+
 </style>

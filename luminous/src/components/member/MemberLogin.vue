@@ -110,36 +110,45 @@ export default {
 #button1{
   align-content: center;
   position: relative;
-  left:25%
-  
+  left:25%;
+  background-color: #1a1c8fa9;
+  border-color: transparent;
+}
+#button1:hover{
+  background-color: #1a1c8fc0;
 }
 #button2{
   align-content: center;
   position: relative;
-  left:25%
-  
+  left:25%;
+  border-color: transparent;
+  background-color: #1a5a8fa9;
+}
+#button2:hover{
+  background-color: #1a5a8fe7;
 }
 
 
-#button1:hover{
+/* #button1:hover{
   outline:2px solid black;
   background-color:red;
-}
+} */
 .card {
-  padding : 10px 10px;
+  padding : 0px 0px;
   position: relative;
   border-radius: 11px;
+  box-shadow:0px 20px 20px -10px rgba(90, 95, 173, 0.644);
 }
-.card::after {
+/* .card::after {
   position: absolute;
   content: "";
-  background: linear-gradient(135deg,#9d71bb, #5a70b2, #9d71bb,#5a70b2,#9d71bb);
+  background: linear-gradient(135deg, black, white, black,white,black);
   background-size: 200% 200%;
-  height: 105%;
-  width: 105%;
+  height: 100%;
+  width: 100%;
   display: flex;
   z-index: -1;
-  filter: blur(30px);
+  filter: blur(20px);
   animation: neon 0.6s linear infinite;
 }
 @keyframes neon {
@@ -149,6 +158,6 @@ export default {
   100% {
     background-position: 100% 100%;
   }
-}
+} */
 
 </style>

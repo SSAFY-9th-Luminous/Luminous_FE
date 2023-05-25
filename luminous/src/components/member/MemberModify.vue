@@ -57,8 +57,8 @@
               ></b-form-input>
             </b-form-group>
             
-            <b-button type="button" variant="primary" class="m-1" @click="modify">수정</b-button>
-            <b-button type="button" variant="danger" class="m-1" @click="movePage">취소</b-button>
+            <b-button type="button" id = "button1" variant="primary" class="m-1" @click="modify">수정</b-button>
+            <b-button type="button" id = "button2" variant="danger" class="m-1" @click="movePage">취소</b-button>
           </b-form>
         </b-card>
       </b-col>
@@ -145,7 +145,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .input-error {
     line-height: 16px;
     font-size: 11px;
@@ -156,8 +156,32 @@ export default {
     font-size: 11px;
     color: blue;
 }
-
-
+.card {
+  padding : 0px 0px;
+  position: relative;
+  border-radius: 11px;
+  box-shadow:0px 20px 20px -10px rgba(90, 95, 173, 0.644);
+}
+#button1{
+  align-content: center;
+  position: relative;
+  left:25%;
+  background-color: #1a1c8fa9;
+  border-color: transparent;
+}
+#button1:hover{
+  background-color: #1a1c8fc0;
+}
+#button2{
+  align-content: center;
+  position: relative;
+  left:25%;
+  border-color: transparent;
+  background-color: #1a5a8fa9;
+}
+#button2:hover{
+  background-color: #1a5a8fe7;
+}
 .shake{
   /* Start the shake animation and make the animation last for 0.5 seconds */
   animation: shake 0.5s;

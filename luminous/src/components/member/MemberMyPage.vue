@@ -44,8 +44,8 @@
           </b-container>
           <hr class="my-4" />
 
-          <b-button variant="primary" @click = modifyInfo class="mr-1">정보수정</b-button>
-          <b-button variant="danger" @click = withdraw>회원탈퇴</b-button>
+          <b-button variant="primary" id = "button1" @click = modifyInfo class="mr-1">정보수정</b-button>
+          <b-button variant="danger" id = "button2" @click = withdraw>회원탈퇴</b-button>
         </b-jumbotron>
       </b-col>
       <b-col></b-col>
@@ -89,4 +89,26 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+#button1{
+  align-content: center;
+  position: relative;
+  background-color: #1a1c8fa9;
+  border-color: transparent;
+}
+#button1:hover{
+  background-color: #1a1c8fc0;
+}
+.jumbotron {
+  border-radius: 11px;
+  box-shadow:0px 20px 20px -10px rgba(90, 95, 173, 0.644);
+}
+#button2{
+  align-content: center;
+  position: relative;
+  border-color: transparent;
+  background-color: #1a5a8fa9;
+}
+#button2:hover{
+  background-color: #1a5a8fe7;
+}</style>
