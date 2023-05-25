@@ -354,14 +354,9 @@ export default {
   flex-direction: column;
 }
 
-#slider-container {
-  border-radius: 10px;
-}
 
 .vueperslides__parallax-wrapper{
-  background-color: white;
-    border-radius: 18px;
-
+  border-radius: 18px;
 }
 
 .content-area {
@@ -392,7 +387,7 @@ export default {
   display: flex;
   flex-direction: row;
 }
-
+  
 .border {
   height: 1px;
   width: 100%;

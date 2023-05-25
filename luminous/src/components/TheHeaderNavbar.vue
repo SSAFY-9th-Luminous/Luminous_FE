@@ -64,9 +64,17 @@
           </b-nav-item>
           
         </b-navbar-nav>
+        
       </b-collapse>
       </b-container>
+      
     </b-navbar>
+    <div id="category-container" class="mb-5">
+          <b-container id="sub-container">
+
+
+          </b-container>
+        </div>
   </div>
 </template>
 
@@ -106,6 +114,21 @@ export default {
 </script>
 
 <style scoped>
+
+#sub-container {
+  height: 50px;
+  display: flex;
+  justify-content: left;
+}
+
+#category-container {
+  height: 50px;
+  width: 100%;  
+  background-color: #efefef;
+  box-shadow: 5px 1px 10px 3px gray;
+}
+
+
 #logo {
   width: 120px;
 }
