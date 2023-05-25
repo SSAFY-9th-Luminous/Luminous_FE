@@ -1,11 +1,11 @@
 <template>
   <div>
     <b-container class="bv-example-row mt-3 text-center">
-      <h3 class="underline-hotpink"><b-icon icon="clipboard"></b-icon> 지도</h3>
+      <h3><b-icon icon="map"></b-icon> 지도</h3>
     <div id="mapwrap" class = "mt-5"> 
       <div id="map">
     </div>
-    <b-button id= "sidebarbutton" @click = "layoutHide()">=</b-button>
+    <!-- <b-button id= "sidebarbutton" @click = "layoutHide()">=</b-button>
     <div id="menu_wrap" class="bg_white" v-if="isDivVisible">
         <div class="option">
             <div>
@@ -18,7 +18,7 @@
         <hr>
         <ul id="placesList"></ul>
         <div id="pagination"></div>
-    </div>
+    </div> -->
       <div class="category">
         <ul>
             <li id="myplaceMenu" @click="changeMarker('myplace')">
@@ -393,7 +393,7 @@ export default {
             content: 
             '        <div><br></div>' + 
             '            <div class="img" >' +
-            `                <img src="${data.imageUrl}" width="80" height="80" style ="float:right; margin-right:10px">` +
+            `                <img src="${data.img}" width="80" height="80" style ="float:right; margin-right:10px">` +
             '        <div style = "height:90px;width:240px;">' + 
                         data.placeName + 
             '        </div>' + 

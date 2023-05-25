@@ -3,7 +3,6 @@
     <b-row>
       <b-col></b-col>
       <b-col>
-        <b-alert variant="secondary" show><h3>회원정보 수정</h3></b-alert>
       </b-col>
       <b-col></b-col>
     </b-row>
@@ -11,6 +10,7 @@
       <b-col></b-col>
       <b-col cols="5">
         <b-card class="text-center mt-3" style="max-width: 40rem" align="left">
+          <b-alert variant="primary" show style ="margin-bottom:30px"><br><h3>회원정보 수정</h3></b-alert>
           <b-form class="text-left">
             <div class="row">
               <div class="col-sm-8">

@@ -4,7 +4,7 @@
 
 
         <div id="slider-container" style="border-radius: 33px; overflow: hidden;">
-          <vueper-slides id="slider" :parallax-fixed-content="true" fixed-height="400px" transition-speed="250" :dragging-distance="70" prevent-y-scroll>
+          <vueper-slides id="slider" :parallax-fixed-content="true" fixed-height="400px" transition-speed="250" :dragging-distance="70" prevent-y-scroll autoplay>
             <vueper-slide
               class="vueper-slide"
               v-for="(slide, i) in slides"
@@ -12,7 +12,7 @@
               :title="slide.title"
               :content="slide.content"
               :image="slide.image"
-              :style="{ color: 'white'}"
+              :style="{ color: 'white', fontSize: '1.5rem' }"
               @click.native="navigateToLink(slide.link)"
               style="cursor: pointer;">
             </vueper-slide>

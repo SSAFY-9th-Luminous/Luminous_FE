@@ -2,9 +2,7 @@
   <b-container class="bv-example-row mt-3">
     <b-row>
       <b-col>
-        <b-alert show>
-          <h3>글보기</h3>
-        </b-alert>
+        <br><br>
       </b-col>
     </b-row>
 
@@ -12,11 +10,17 @@
     <b-row class="mb-1">
       <b-col>
         <b-card
-          :header-html="`<h3>${observatory.id}.
-                      ${observatory.observatoryName}</h3><div><h6>${observatory.id}</div><div>${observatory.address.split(' ')[0]}</h6></div><div>${observatory.address}</h6></div>`"
+          :header-html="`<h3>
+                      ${observatory.observatoryName}</h3><div><h6></div><div>${observatory.address}</h6></div>`"
           class="mb-2" border-variant="dark" no-body>
           <b-card-body class="text-left">
-            <div>{{ observatory.homePage }}</div>
+            <div><img :src='observatory.imageUrl'></div>
+            <div>체험가능여부 : {{ observatory.isObservable }}</div>
+            <div>전시실 : {{ observatory.hasExhibition }}</div>
+            <div>천체투영실 : {{ observatory.hasPlanetarium }}</div>
+            <div>숙박여부 : {{ observatory.hasLodgement }}</div>
+            <div>홈페이지 : {{ observatory.homePage }}</div>
+            <div>전화번호 : {{ observatory.phoneNumber }}</div>
           </b-card-body>
         </b-card>
       </b-col>
@@ -69,7 +73,7 @@ export default {
       param,
       ({ data }) => {
         this.observatory = data.result;
-
+        console.log(this.observatory)
         const script = document.createElement("script");
         script.onload = () => kakao.maps.load(this.initMap);
         script.src = "//dapi.kakao.com/v2/maps/sdk.js?appkey=" +

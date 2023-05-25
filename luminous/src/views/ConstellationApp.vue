@@ -1,7 +1,7 @@
 <template>
   
   <b-container class="bv-example-row mt-3 text-center font">
-    <h3 class="underline-yellow"><b-icon icon="star"></b-icon> 별자리</h3>
+    <h3><b-icon icon="star"></b-icon> 별자리</h3>
     <router-view></router-view>
   </b-container>
 </template>

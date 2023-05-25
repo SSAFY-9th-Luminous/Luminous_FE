@@ -1,9 +1,9 @@
 <template>
   <b-container class="bv-example-row mt-3">
+    <br>
     <b-row>
       <b-col></b-col>
       <b-col>
-        <b-alert variant="secondary" show><h3>로그인</h3></b-alert>
       </b-col>
             <b-col></b-col>
     </b-row>
@@ -11,6 +11,7 @@
       <b-col></b-col>
       <b-col cols="5">
         <b-card class="text-center mt-3" style="max-width: 40rem" align="left">
+          <b-alert variant="primary" show style ="margin-bottom:30px"><br><h3>로그인</h3></b-alert>
           <b-form class="text-left">
             <b-alert show variant="danger" v-if="isLoginError">아이디 또는 비밀번호를 확인하세요.</b-alert>
             <b-form-group label="아이디:" label-for="memberId">
