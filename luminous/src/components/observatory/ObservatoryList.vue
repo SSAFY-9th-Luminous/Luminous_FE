@@ -19,7 +19,7 @@
     <div class="bord"></div>
 
     <b-row class="mt-3 mb-3">
-      <b-col class="offset-lg-10 col-lg-2">
+      <b-col class="col-lg-2">
         <b-form-select v-model="category" :options="options" @change="changeDetected"></b-form-select>
       </b-col>
     </b-row>
