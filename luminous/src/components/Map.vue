@@ -34,6 +34,11 @@
                 <span class="ico_comm ico_camping"></span>
                 캠핑장
             </li>
+            <li id="weatherMenu" @click="changeMarker('weather')">
+              
+                <span class="ico_comm ico_weather"></span>
+                날씨
+            </li>
         </ul>
     </div>
     </div>
@@ -45,6 +50,7 @@
 import { observatoryMap } from "@/api/observatory";
 import { campingMap} from "@/api/camping"
 import { listPlace } from "@/api/place"
+import { getTodayWeatherSky } from "@/api/weather";
 export default {
   name: "KaKaoMap",
   data() {
@@ -58,10 +64,17 @@ export default {
       myplaceMarkers :[], 
       observatoryMarkers : [], 
       campingMarkers : [],
+      WeatherMarkers:[],
       myplacePositions:[],
       observatoryPositions:[],
       campingPositions:[],
-
+      weatherPositions:[],
+      seoul:null,
+      k:null,
+      c:null,
+      b:null,
+      z:null,
+      j:null,
       latitude: 0,
       longitude: 0,
       level : 3,
@@ -123,6 +136,7 @@ export default {
       category: null,
       keyword: null,
     };
+    
     setTimeout(() => {
       observatoryMap(
         param,
@@ -160,6 +174,16 @@ export default {
           console.log(error);
         }
       );
+      getTodayWeatherSky((response)=>{
+        this.weatherPositions = response.data.result;
+        console.log(this.weatherPositions)
+        // console.log(this.weatherPositions[0].fcstValue)
+        this.createWeatherMarkers();
+        
+      },
+      (error) =>{
+        console.log(error);
+      })
     }, 500);
   },
   methods: {
@@ -177,6 +201,11 @@ export default {
       })
       this.map = map;
       this.displayMarkerMyCur(new kakao.maps.LatLng(this.latitude, this.longitude));
+      // this.displayMarkerWeather2(new kakao.maps.LatLng(38, 128));//강원
+      // this.displayMarkerWeather3(new kakao.maps.LatLng(37, 127));//충청
+      // this.displayMarkerWeather4(new kakao.maps.LatLng(36, 129));//경상
+      // this.displayMarkerWeather5(new kakao.maps.LatLng(35, 127));//전라
+      // this.displayMarkerWeather6(new kakao.maps.LatLng(33, 127));//제주
       this.geocoder = new kakao.maps.services.Geocoder();
       this.map.setMaxLevel(12)
       var iwContent = '<div style="padding:5px;">현재 위치입니다!</div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
@@ -212,6 +241,145 @@ export default {
       
       this.map.setMinLevel(3);
       this.map.setCenter(locPosition)
+    },
+    displayMarkerWeather1(locPosition) {
+      let markerImageUrl = null;
+      
+      if(this.weatherPositions[0].fcstValue === 1){
+        markerImageUrl = require('@/assets/img/weather/1.png');
+      }else if(this.weatherPositions[0].fcstValue === 3){
+        markerImageUrl = require('@/assets/img/weather/3.png');
+      }else{
+        markerImageUrl = require('@/assets/img/weather/4.png');  
+      }
+      const markerSize = new kakao.maps.Size(40, 40);
+      const markerOptions = {
+        offset: new kakao.maps.Point(20, 20) // Offset the marker image
+      };
+      const markerImage = new kakao.maps.MarkerImage(markerImageUrl, markerSize, markerOptions);
+      
+      this.seoul = new kakao.maps.Marker({
+        map: this.map,
+        position: locPosition,
+        image : markerImage,
+          clickable: true
+      })
+      
+    },
+    displayMarkerWeather2(locPosition) {
+      let markerImageUrl = null;
+      if(this.weatherPositions[1].fcstValue === 1){
+        markerImageUrl = require('@/assets/img/weather/1.png');
+      }else if(this.weatherPositions[1].fcstValue === 3){
+        markerImageUrl = require('@/assets/img/weather/3.png');
+      }else{
+        markerImageUrl = require('@/assets/img/weather/4.png');  
+      }
+      const markerSize = new kakao.maps.Size(40, 40);
+      const markerOptions = {
+        offset: new kakao.maps.Point(20, 20) // Offset the marker image
+      };
+      const markerImage = new kakao.maps.MarkerImage(markerImageUrl, markerSize, markerOptions);
+      
+      this.k = new kakao.maps.Marker({
+        map: this.map,
+        position: locPosition,
+        image : markerImage,
+          clickable: true
+      })
+      
+    },
+    displayMarkerWeather3(locPosition) {
+      let markerImageUrl = null;
+      if(this.weatherPositions[2].fcstValue === 1){
+        markerImageUrl = require('@/assets/img/weather/1.png');
+      }else if(this.weatherPositions[2].fcstValue === 3){
+        markerImageUrl = require('@/assets/img/weather/3.png');
+      }else{
+        markerImageUrl = require('@/assets/img/weather/4.png');  
+      }
+      const markerSize = new kakao.maps.Size(40, 40);
+      const markerOptions = {
+        offset: new kakao.maps.Point(20, 20) // Offset the marker image
+      };
+      const markerImage = new kakao.maps.MarkerImage(markerImageUrl, markerSize, markerOptions);
+      
+      this.c = new kakao.maps.Marker({
+        map: this.map,
+        position: locPosition,
+        image : markerImage,
+          clickable: true
+      })
+      
+    },
+    displayMarkerWeather4(locPosition) {
+      let markerImageUrl = null;
+      if(this.weatherPositions[3].fcstValue === 1){
+        markerImageUrl = require('@/assets/img/weather/1.png');
+      }else if(this.weatherPositions[3].fcstValue === 3){
+        markerImageUrl = require('@/assets/img/weather/3.png');
+      }else{
+        markerImageUrl = require('@/assets/img/weather/4.png');  
+      }
+      const markerSize = new kakao.maps.Size(40, 40);
+      const markerOptions = {
+        offset: new kakao.maps.Point(20, 20) // Offset the marker image
+      };
+      const markerImage = new kakao.maps.MarkerImage(markerImageUrl, markerSize, markerOptions);
+      
+      this.b = new kakao.maps.Marker({
+        map: this.map,
+        position: locPosition,
+        image : markerImage,
+          clickable: true
+      })
+      
+    },
+    displayMarkerWeather5(locPosition) {
+      let markerImageUrl = null;
+      if(this.weatherPositions[4].fcstValue === 1){
+        markerImageUrl = require('@/assets/img/weather/1.png');
+      }else if(this.weatherPositions[4].fcstValue === 3){
+        markerImageUrl = require('@/assets/img/weather/3.png');
+      }else{
+        markerImageUrl = require('@/assets/img/weather/4.png');  
+      }
+      const markerSize = new kakao.maps.Size(40, 40);
+      const markerOptions = {
+        offset: new kakao.maps.Point(20, 20) // Offset the marker image
+      };
+      const markerImage = new kakao.maps.MarkerImage(markerImageUrl, markerSize, markerOptions);
+      
+      this.z = new kakao.maps.Marker({
+        map: this.map,
+        position: locPosition,
+        image : markerImage,
+          clickable: true
+      })
+      
+    },
+    displayMarkerWeather6(locPosition) {
+      let markerImageUrl = null;
+      if(this.weatherPositions[5].fcstValue === 1){
+        markerImageUrl = require('@/assets/img/weather/1.png');
+      }else if(this.weatherPositions[5].fcstValue === 3){
+        markerImageUrl = require('@/assets/img/weather/3.png');
+      }else{
+        markerImageUrl = require('@/assets/img/weather/4.png');  
+      }
+      const markerSize = new kakao.maps.Size(40, 40);
+      const markerOptions = {
+        offset: new kakao.maps.Point(20, 20) // Offset the marker image
+      };
+      const markerImage = new kakao.maps.MarkerImage(markerImageUrl, markerSize, markerOptions);
+      
+      this.j = new kakao.maps.Marker({
+        map: this.map,
+        position: locPosition,
+        image : markerImage,
+          clickable: true
+      })
+      
     },
     createMarkerImage(src, size, options) {
       var markerImage = new kakao.maps.MarkerImage(src, size, options);
@@ -341,8 +509,46 @@ export default {
           this.campingMarkers[i].setMap(map);
         }        
     },
+    createWeatherMarkers() {
+        for (var i = 0; i < this.weatherPositions.length; i++) {
+          let markerImageUrl = null;
 
- 
+          if(this.weatherPositions[i].fcstValue === 1){
+            markerImageUrl = require('@/assets/img/weather/1.png');
+          }else if(this.weatherPositions[i].fcstValue === 3){
+            markerImageUrl = require('@/assets/img/weather/3.png');
+          }else{
+            markerImageUrl = require('@/assets/img/weather/4.png');  
+          }
+          const markerSize = new kakao.maps.Size(80, 80);
+          const markerOptions = {
+            offset: new kakao.maps.Point(40, 40) // Offset the marker image
+          };
+          const markerImage = new kakao.maps.MarkerImage(markerImageUrl, markerSize, markerOptions);
+          var marker = null;  
+          if(i == 0){
+            marker = this.createMarker(new kakao.maps.LatLng(37.5, 127), 1,  markerImage);  
+          }else if(i == 1){
+            marker = this.createMarker(new kakao.maps.LatLng(38, 128.2), 1,  markerImage);  
+          }else if(i == 2){
+            marker = this.createMarker(new kakao.maps.LatLng(36.8, 127.2), 1,  markerImage);  
+          }else if(i == 3){
+            marker = this.createMarker(new kakao.maps.LatLng(36, 128.6), 1,  markerImage);  
+          }else if(i == 4){
+            marker = this.createMarker(new kakao.maps.LatLng(35.5, 127.3), 1,  markerImage);  
+          }else{
+            marker = this.createMarker(new kakao.maps.LatLng(33.4, 126.7), 1,  markerImage);  
+          }
+
+          this.WeatherMarkers.push(marker);    
+        }              
+    },
+    setWeatherMarkers(map) {        
+        for (var i = 0; i < this.WeatherMarkers.length; i++) {
+          this.WeatherMarkers[i].setMap(map);
+        }        
+    },
+
     observatorySearch() {
       for (let data of this.observatorys){
           let observatoryPosition = new kakao.maps.LatLng(data.latitude, data.longitude)
@@ -409,6 +615,7 @@ export default {
         var myplaceMenu = document.getElementById('myplaceMenu');
         var observatoryMenu = document.getElementById('observatoryMenu');
         var campingMenu = document.getElementById('campingMenu');
+        var weatherMenu = document.getElementById('weatherMenu');
         // 마이플레이스 카테고리가 클릭됐을 때
         if (type === 'myplace') {
             
@@ -446,7 +653,18 @@ export default {
             }
             
             // 캠핑장 마커들만 지도에 표시하도록 설정합니다
-        }    
+        }  if (type === 'weather') { // 캠핑장 카테고리가 클릭됐을 때
+            if(weatherMenu.className === 'menu_selected'){
+              this.setWeatherMarkers(null);
+              weatherMenu.className = '';
+            }else{
+              weatherMenu.className = 'menu_selected';
+              this.setWeatherMarkers(this.map);  
+              
+            }
+            
+            // 캠핑장 마커들만 지도에 표시하도록 설정합니다
+        } 
     }, 
     makeOverListener(map, marker, infowindow) {
       return function() {
@@ -487,6 +705,7 @@ export default {
 .category .ico_myplace {background-size : cover; background-image : url('~@/assets/img/marker/myplace.png'); background-repeat: no-repeat; background-position:  center center;}  
 .category .ico_observatory {background-size : cover; background-image : url('~@/assets/img/marker/observatoryMarker.png'); background-repeat: no-repeat; background-position:  center center;}   
 .category .ico_camping {background-size : cover; background-image : url('~@/assets/img/marker/campingMarker.png'); background-repeat: no-repeat; background-position:  center center;} 
+.category .ico_weather {background-size : cover; background-image : url('~@/assets/img/weather/1.png'); background-repeat: no-repeat; background-position:  center center;} 
 .map_wrap, .map_wrap * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
 .map_wrap a, .map_wrap a:hover, .map_wrap a:active{color:#000;text-decoration: none;}
 .map_wrap {position:relative;width:100%;height:500px;}
