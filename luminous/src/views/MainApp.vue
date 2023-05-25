@@ -3,8 +3,8 @@
       <div class="main-container ">
 
 
-        <div id="slider-container">
-          <vueper-slides id="slider" :parallax-fixed-content="true" fixed-height="400px" arrows-outside transition-speed="250" :dragging-distance="70" prevent-y-scroll>
+        <div id="slider-container" style="border-radius: 10px; overflow: hidden;">
+          <vueper-slides id="slider" :parallax-fixed-content="true" fixed-height="400px" transition-speed="250" :dragging-distance="70" prevent-y-scroll>
             <vueper-slide
               class="vueper-slide"
               v-for="(slide, i) in slides"
@@ -12,15 +12,14 @@
               :title="slide.title"
               :content="slide.content"
               :image="slide.image"
-              :style="`color:white`">
-              <!-- <template #content>
-                <router-link class="height:100%" :to="{ name: 'observatorylist'}">gold</router-link>
-              </template> -->
+              :style="{ color: 'white', borderRadius: '10px' }"
+              @click.native="navigateToLink(slide.link)"
+              style="cursor: pointer;">
             </vueper-slide>
           </vueper-slides>
         </div>
 
-        <div id="box-container" class="">
+        <div id="box-container">
           <router-link :to="{ name: 'observatorylist' }" class="link newcolor box">
             <b-icon icon="moon" ></b-icon>
               <p>천문대</p>
@@ -41,6 +40,14 @@
             <b-icon icon="people" ></b-icon>
               <p>핫플레이스</p>
           </router-link>
+        </div>
+
+        <h4 class="text-left">오늘 나의 운세</h4>
+
+        <div id="forfune-container">
+          <div id="imagearea">
+
+          </div>
         </div>
 
       </div>
@@ -65,22 +72,33 @@ export default {
         {
           title: '천문대',
           content: '주변에 있는 천문대에서 별을 확인해 보십니다.',
-          image: 'https://cdn.greenpostkorea.co.kr/news/photo/201902/101192_98257_4138.jpg'
+          // image: 'https://cdn.greenpostkorea.co.kr/news/photo/201902/101192_98257_4138.jpg',
+          image: 'https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FudBi1%2FbtqDTjGXEpp%2FNgyg3Mjks6TNIKvK8kTLa0%2Fimg.jpg',
+          link: 'observatory'
         },
         {
           title: '캠핑장',
           content: '주변에 있는 캠핑장에서 별을 확인해 보십니다.',
-          image: 'https://www.sjsori.com/news/photo/201909/39553_46783_517.jpg'
+          image: 'https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FHGbDX%2FbtqDQsMl4sX%2F5VBg3bWpbpFPP45pEM7PFK%2Fimg.jpg',
+          link: 'camping'
         },
         {
           title: '핫플레이스',
           content: '주변에 있는 핫플레이스에서 별을 확인해 보십니다.',
-          image: ''
+          image: 'https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FcsSocF%2FbtqDQsZR4ob%2FKB5Ml8D9B1gAAJAX6q2xsk%2Fimg.jpg',
+          link: 'place'
         }
       ]
     }
   },
   components: { VueperSlides, VueperSlide },
+  methods: {
+    navigateToLink(link) {
+      console.log(link);
+      // Vue Router를 사용하여 해당 링크로 이동
+      this.$router.push(link);
+    }
+  },
   props: {
     msg: String,
   },
@@ -97,7 +115,7 @@ export default {
     
   /* box-shadow: 10px 30px 50px 5px rgb(53, 53, 53); */
 
-    box-shadow: 0px 50px 50px -5px rgb(53, 53, 53);
+  box-shadow: 0px 50px 50px -5px rgb(53, 53, 53);
 }
 
 #box-container {
@@ -132,6 +150,7 @@ p{
   /* box-shadow: rgba(0, 0, 0, 0.69) 0px 26px 30px -10px, rgba(0, 0, 0, 0.73) 0px 16px 10px -10px; */
   box-shadow: 0px 20px 20px -10px rgb(53, 53, 53);
 }
+
 
 .content {
   display: flex;
@@ -176,10 +195,16 @@ p{
   flex-direction: row;
   justify-content: flex-start;
 }
+
 .underline-steelblue {
   display: inline-block;
   background: linear-gradient(180deg, rgba(255, 255, 255, 0) 70%, rgba(72, 190, 233, 0.3) 30%);
 }
+
+.vueper-slide {
+  background-position-y: bottom;
+}
+
 
 
 </style>
