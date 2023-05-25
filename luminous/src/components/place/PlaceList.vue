@@ -38,8 +38,9 @@ export default {
         { key: "id", label: "글번호", tdClass: "tdClass" },
         { key: "placeName", label: "제목", tdClass: "tdSubject" },
         { key: "member.memberName", label: "작성자", tdClass: "tdClass" },
-        { key: "createdDate", label: "작성일", tdClass: "tdClass" },
+        { key: "rate", label: "추천수", tdClass: "tdClass" },
         { key: "hit", label: "조회수", tdClass: "tdClass" },
+        { key: "createdDate", label: "작성일", tdClass: "tdClass" },
       ],
       category: null,
       options: [

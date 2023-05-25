@@ -10,22 +10,37 @@
         <b-button variant="outline-info" size="sm" @click="moveModifyPlace" class="mr-2">글수정</b-button>
         <b-button variant="outline-danger" size="sm" @click="deletePlace">글삭제</b-button>
       </b-col>
+      <b-col class="text-right" v-else>
+        <b-button variant="outline-success" size="sm" @click="likeUpPlace">👍추천👍</b-button>
+      </b-col>
     </b-row>
     <b-row>
       <b-col>
-        <b-card
-          :header-html="`<h3>${place.id}.
-                      ${place.placeName}
-                      </h3>
-                      <div>
-                      <h6>작성자 : ${place.member.memberId}</h6></div>
-                      <span>여행기간 : ${place.createdDate}</span> ~ <span>${place.lastModifiedDate}</span>
-                      <div>조회수 :${place.hit} </div>`"
-          class="mb-2" border-variant="dark" no-body>
-          <b-card-body class="text-left">
-            <div>{{ place.placeDescription }}</div>
-          </b-card-body>
-        </b-card>
+        <b-card class="mb-2 text-left" border-variant="dark" no-body>
+  <b-card-header class="text-left">
+    <div class="d-flex justify-content-between">
+      <div>
+        <h2>제목: {{place.placeName}}</h2>
+        <h4>
+          <span>여행기간: {{place.createdDate}}</span>
+          <span>~</span>
+          <span>{{place.lastModifiedDate}}</span>
+        </h4>
+      </div>
+      <div>
+        <h5>작성자: {{place.member.memberId}}</h5>
+        <div>조회수: {{place.hit}}</div>
+        <div>추천수: {{place.rate}}</div>
+      </div>
+    </div>
+  </b-card-header>
+  <b-card-body class="text-left">
+    <div>{{ place.placeDescription }}</div>
+  </b-card-body>
+</b-card>
+
+
+
       </b-col>
     </b-row>
     <b-row class="mb-1" padding-bottom="100px">
@@ -41,7 +56,7 @@
 
 <script>
 // import moment from "moment";
-import { getPlace } from "@/api/place";
+import { getPlace, likeUpPlace } from "@/api/place";
 import { mapState } from "vuex";
 
 const memberStore = "memberStore";
@@ -113,6 +128,23 @@ export default {
           params: { id: this.place.id },
         });
       }
+    },
+    likeUpPlace(){
+      likeUpPlace(this.place.id,
+      ({data}) =>{
+        let msg = "추천 실패 ㅋ";
+        if(data.isSuccess === true){
+          msg = "추천 완료 ㅋㅋ";
+          this.place.rate++;
+        }
+        alert(msg);
+
+      },
+      (error)=>{
+        console.log(error);
+      }
+      )
+
     },
     moveList() {
       this.$router.push({ name: "placelist" });
