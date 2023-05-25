@@ -63,8 +63,6 @@ export default {
   display: inline-block;
   background: rgba(255, 255, 255, 0);
 }
-.container{
-}
 
 /* The switch - the box around the slider */
 .switch {
