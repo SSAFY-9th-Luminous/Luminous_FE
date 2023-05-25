@@ -1,23 +1,14 @@
 <template>
   <b-container class="bv-example-row mt-3">
-    <b-row>
-      <b-col>
-        <b-alert show><h3>글목록</h3></b-alert>
-      </b-col>
-    </b-row>
+    <div class="bord"></div>
     <b-row class="mb-1">
-        <b-col>
+      <b-col>
         <b-form-select v-model="category" :options="options"></b-form-select></b-col>
-        <b-col><b-form-input
-                v-model="keyword"
-                required
-                placeholder="검색 내용"
-                @keyup.enter="confirm"
-              ></b-form-input></b-col>
-        <b-col></b-col>
-        <b-col></b-col>
-        <b-col></b-col>
-        <b-col class="text-right">
+      <b-col><b-form-input v-model="keyword" required placeholder="검색 내용" @keyup="confirm"></b-form-input></b-col>
+      <b-col></b-col>
+      <b-col></b-col>
+      <b-col></b-col>
+      <b-col class="text-right">
         <b-button variant="outline-primary" @click="moveWrite()">글쓰기</b-button>
       </b-col>
     </b-row>
@@ -25,7 +16,7 @@
       <b-col>
         <b-table striped hover :items="places" :fields="fields" @row-clicked="viewArticle">
           <template #cell(subject)="data">
-            <router-link :to="{ name: 'placeview', params: { id: data.item.id  } }">
+            <router-link :to="{ name: 'placeview', params: { id: data.item.id } }">
               {{ data.item.placeName }}
             </router-link>
           </template>
@@ -44,7 +35,7 @@ export default {
     return {
       places: [],
       fields: [
-      { key: "id", label: "글번호", tdClass: "tdClass" },
+        { key: "id", label: "글번호", tdClass: "tdClass" },
         { key: "placeName", label: "제목", tdClass: "tdSubject" },
         { key: "member.memberName", label: "작성자", tdClass: "tdClass" },
         { key: "createdDate", label: "작성일", tdClass: "tdClass" },
@@ -52,12 +43,12 @@ export default {
       ],
       category: null,
       options: [
-          { value: null, text: '옵션' },
-          { value: 'place', text: '제목' },
-          { value: 'user', text: '작성자' },
-          { value: 'desc', text: '내용' },
-        ],
-      keyword : "",
+        { value: null, text: '옵션' },
+        { value: 'place', text: '제목' },
+        { value: 'user', text: '작성자' },
+        { value: 'desc', text: '내용' },
+      ],
+      keyword: "",
     };
   },
   created() {
@@ -77,7 +68,7 @@ export default {
   },
   methods: {
     moveWrite() {
-      this.$router.push({ name: "placewrite"});
+      this.$router.push({ name: "placewrite" });
     },
     viewArticle(place) {
       this.$router.push({
@@ -85,20 +76,20 @@ export default {
         params: { id: place.id },
       });
     },
-    confirm(){
+    confirm() {
       let param = {
-      category: this.category,
-      keyword: this.keyword,
-    };
-    listPlace(
-      param,
-      ({ data }) => {
-        this.places = data.result;
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
+        category: this.category,
+        keyword: this.keyword,
+      };
+      listPlace(
+        param,
+        ({ data }) => {
+          this.places = data.result;
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
     },
   },
 };
@@ -109,8 +100,17 @@ export default {
   width: 50px;
   text-align: center;
 }
+
 .tdSubject {
   width: 200px;
   text-align: left;
+}
+
+.bord {
+  height: 2px;
+  width: 100%;
+  background-color: rgb(143 143 143);
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 </style>

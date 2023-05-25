@@ -99,6 +99,7 @@ export default {
         address: null,
         rate: 0.0,
         hit: 0,
+        url: null,
       },
       isUserid: false,
       geocoder:null,
@@ -184,18 +185,6 @@ export default {
       this.moveList();
     },
     registplace() {
-      // let param = {
-      //   placeName: this.place.placeName,
-      //   placeDescription: this.place.placeDescription,
-      //   visitedDate: this.place.visitedDate,
-      //   img: this.place.img.name,
-      //   latitude: this.place.latitude,
-      //   longitude: this.place.longitude,
-      //   address: this.place.address,
-      //   rate:this.place.rate,
-      //   id : this.userInfo.id
-      // };
-      // console.log(param)
       const formData = new FormData();
       formData.append('placeName', this.place.placeName)
       formData.append('placeDescription', this.place.placeDescription)
@@ -206,9 +195,7 @@ export default {
       formData.append('address', this.place.address)
       formData.append('rate', this.place.rate)
       formData.append('id', this.userInfo.id)
-      for (let value of formData.values()) {
-        console.log(value);
-      }
+      
       writePlace(
         formData,
         ({ data }) => {
@@ -285,26 +272,47 @@ export default {
     },
 
     modifyPlace() {
-      let param = {
-        id : this.place.id,
-        placeName: this.place.placeName,
-        placeDescription: this.place.placeDescription,
-        visitedDate: this.place.visitedDate,
-        img: this.place.img.name,
-        latitude: this.place.latitude,
-        longitude: this.place.longitude,
-        address: this.place.address,
-        rate:this.place.rate,
-      };
+      // let param = {
+      //   id : this.place.id,
+      //   placeName: this.place.placeName,
+      //   placeDescription: this.place.placeDescription,
+      //   visitedDate: this.place.visitedDate,
+      //   img: this.place.img.name,
+      //   latitude: this.place.latitude,
+      //   longitude: this.place.longitude,
+      //   address: this.place.address,
+      //   rate:this.place.rate,
+      // };
+      const formData = new FormData();
+      formData.append('placeName', this.place.placeName)
+      formData.append('placeDescription', this.place.placeDescription)
+      formData.append('visitedDate', this.place.visitedDate)
+      formData.append('img', this.place.img)
+      formData.append('latitude', this.place.latitude)
+      formData.append('longitude', this.place.longitude)
+      formData.append('address', this.place.address)
+      formData.append('rate', this.place.rate)
+      formData.append('id', this.place.id)
+      formData.append('url',this.place.url)
       
+      for(let f of formData.keys() ){
+        console.log(f)
+
+      }
+      for(let f of formData.values() ){
+        console.log(f)
+
+      }
       modifyPlace(
-        param,
+        formData,
+        this.place.id,
         ({ data }) => {
           let msg = "수정 처리시 문제가 발생했습니다.";
           if (data.isSuccess === true) {
             msg = "수정이 완료되었습니다.";
           }
           alert(msg);
+          console.log(data)
           this.moveList();
         },
         (error) => {

@@ -1,10 +1,7 @@
 <template>
   <b-container class="bv-example-row mt-3">
-    <b-row>
-      <b-col>
-        <b-alert show><h3>글보기</h3></b-alert>
-      </b-col>
-    </b-row>
+
+    <div class="bord"></div>
     <b-row class="mb-1">
       <b-col class="text-left">
         <b-button variant="outline-primary" @click="moveList">목록</b-button>
@@ -14,23 +11,31 @@
         <b-button variant="outline-danger" size="sm" @click="deletePlace">글삭제</b-button>
       </b-col>
     </b-row>
-    <div id = "map"></div>
-    <b-row class="mb-1">
+    <b-row>
       <b-col>
         <b-card
           :header-html="`<h3>${place.id}.
-          ${place.placeName} [${place.hit}]</h3><div><h6>${place.member.memberId}</div><div>${place.createdDate}</h6></div><div>${place.lastModifiedDate}</h6></div>`"
-          class="mb-2"
-          border-variant="dark"
-          no-body
-        >
+                      ${place.placeName}
+                      </h3>
+                      <div>
+                      <h6>작성자 : ${place.member.memberId}</h6></div>
+                      <span>여행기간 : ${place.createdDate}</span> ~ <span>${place.lastModifiedDate}</span>
+                      <div>조회수 :${place.hit} </div>`"
+          class="mb-2" border-variant="dark" no-body>
           <b-card-body class="text-left">
-            <div>{{place.placeDescription}}</div>
+            <div>{{ place.placeDescription }}</div>
           </b-card-body>
         </b-card>
       </b-col>
     </b-row>
-    <img :src="place.img">
+    <b-row class="mb-1">
+      <b-col>
+        <div id="map"></div>
+      </b-col>
+      <b-col>
+        <img :src="place.img">
+      </b-col>
+    </b-row>
   </b-container>
 </template>
 
@@ -45,18 +50,18 @@ export default {
   name: "PlaceView",
   data() {
     return {
-      map:null,
-      marker:null,
+      map: null,
+      marker: null,
       place: {
-        member:{
-          memberId:null
+        member: {
+          memberId: null
         },
 
       },
       isUserid: false,
-      geocoder:null,
-      latitude:0,
-      longitude:0,
+      geocoder: null,
+      latitude: 0,
+      longitude: 0,
     };
   },
   computed: {
@@ -67,12 +72,12 @@ export default {
     },
   },
   created() {
-  
+
     /* global kakao */
     if (!("geolocation" in navigator)) {
       return;
     }
-    
+
     let param = this.$route.params.id;
     getPlace(
       param,
@@ -82,8 +87,8 @@ export default {
         const script = document.createElement("script");
         script.onload = () => kakao.maps.load(this.initMap);
         script.src = "//dapi.kakao.com/v2/maps/sdk.js?appkey=" +
-        process.env.VUE_APP_KAKAO_MAP_API_KEY +
-        "&libraries=services&autoload=false";
+          process.env.VUE_APP_KAKAO_MAP_API_KEY +
+          "&libraries=services&autoload=false";
         document.head.appendChild(script);
       },
       (error) => {
@@ -91,8 +96,8 @@ export default {
       }
     );
     this.isUserid = true;
-  
-    
+
+
   },
   methods: {
     moveModifyPlace() {
@@ -113,29 +118,29 @@ export default {
       this.$router.push({ name: "placelist" });
     },
     initMap() {
-      
+
       var map = new kakao.maps.Map(document.getElementById('map'), {
-        center: new kakao.maps.LatLng( this.place.latitude, this.place.longitude),
+        center: new kakao.maps.LatLng(this.place.latitude, this.place.longitude),
         level: 3,
       })
       this.map = map
       this.geocoder = new kakao.maps.services.Geocoder();
       this.map.setMaxLevel(15)
-      
+
       //마커이미지 설정
       const markerImageUrl = require('@/assets/img/marker/myplace.png');
       const markerSize = new kakao.maps.Size(60, 60);
       const markerOptions = {
         offset: new kakao.maps.Point(30, 60) // Offset the marker image
       };
-            
+
       // 마커이미지와 마커를 생성합니다
       var markerImage = new kakao.maps.MarkerImage(markerImageUrl, markerSize, markerOptions)
-      var marker = new kakao.maps.Marker({ 
-                // 지도 중심좌표에 마커를 생성합니다 
-                position: map.getCenter(),
-                image: markerImage
-      }); 
+      var marker = new kakao.maps.Marker({
+        // 지도 중심좌표에 마커를 생성합니다 
+        position: map.getCenter(),
+        image: markerImage
+      });
       // 지도에 마커를 표시합니다
       marker.setMap(this.map);
     }
@@ -145,6 +150,15 @@ export default {
 
 <style>
 #map {
-  width: 100%;
+  /* width: 100%; */
   height: 300px;
-}</style>
+}
+
+.bord {
+  height: 2px;
+  width: 100%;
+  background-color: rgb(143 143 143);
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+</style>

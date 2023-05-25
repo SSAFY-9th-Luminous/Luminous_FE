@@ -21,9 +21,13 @@ async function getPlace(articleno, success, fail) {
   await api.get(`/places/${articleno}`).then(success).catch(fail);
 }
 
-async function modifyPlace(article, success, fail) {
-  console.log(JSON.stringify(article))
-  await api.put(`/places/${article.id}`, JSON.stringify(article)).then(success).catch(fail);
+
+async function modifyPlace(formData,articleId, success, fail) {
+  await api.patch(`/places/${articleId}`, formData, {
+    headers: {
+      'Content-Type' : 'multipart/form-data',
+    },
+  }).then(success).catch(fail);
 }
 
 async function deletePlace(id, success, fail) {
