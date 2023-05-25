@@ -46,8 +46,27 @@
 
         <div id="forfune-container">
           <div id="fortune-area">
-            <div id="image-area">
-
+            <div v-if="userInfo" id="image-area" class="col-lg-3 text-left">
+              
+              <img class="fortune-image" :src="require('@/assets/img/constellation12/'+`${userInfo.constellation12Img}`)" height="100%">
+            </div>
+            <div v-else id="image-area" class="col-lg-3 text-left">
+              <img class="fortune-image" :src="require('@/assets/img/constellation12/mosaic.png')" height="100%">
+            </div>
+            <div id="desc-area" class="col-lg-8 text-left">
+              <div v-if="userInfo" class="pt-5">
+                <h4>{{userInfo.constellation12Name}}</h4>
+                <p>{{userInfo}}</p>
+              </div>
+              <div v-else>
+                <router-link :to="{ name: 'fortunelist' }" class="request-login">
+                  오늘의 운세 보러가기
+                </router-link>
+                <div class="mosaic pt-5 " oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
+                  <h4>물병자리</h4>
+                  <p>계획한 대로 잘 이루어질 거에요. 함께 힘을 모아 꿈꾸는 것도 좋아요.</p>
+                </div>
+              </div>
             </div>  
           </div>
         </div>
@@ -59,8 +78,11 @@
 </template>
 
 <script>
+import { mapState, mapGetters } from "vuex";
 import { VueperSlides, VueperSlide } from 'vueperslides'
 import 'vueperslides/dist/vueperslides.css'
+
+const memberStore = "memberStore";
 
 export default {
   name: "MainApp",
@@ -94,6 +116,10 @@ export default {
     }
   },
   components: { VueperSlides, VueperSlide },
+  computed: {
+    ...mapState(memberStore, ["isLogin", "userInfo"]),
+    ...mapGetters(["checkUserInfo"]),
+  },
   methods: {
     navigateToLink(link) {
       console.log(link);
@@ -136,7 +162,7 @@ p{
 
 .box {
   font-size: 25px;
-  color: #a9a9a9; 
+  color: white; 
   width: 200px;
   height: 100px;
 
@@ -146,8 +172,8 @@ p{
   align-content: center;
 
   border-radius: 10px;
-  background-color: #e2e2e2;
-  border: 3px solid #a0a0a0;
+  background-color: #343A40;
+  border: 3px solid #343A40;
 
   /* box-shadow: rgba(0, 0, 0, 0.69) 0px 26px 30px -10px, rgba(0, 0, 0, 0.73) 0px 16px 10px -10px; */
   box-shadow: 0px 20px 20px -10px rgb(53, 53, 53);
@@ -159,7 +185,7 @@ p{
   transform: scale(1.15) !important;
   border: 3px solid rgb(100, 100, 100);
   color: white;
-  background-image: url(https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FPpJ1P%2FbtqDPZjxab1%2FY2wiHo1UuKDpnOXohMKJVk%2Fimg.jpg);
+  background-image: url(https://cdn.pixabay.com/photo/2021/04/14/20/34/night-sky-6179468_1280.jpg);
   background-size: 100%;
 
 }
@@ -233,17 +259,89 @@ p{
 /* 운세 시작 */
 
 #forfune-container {
-  margin: 50px 0px;
+  margin: 20px 0px;
   width: 100%;
   height: 250px;
+  
 
-  border-radius: 20px;
-  background-color: #ededed;
-  border: 3px solid #a9a9a9;
+  border-radius: 10px;
+  background-color: #343A40;
+  border: 3px solid #343A40;
 
   /* box-shadow: rgba(0, 0, 0, 0.69) 0px 26px 30px -10px, rgba(0, 0, 0, 0.73) 0px 16px 10px -10px; */
   box-shadow: 0px 20px 20px -10px rgb(53, 53, 53);
 }
+
+.mosaic {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px); /* Chrome 브라우저에서 필요한 접두사 */
+  background-color: transparent; /* 배경을 투명하게 설정 */
+  z-index: 1;
+}
+
+#fortune-area {
+  color: white;
+  height: 100%;
+
+  display: flex;
+  flex-direction: row;
+}
+
+.image-area {
+  padding: 0px;
+}
+
+.fortune-image {
+  color: white;
+  text-shadow: 0px 0px 10px white;
+  /* color: transparent; */
+}
+
+.mosaic {
+  /* color: white; */
+  text-shadow: 0px 0px 10px white;
+  color: transparent;
+}
+
+.request-login {
+  z-index: 1;
+}
+
+.request-login {
+  width: 200px;
+  height: 80px;
+  color: black;
+
+  text-decoration: none;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: white;
+
+  border-radius: 20px;
+  border: 0px;
+
+  position: absolute;
+  left: 200px;
+  top: 80px;
+
+  transition: transform 0.3s ease-in-out; 
+  z-index: 2;
+}
+
+.request-login:hover {
+  transform: scale(1.15) !important;
+}
+
+.request-login:not(:hover) {
+  transform: scale(1);
+}
+
 
 /* 운세 끝 */
 
