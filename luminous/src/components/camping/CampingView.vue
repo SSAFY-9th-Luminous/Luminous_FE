@@ -184,6 +184,13 @@
 
     
 
+    <div style="padding: 50px;">
+      <b-button style="border-radius: 15px ; height: 45px;">
+        <router-link :to="{ name: 'campinglist' }" class="btn text-white">
+          목록으로
+        </router-link>
+      </b-button>
+    </div>
 
   </b-container>
 </template>
@@ -354,9 +361,14 @@ export default {
   flex-direction: column;
 }
 
+#slider-container {
+  border-radius: 10px;
+}
 
 .vueperslides__parallax-wrapper{
-  border-radius: 18px;
+  background-color: white;
+    border-radius: 18px;
+
 }
 
 .content-area {
@@ -387,7 +399,7 @@ export default {
   display: flex;
   flex-direction: row;
 }
-  
+
 .border {
   height: 1px;
   width: 100%;

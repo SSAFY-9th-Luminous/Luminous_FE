@@ -5,11 +5,7 @@
         <b-alert show><h3>글보기</h3></b-alert>
       </b-col>
     </b-row>
-    <b-row class="mb-1">
-      <b-col class="text-left">
-        <b-button variant="outline-primary" @click="moveList">목록</b-button>
-      </b-col>
-    </b-row>
+    
     <div id = "map"></div>
     <b-row class="mb-1">
       <b-col>
@@ -26,6 +22,14 @@
         </b-card>
       </b-col>
     </b-row>
+
+    <div style="padding: 50px;">
+    <b-button style="border-radius: 15px ; height: 45px;">
+      <router-link :to="{ name: 'observatorylist' }" class="btn text-white">
+        목록으로
+      </router-link>
+    </b-button>
+  </div>
   </b-container>
 </template>
 
