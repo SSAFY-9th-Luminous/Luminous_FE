@@ -32,7 +32,34 @@
         </b-col>
     </b-row>
 
-    <b-row>
+    <div>
+        <!-- 메인 콘텐츠 -->
+        <div v-for="camping in campings" :key="camping.id" class="image-container">
+          <div class="content-img-wrapper">
+            <router-link :to="{ name: 'campingView', params: { id: camping.id } }">
+              <img class="content-img-title" v-if="camping.imageUrl" :src="camping.imageUrl"
+                :alt="camping.campingName">
+              <img class="content-img-title" v-else :src="require('@/assets/img/star.png')">
+
+              <div class="image-overlay-title">
+                <h3>{{ camping.campingName }}</h3>
+                <p>{{ camping.address }}</p>
+              </div>
+              
+              <div v-if="camping.lineIntro" class="image-overlay-lineIntro">
+                {{ camping.lineIntro }}
+              </div>
+              <div class="image-overlay-rate">
+                <p>⭐별점 ({{ camping.rate }})</p>
+                <p>😊추천인원 ({{ camping.count }})</p>
+              </div>
+            </router-link>
+          </div>
+        </div>
+      </div>
+  </b-container>
+
+    <!-- <b-row>
       <b-col>
         <b-table striped hover :items="campings" :fields="fields" @row-clicked="viewArticle">
           <template #cell(subject)="data">
@@ -42,8 +69,7 @@
           </template>
         </b-table>
       </b-col>
-    </b-row>
-  </b-container>
+    </b-row> -->
 </template>
 
 <script>
@@ -186,5 +212,71 @@ export default {
 .tdSubject {
   width: 200px;
   text-align: center;
+}
+.image-container {
+  position: relative;
+}
+
+.content-img-wrapper {
+  position: relative;
+  display: inline-block;
+  font-family: AppleSDGothicNeoR;
+}
+
+.content-img-title {
+  min-height: 300px;
+  max-height: 300px;
+  min-width: 700px;
+  max-width: 700px;
+  margin-bottom: 15px;
+  border-radius: 15px;
+}
+
+.image-overlay-title {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  padding: 10px;
+  min-height: 50px;
+  max-height: 80px;
+  min-width: 300px;
+  max-width: 600px;
+  text-align: left;
+  border-radius: 15px;
+  font-weight: bold;
+}
+
+.image-overlay-rate {
+  position: absolute;
+  bottom: 15px;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  padding: 10px;
+  min-height: 50px;
+  max-height: 80px;
+  min-width: 100px;
+  text-align: center;
+  border-radius: 15px;
+  border-top-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+}
+
+.image-overlay-lineIntro {
+  position: absolute;
+  margin-bottom: 25px;
+  bottom: 15px;
+  left: 0;
+  background-color: rgba(255, 188, 3, 0.733);
+  color: rgb(253, 253, 253);
+  padding: 5px;
+  min-height: 25px;
+  max-height: 30px;
+  min-width: 200px;
+  max-width: 400px;
+  text-align: left;
+  font-size: normal;
 }
 </style>

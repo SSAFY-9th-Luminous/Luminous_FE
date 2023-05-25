@@ -67,4 +67,10 @@ a.router-link-exact-active:hover {
   src: url("@/assets/font/GmarketSansTTFBold.ttf") format("truetype");
   font-weight: 800;
 } 
+
+@font-face { 
+  font-family: "AppleSDGothicNeoR";
+  src: url("@/assets/font/AppleSDGothicNeoR.ttf") format("truetype");
+  font-weight: 800;
+} 
 </style>
