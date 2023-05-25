@@ -33,8 +33,8 @@
               <b-icon icon="stars" animation="fade" ></b-icon>
               천문대
             </router-link>
-            <router-link :to="{ name: 'camping' }" id="link" class="m-2 link newcolor">
-            <b-icon icon="tree"></b-icon>캠핑장
+            <router-link :to="{ name: 'campinglist' }" id="link" class="m-2 link newcolor">
+            <b-icon icon="tree" animation="fade"></b-icon>캠핑장
           </router-link>
             <router-link :to="{ name: 'map' }" class="m-2 link newcolor">
               <b-icon icon="map" animation="fade" />
@@ -70,9 +70,21 @@
       
     </b-navbar>
     <div id="category-container" class="mb-5">
+      <b-row>
+        <b-col v-for="(weather, i) in todaySkys" :key="i">
+        {{weather.fcstValue}}
+        <img :src="require('@/assets/img/weather/'+weather.fcstValue+'.png')" height="10px" width="10px">
+
+
+      </b-col>
+      </b-row>
           <b-container id="sub-container">
-
-
+            <div id="slider-container"   >
+              <vueper-slides id="slider" >
+                <vueper-slide class="vueper-slide" v-for="(weather,i) in todaySkys" :key="i" :image="require('@/assets/img/weather/4.png')" style="z-index: 10; min-width: 30px; width: 50px; height: 50px">
+                </vueper-slide>
+              </vueper-slides>
+            </div>
           </b-container>
         </div>
   </div>
@@ -80,15 +92,62 @@
 
 <script>
 import { mapState, mapGetters, mapActions } from "vuex";
-
+import { getTodayWeatherSky,getTodayWeatherTmp, getTomorrowWeatherSky,getTomorrowWeatherTmp} from "@/api/weather"
+import { VueperSlides, VueperSlide } from 'vueperslides'
+import 'vueperslides/dist/vueperslides.css'
 const memberStore = "memberStore";
 
 export default {
   name: "TheHeaderNavbar",
   data() {
     return {
+      key : 0,
+      currentItem: 0,   
+      todaySkys:[],
+      tomorrowSkys:[],
+      todayTmps:[],
+      tomorrowTmps:[],
     };
   },
+  created() {
+    getTodayWeatherSky(
+      ({ data }) => {
+        this.todaySkys = data.result;
+        console.log(this.todaySkys)
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+    getTomorrowWeatherSky(
+      ({ data }) => {
+        this.tomorrowSkys = data.result;
+        console.log(this.tomorrowSkys)
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+    getTodayWeatherTmp(
+      ({ data }) => {
+        this.todayTmps = data.result;
+        console.log(this.todayTmps)
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+    getTomorrowWeatherTmp(
+      ({ data }) => {
+        this.tomorrowTmps = data.result;
+        console.log(this.tomorrowTmps)
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  },
+  components: { VueperSlides, VueperSlide },
   computed: {
     ...mapState(memberStore, ["isLogin", "userInfo"]),
     ...mapGetters(["checkUserInfo"]),
@@ -106,8 +165,10 @@ export default {
     },
     goToPage(url){
       this.$router.push({name: `${url}`});
-    }
-    ,
+    },
+    onBeforeSlideChange(index) {
+      this.currentItem = index;
+    },
 
   },
 };
@@ -182,5 +243,47 @@ a.router-link-exact-active:hover {
   filter: drop-shadow(0 -5px 1rem #fffb00); 
 }
 
+/* vueper slide 시작 */
+.bord {
+  height: 2px;
+  width: 100%;
+  background-color: rgb(143 143 143);
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
 
+.vueperslide__title{
+  font-size: 3em; 
+  color: white; 
+  text-align:left;
+  background-color:#64646483;
+}
+
+.vueperslides__parallax-wrapper{
+  border-radius: 18px;
+}
+
+/*이미지 부분 */
+.vueperslide vueper-slide vueperslide--active vueperslide--visible {
+  background-size: 1415px;
+  /* background-position-x: 50px; */
+  background-position-y: -4px;
+  z-index: 10;
+}
+
+
+.vueperslide__content-wrapper:not(.vueperslide__content-wrapper--outside-top):not(.vueperslide__content-wrapper--outside-bottom) {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-end;
+  background-color:black;
+}
+
+#sub-container{
+  width:80%;
+}
+#slider-container{
+  
+}
 </style>
