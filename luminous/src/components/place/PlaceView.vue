@@ -10,6 +10,9 @@
         <b-button variant="outline-info" size="sm" @click="moveModifyPlace" class="mr-2">글수정</b-button>
         <b-button variant="outline-danger" size="sm" @click="deletePlace">글삭제</b-button>
       </b-col>
+      <b-col v-else>
+        <b-button variant="outline-success" size="sm" @click="likeUpPlace">추천</b-button>
+      </b-col>
     </b-row>
     <b-row>
       <b-col>
@@ -41,7 +44,7 @@
 
 <script>
 // import moment from "moment";
-import { getPlace } from "@/api/place";
+import { getPlace, likeUpPlace } from "@/api/place";
 import { mapState } from "vuex";
 
 const memberStore = "memberStore";
@@ -113,6 +116,22 @@ export default {
           params: { id: this.place.id },
         });
       }
+    },
+    likeUpPlace(){
+      likeUpPlace(this.place.id,
+      ({data}) =>{
+        let msg = "추천 실패 ㅋ";
+        if(data.isSuccess === true){
+          msg = "추천 완료 ㅋㅋ";
+        }
+        alert(msg);
+
+      },
+      (error)=>{
+        console.log(error);
+      }
+      )
+
     },
     moveList() {
       this.$router.push({ name: "placelist" });

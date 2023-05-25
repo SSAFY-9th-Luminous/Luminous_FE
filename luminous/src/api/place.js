@@ -34,4 +34,8 @@ async function deletePlace(id, success, fail) {
   await api.delete(`/places/${id}`).then(success).catch(fail);
 }
 
-export { listPlace, writePlace, getPlace, modifyPlace, deletePlace };
+async function likeUpPlace(id, success, fail){
+  await api.post(`/places/${id}/like-us`).then(success).catch(fail);
+}
+
+export { listPlace, writePlace, getPlace, modifyPlace, deletePlace ,likeUpPlace};
