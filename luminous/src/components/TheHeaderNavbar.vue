@@ -70,21 +70,35 @@
       
     </b-navbar>
     <div id="category-container" class="mb-5">
-      <b-row>
-        <b-col v-for="(weather, i) in todaySkys" :key="i">
-        {{weather.fcstValue}}
-        <img :src="require('@/assets/img/weather/'+weather.fcstValue+'.png')" height="10px" width="10px">
+      <div class = "yes first" >
+        <div class = "yes" style = "margin-left:1%" v-for="(weather, i) in todaySkys" :key="i">
+        {{weather.city}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+        <img :src="require('@/assets/img/weather/'+weather.fcstValue+'.png')" height="15px" width="18px" style:>
+        </div>
+      </div>
+      <div id = "tomorrow" class = "yes second">
+        <div class = "yes" style = "margin-left: 1%" v-for="(weather1, i) in tomorrowSkys" :key="i">
+        {{weather1.city}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+        <img :src="require('@/assets/img/weather/'+weather1.fcstValue+'.png')" height="15px" width="18px">
+      
 
 
-      </b-col>
-      </b-row>
+        </div>
+      </div>
+      <div class = "yes third" >
+        <div class = "yes" style = "margin-left:1%" v-for="(weather, i) in todayTmps" :key="i">
+        {{weather.fcstValue}}°C &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+        </div>
+      </div>
+      <div id = "tomorrow" class = "yes fourth">
+        <div class = "yes" style = "margin-left: 1%" v-for="(weather1, i) in tomorrowTmps" :key="i">
+        {{weather1.fcstValue}}°C &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+      
+
+
+        </div>
+      </div>
           <b-container id="sub-container">
-            <div id="slider-container"   >
-              <vueper-slides id="slider" >
-                <vueper-slide class="vueper-slide" v-for="(weather,i) in todaySkys" :key="i" :image="require('@/assets/img/weather/4.png')" style="z-index: 10; min-width: 30px; width: 50px; height: 50px">
-                </vueper-slide>
-              </vueper-slides>
-            </div>
           </b-container>
         </div>
   </div>
@@ -93,8 +107,6 @@
 <script>
 import { mapState, mapGetters, mapActions } from "vuex";
 import { getTodayWeatherSky,getTodayWeatherTmp, getTomorrowWeatherSky,getTomorrowWeatherTmp} from "@/api/weather"
-import { VueperSlides, VueperSlide } from 'vueperslides'
-import 'vueperslides/dist/vueperslides.css'
 const memberStore = "memberStore";
 
 export default {
@@ -147,7 +159,6 @@ export default {
       }
     );
   },
-  components: { VueperSlides, VueperSlide },
   computed: {
     ...mapState(memberStore, ["isLogin", "userInfo"]),
     ...mapGetters(["checkUserInfo"]),
@@ -283,6 +294,36 @@ a.router-link-exact-active:hover {
 
 #sub-container{
   width:80%;
+}
+.first{
+  position:absolute;
+  top:9.3%;
+  left:30%;
+  width : 1000px;
+}
+.second{
+  position:absolute;
+  top:11.3%;
+  left:30%;
+  width : 1000px;
+}
+.yes{
+  display:flex;
+  align-content: stretch;
+    flex-wrap: wrap;
+  
+}
+.third{
+  position:absolute;
+  top:9.3%;
+  left:32%;
+  width : 1000px;
+}
+.fourth{
+  position:absolute;
+  top:11.3%;
+  left:32%;
+  width : 1000px;
 }
 
 </style>
