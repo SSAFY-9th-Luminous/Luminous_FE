@@ -180,7 +180,7 @@ export default {
 };
 </script>
 
-<style>
+<style scope>
 #map-view {
   width: 100%;
   height: 300px;

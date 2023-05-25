@@ -185,7 +185,9 @@ export default {
     return {
       observatory: {
         address: "",
-
+        isObservable: 0,
+        hasExhibition: 0,
+        hasPlanetarium: 0,
       },
       showRate : false,
       showButton: false,
@@ -218,7 +220,7 @@ export default {
       ({ data }) => {
         this.observatory = data.result;
         this.ratings = data.result.rate;
-        
+
         const script = document.createElement("script");
         script.onload = () => kakao.maps.load(this.initMap);
         script.src = "//dapi.kakao.com/v2/maps/sdk.js?appkey=" +
@@ -296,7 +298,7 @@ export default {
 };
 </script>
 
-<style>
+<style scope>
 
 .image {
   width: 25px;

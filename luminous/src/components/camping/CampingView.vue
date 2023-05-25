@@ -322,7 +322,7 @@ export default {
 };
 </script>
 
-<style>
+<style scope>
 
 .image {
   width: 25px;

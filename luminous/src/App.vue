@@ -3,17 +3,20 @@
       <the-header-navbar></the-header-navbar>
       <router-view></router-view>
       <scroll-to-top></scroll-to-top>
+      <the-footer class="mt-5"></the-footer>
   </div>
 </template>
 <script>
 import TheHeaderNavbar from "@/components/TheHeaderNavbar";
 import ScrollToTop from "./components/ScrollToTop.vue";
+import TheFooter from "./components/TheFooter.vue";
 
 export default {
   name: "App",
   components: {
     TheHeaderNavbar,
-    ScrollToTop
+    ScrollToTop,
+    TheFooter
   },
   
 };
