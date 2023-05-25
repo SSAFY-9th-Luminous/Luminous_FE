@@ -196,7 +196,7 @@ export default {
 #category-container {
   height: 50px;
   width: 100%;  
-  background-color: #efefef;
+  background-color: #607499a1;
   box-shadow: 5px 1px 10px 3px gray;
   /* filter: drop-shadow(0 -5px 0.5rem #211c6d); */
 }
@@ -315,14 +315,14 @@ a.router-link-exact-active:hover {
 }
 .third{
   position:absolute;
-  top:9.3%;
+  top:9.8%;
   left:32%;
   width : 1000px;
   
 }
 .fourth{
   position:absolute;
-  top:11.3%;
+  top:12.2%;
   left:32%;
   width : 1000px;
   z-index: 1;
