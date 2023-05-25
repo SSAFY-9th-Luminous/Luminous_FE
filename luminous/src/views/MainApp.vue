@@ -3,7 +3,7 @@
       <div class="main-container ">
 
 
-        <div id="slider-container" style="border-radius: 10px; overflow: hidden;">
+        <div id="slider-container" style="border-radius: 33px; overflow: hidden;">
           <vueper-slides id="slider" :parallax-fixed-content="true" fixed-height="400px" transition-speed="250" :dragging-distance="70" prevent-y-scroll>
             <vueper-slide
               class="vueper-slide"
@@ -12,7 +12,7 @@
               :title="slide.title"
               :content="slide.content"
               :image="slide.image"
-              :style="{ color: 'white', borderRadius: '10px' }"
+              :style="{ color: 'white'}"
               @click.native="navigateToLink(slide.link)"
               style="cursor: pointer;">
             </vueper-slide>
@@ -21,8 +21,8 @@
 
         <div id="box-container">
           <router-link :to="{ name: 'observatorylist' }" class="link newcolor box">
-            <b-icon icon="moon" ></b-icon>
-              <p>천문대</p>
+            <b-icon icon="moon"></b-icon>
+            <p>천문대</p>
           </router-link>
           <router-link :to="{ name: 'campinglist' }" class="link newcolor box">
               <b-icon icon="tree" ></b-icon>
@@ -45,8 +45,10 @@
         <h4 class="text-left">오늘 나의 운세</h4>
 
         <div id="forfune-container">
-          <div id="imagearea">
+          <div id="fortune-area">
+            <div id="image-area">
 
+            </div>  
           </div>
         </div>
 
@@ -107,7 +109,7 @@ export default {
 
 <style scoped>
 .main-container {
-  width: 1550px;
+  width: 1110px;
 }
 
 #slider-container {
@@ -135,20 +137,35 @@ p{
 .box {
   font-size: 25px;
   color: #a9a9a9; 
-  width: 250px;
-  height: 130px;
+  width: 200px;
+  height: 100px;
 
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
   align-content: center;
 
-  border-radius: 20px;
-  background-color: #ededed;
-  border: 3px solid #a9a9a9;
+  border-radius: 10px;
+  background-color: #e2e2e2;
+  border: 3px solid #a0a0a0;
 
   /* box-shadow: rgba(0, 0, 0, 0.69) 0px 26px 30px -10px, rgba(0, 0, 0, 0.73) 0px 16px 10px -10px; */
   box-shadow: 0px 20px 20px -10px rgb(53, 53, 53);
+
+  transition: transform 0.3s ease-in-out;
+}
+
+.box:hover {
+  transform: scale(1.15) !important;
+  border: 3px solid rgb(100, 100, 100);
+  color: white;
+  background-image: url(https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FPpJ1P%2FbtqDPZjxab1%2FY2wiHo1UuKDpnOXohMKJVk%2Fimg.jpg);
+  background-size: 100%;
+
+}
+
+.box:not(:hover) {
+  transform: scale(1);
 }
 
 
@@ -190,11 +207,15 @@ p{
   justify-content: flex-start;
 }
 
-.vueperslide__content-wrapper:not(.vueperslide__content-wrapper--outside-top):not(.vueperslide__content-wrapper--outside-bottom){
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
+.vueperslide__content-wrapper:not(.vueperslide__content-wrapper--outside-top):not(.vueperslide__content-wrapper--outside-bottom) {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    justify-content: flex-end;
 }
+
 
 .underline-steelblue {
   display: inline-block;
@@ -205,6 +226,26 @@ p{
   background-position-y: bottom;
 }
 
+.link:hover {
+  text-decoration: none;
+}
+
+/* 운세 시작 */
+
+#forfune-container {
+  margin: 50px 0px;
+  width: 100%;
+  height: 250px;
+
+  border-radius: 20px;
+  background-color: #ededed;
+  border: 3px solid #a9a9a9;
+
+  /* box-shadow: rgba(0, 0, 0, 0.69) 0px 26px 30px -10px, rgba(0, 0, 0, 0.73) 0px 16px 10px -10px; */
+  box-shadow: 0px 20px 20px -10px rgb(53, 53, 53);
+}
+
+/* 운세 끝 */
 
 
 </style>
