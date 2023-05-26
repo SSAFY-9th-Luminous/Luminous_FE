@@ -510,12 +510,12 @@ export default {
         }        
     },
     createWeatherMarkers() {
+      let markerImageUrl = null;
         for (var i = 0; i < this.weatherPositions.length; i++) {
-          let markerImageUrl = null;
 
-          if(this.weatherPositions[i].fcstValue === 1){
+          if(this.weatherPositions[i].fcstValue === "1"){
             markerImageUrl = require('@/assets/img/weather/1.png');
-          }else if(this.weatherPositions[i].fcstValue === 3){
+          }else if(this.weatherPositions[i].fcstValue === "3"){
             markerImageUrl = require('@/assets/img/weather/3.png');
           }else{
             markerImageUrl = require('@/assets/img/weather/4.png');  
