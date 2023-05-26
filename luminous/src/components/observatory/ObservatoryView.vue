@@ -66,7 +66,7 @@
     <!-- intro -->
     
     <div id="slider-container">
-      <vueper-slides id="slider">
+      <vueper-slides id="slider" :bullets="false">
         <vueper-slide
           class="vueper-slide"
           v-for="(image, i) in observatory.imageUrl"
