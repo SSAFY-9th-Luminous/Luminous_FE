@@ -23,7 +23,7 @@
         <ul>
             <li id="myplaceMenu" @click="changeMarker('myplace')">
                 <span class="ico_comm ico_myplace"></span>
-                마이플레이스
+                핫플
             </li>
             <li id="observatoryMenu" @click="changeMarker('observatory')">
                 <span class="ico_comm ico_observatory"></span>
